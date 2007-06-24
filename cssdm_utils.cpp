@@ -104,6 +104,13 @@ void DM_RespawnPlayer(int client)
 	{
 		return;
 	}
+
+	if (player->respawn_timer)
+	{
+		timersys->KillTimer(player->respawn_timer);
+		player->respawn_timer = NULL;
+	}
+
 	CBaseEntity *pEntity = player->pEntity;
 	g_pRoundRespawn->Execute(&pEntity, NULL);
 }
