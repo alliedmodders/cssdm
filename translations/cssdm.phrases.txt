@@ -1,0 +1,48 @@
+"Phrases"
+{
+	"NoRespawn NotInGame"
+	{
+		"en"		"You cannot respawn while not in game."
+	}
+
+	"NoRespawn Alive"
+	{
+		"en"		"You cannot respawn while alive."
+	}
+
+	"NoRespawn Team"
+	{
+		"en"		"You must be on a team to respawn."
+	}
+	
+	"NoRespawn Wait"
+	{
+		"#format"	"{1:.1f}"
+		"en"		"You must wait {1} more seconds before respawning."
+	}
+	
+	"GunsMenuDisabled"
+	{
+		"en"		"The guns menu command is disabled."
+	}
+	
+	"GunsMenuNotAvailable"
+	{
+		"en"		"The guns menu is not available."
+	}
+	
+	"GunsMenuAlreadyEnabled"
+	{
+		"en"		"Your guns menu is already enabled."
+	}
+	
+	"GunsMenuReactivated"
+	{
+		"en"		"Your guns menu has been enabled for your next respawn."
+	}
+	
+	"SayGunsNotify"
+	{
+		"en"		"Say 'guns' in chat to re-enable your menu."
+	}
+}

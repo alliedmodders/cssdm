@@ -1,0 +1,18 @@
+"Counter-Strike Deathmatch" and "Counter-Strike: Source Deathmatch" are
+(C)Copyright 2004-2006 by David "BAILOPAN" Anderson
+
+CS:S DM is licensed as freeware.
+
+You are free to use the program in binary form for non-commercial use in accordance with the Source SDK.
+
+You may use this product for personal servers, public community servers, or private servers.  You may not charge people to use this product.  The only allowed commercial use of this product is charging players for playing on a server running CS:S DM, such as a private club server; you cannot charge for a user to download CS:S DM or to use it on their server, other than fees associated with possible CPU usage.
+
+You may redistribute the product publically and freely under the condition that you retain this copyright, do not claim that you wrote the original work, and make no binary modifications.  You must also retain the files in their originally distributed form - files may be added or subtracted, but the program cannot be altered.  The exception is the configuration and map spawn origin files.
+
+To use this product commercially in a manner not described above, you must receive explicit permission from the author.
+
+The source code of this product is not available, and likewise, the author retains all rights to it.
+
+This software is provided 'as-is', without any express or implied warranty. In no event will the author be held liable for any damages arising from the use of this software.
+
+"Counter-Strike" is a registered trademark of VALVe Software.

@@ -1,0 +1,43 @@
+"Counter-Strike Deathmatch" and "Counter-Strike: Source Deathmatch" are
+(C)Copyright 2004-2006 by David "BAILOPAN" Anderson
+
+Credits:
+    * David "BAILOPAN" Anderson - Author
+    * Freecode - Testing, Site Design
+    * Testing - NuclearFallout (Nick|NFo)
+    * Testing, Spawn Points - index aka Pwntatoes
+    * Pre-0.91 Testing - Game Havoc ([gh]ferret)
+    * Advice, Help - Damaged Soul, PM OnoTo, fysh
+    * Data Map/SendTable Stuff - Discovered by Libre
+Donations:
+    * kunk (http://www.ggh.greatbasin.net/)
+
+3rd party spawn points:
+	Kenty:
+		cs_kismayo
+		cs_militia_bymicosv2
+		cs_office_extended
+		cs_retreat
+		de_menace
+		de_losttemple
+	lex_talionis:
+		aim_ag_texture           
+		aim_ag_texture2
+		aim_ag_texture5          
+		aim_ag_texture_r         
+		aim_shotty               
+		ba_ffg2_v1
+		ba_texture_arena2        
+		cs_reflex3               
+		de_industrial_crane_v3   
+		dm_battlecreek_v3
+		fy_barn                 
+		fy_blazin                
+		fy_blizzard_rc1          
+		fy_funtimes
+		fy_iceworld_arena        
+		fy_rocks                 
+		fy_trenches              
+		wired
+	jsterline:
+		cs_militia
