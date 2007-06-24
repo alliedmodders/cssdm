@@ -1,5 +1,5 @@
 /**
- * spawnprotection.sp
+ * dm_spawn_protection.sp
  * Adds spawn protection to CS:S DM.
  * This file is part of CS:S DM, Copyright (C) 2005-2007 AlliedModders LLC
  *

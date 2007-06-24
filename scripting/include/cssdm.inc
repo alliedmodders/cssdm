@@ -166,6 +166,45 @@ native DM_DropWeapon(client, entity);
  */
 native DM_StripBotItems(client);
 
+/**
+ * Returns the spawn waiting time.
+ *
+ * @return				Spawn wait time, in seconds.
+ */
+native Float:DM_GetSpawnWaitTime();
+
+/**
+ * Respawns a player using CS:S's low level respawning function.  This can be 
+ * called even if the player is not dead.
+ *
+ * @param client		Client index.
+ * @param fullRespawn	If true, client will be forwarded through player_spawn 
+ *						callbacks.
+ * @noreturn
+ * @error				Invalid client index or client not in game.
+ */
+native DM_RespawnClient(client, bool:fullRespawn=true);
+
+/**
+ * Returns whether or not a client is alive.
+ *
+ * @param client		Client index.
+ * @return				True if alive, false if dead.
+ * @error				Invalid client index or client not in game.
+ */
+native DM_IsClientAlive(client);
+
+/**
+ * Gives ammo to a player.
+ *
+ * @param client		Client index.
+ * @param type			Ammo type (>=0).
+ * @param count			Ammo amount to give.
+ * @param noSound		If true, the ammo sound will be suppressed.
+ * @return				Actual ammo amount given.
+ * @error				Invalid client index or client not in game.
+ */
+native DM_GiveClientAmmo(client, type, count, bool:noSound=false);
 
 /**
  * Do not edit below this line!

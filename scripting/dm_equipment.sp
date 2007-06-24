@@ -1,5 +1,5 @@
 /**
- * equip_menu.sp
+ * dm_equipment.sp
  * Adds preset spawning to CS:S DM.
  * This file is part of CS:S DM, Copyright (C) 2005-2007 AlliedModders LLC
  *
@@ -33,6 +33,7 @@
 new Handle:g_hEquipCfg = INVALID_HANDLE;			/* cssdm_equip_cfg cvar */
 new g_ArmorOffset = -1;								/* m_ArmorValue offset */
 new g_NVOffset = -1;								/* m_bHasNightVision offset */
+new g_HealthOffset = -1;							/* m_iHealth offset */
 new Handle:g_SpawnTimers[MAXPLAYERS+1];				/* Post-spawn timers */
 new Handle:g_hPrimaryMenu = INVALID_HANDLE;			/* Priamry menu Handle */
 new Handle:g_hSecondaryMenu = INVALID_HANDLE;		/* Secondary menu Handle */
@@ -42,7 +43,6 @@ new g_PrimaryChoices[MAXPLAYERS+1];					/* Primary weapon selections */
 new g_SecondaryChoices[MAXPLAYERS+1];				/* Secondary weapon selections */
 new bool:g_GunMenuEnabled[MAXPLAYERS+1];			/* Whether the gun menu is enabled */
 new bool:g_GunMenuAvailable[MAXPLAYERS+1];			/* Whether the gun menu is available */
-new bool:g_AllowGunCommand = true;					/* Whether the gun menu command is enabled */
 
 /** HUMAN CONFIGS */
 new g_PrimaryList[CSSDM_MAX_WEAPONS];
@@ -59,6 +59,8 @@ new bool:g_Smokes = false;
 new bool:g_HEs = false;
 new bool:g_NightVision = false;
 new bool:g_DefuseKits = true;
+new bool:g_AllowGunCommand = true;
+new g_HealthAmount = 100;
 
 /** BOT CONFIGS */
 new g_BotPrimaryList[CSSDM_MAX_WEAPONS];
@@ -71,6 +73,7 @@ new g_BotFlashes = 0;
 new bool:g_BotSmokes = false;
 new bool:g_BotHEs = false;
 new bool:g_BotDefuseKits = true;
+new g_BotHealthAmount = 100;
 
 /** PUBLIC INFO */
 public Plugin:myinfo = 
@@ -94,6 +97,7 @@ public OnPluginStart()
 	g_hEquipCfg = CreateConVar("cssdm_equip_cfg", "cssdm.equip.txt", "CS:S DM Equipment Config File");
 	g_ArmorOffset = FindSendPropOffs("CCSPlayer", "m_ArmorValue");
 	g_NVOffset = FindSendPropOffs("CCSPlayer", "m_bHasNightVision");
+	g_HealthOffset = FindSendPropOffs("CCSPlayer", "m_iHealth");
 	
 	g_hEquipMenu = CreateMenu(Menu_EquipHandler, MenuAction_DrawItem);
 	SetMenuTitle(g_hEquipMenu, "Weapon Options:");
@@ -107,6 +111,8 @@ public OnPluginStart()
 
 public OnConfigsExecuted()
 {
+	LoadDefaults();
+	
 	decl String:cvar[64];
 	GetConVarString(g_hEquipCfg, cvar, sizeof(cvar));
 	
@@ -175,6 +181,10 @@ public DM_OnClientSpawned(client)
 			GivePlayerItem(client, "item_assaultsuit");
 			SetClientArmor(client, g_ArmorAmount);
 		}
+		if (g_HealthAmount > 0)
+		{
+			SetClientHealth(client, g_HealthAmount);
+		}
 		if (g_Helmets)
 		{
 			GivePlayerItem(client, "item_kevlar");
@@ -199,6 +209,10 @@ public DM_OnClientSpawned(client)
 		} else {
 			/* Make sure bot didn't buy armor */
 			SetClientArmor(client, 0);
+		}
+		if (g_BotHealthAmount > 0)
+		{
+			SetClientHealth(client, g_BotHealthAmount);
 		}
 		if (g_BotHelmets)
 		{
@@ -261,7 +275,6 @@ public Action:PlayerPostSpawn(Handle:timer, any:client)
 		if (g_DefuseKits && GetClientTeam(client) == CSSDM_TEAM_CT)
 		{
 			GivePlayerItem(client, "item_defuser");
-			PrintToChat(client, "Oh my god, you have a defuse kit");
 		}
 		
 		new numGiven = 0;
@@ -317,26 +330,26 @@ public Action:Command_Say(client, args)
 	{
 		if (!g_AllowGunCommand)
 		{
-			PrintToChat(client, "[CSSDM] The guns menu command is disabled.");
+			PrintToChat(client, "[CSSDM] %t", "GunsMenuDisabled");
 			return Plugin_Handled;
 		}
 		
 		if (!ChooseFromSecondary() && !ChooseFromPrimary())
 		{
-			PrintToChat(client, "[CSSDM] The guns menu is not available.");
+			PrintToChat(client, "[CSSDM] %t", "GunsMenuNotAvailable");
 			return Plugin_Handled;
 		}
 		
 		if (g_GunMenuEnabled[client])
 		{
-			PrintToChat(client, "[CSSDM] Your guns menu is already enabled.");
+			PrintToChat(client, "[CSSDM] %t", "GunsMenuAlreadyEnabled");
 			return Plugin_Handled;
 		}
 		
 		g_GunMenuEnabled[client] = true;
 		if (!g_GunMenuAvailable[client])
 		{
-			PrintToChat(client, "[CSSDM] Your guns menu has been enabled for your next respawn.");
+			PrintToChat(client, "[CSSDM] %t", "GunsMenuReactivated");
 		} else {
 			DisplayMenu(g_hEquipMenu, client, MENU_TIME_FOREVER);
 		}
@@ -402,7 +415,7 @@ public Menu_EquipHandler(Handle:menu, MenuAction:action, param1, param2)
 		} else if (param2 == 2) {
 			GiveBothFromChoices(param1);
 			g_GunMenuEnabled[param1] = false;
-			PrintToChat(param1, "[CSSDM] Say \"guns\" in chat to re-enable your menu.");
+			PrintToChat(param1, "[CSSDM] %t", "SayGunsNotify");
 		} else if (param2 == 3) {
 			GivePrimary(param1, g_PrimaryCount);
 			GiveSecondary(param1, g_SecondaryCount);
@@ -411,7 +424,7 @@ public Menu_EquipHandler(Handle:menu, MenuAction:action, param1, param2)
 			GiveSecondary(param1, g_SecondaryCount);
 			GiveBothFromChoices(param1);
 			g_GunMenuEnabled[param1] = false;
-			PrintToChat(param1, "[CSSDM] Say \"guns\" in chat to re-enable your menu.");
+			PrintToChat(param1, "[CSSDM] %t", "SayGunsNotify");
 		}
 		g_GunMenuAvailable[param1] = false;
 	}
@@ -569,17 +582,27 @@ bool:ShouldRun()
 	return (DM_IsRunning() && g_IsEnabled);
 }
 
-bool:KvGetYesOrNo(Handle:kv, const String:key[], const String:def[])
+bool:KvGetYesOrNo(Handle:kv, const String:key[], bool:curdefault)
 {
 	decl String:value[12];
-	KvGetString(kv, key, value, sizeof(value), def);
+	KvGetString(kv, key, value, sizeof(value), curdefault ? "yes" : "no");
 	return (strcmp(value, "yes") == 0);
 }
 
-KvGetGunMenu(Handle:kv, const String:key[], const String:def[])
+KvGetGunMenu(Handle:kv, const String:key[], def)
 {
+	decl String:sdef[12];
+	if (def == CSSDM_GUNMENU_YES)
+	{
+		strcopy(sdef, sizeof(sdef), "yes");
+	} else if (def == CSSDM_GUNMENU_RANDOM) {
+		strcopy(sdef, sizeof(sdef), "random");
+	} else {
+		strcopy(sdef, sizeof(sdef), "no");
+	}
+	
 	decl String:value[12];
-	KvGetString(kv, key, value, sizeof(value), def);
+	KvGetString(kv, key, value, sizeof(value), sdef);
 	
 	if (strcmp(value, "yes") == 0)
 	{
@@ -589,6 +612,22 @@ KvGetGunMenu(Handle:kv, const String:key[], const String:def[])
 	}
 	
 	return CSSDM_GUNMENU_NO;
+}
+
+LoadDefaults()
+{
+	g_PrimaryMenu = CSSDM_GUNMENU_YES;
+	g_SecondaryMenu = CSSDM_GUNMENU_YES;
+	g_AllowBuy = false;
+	g_ArmorAmount = 100;
+	g_Helmets = true;
+	g_Flashes = 0;
+	g_Smokes = false;
+	g_HEs = false;
+	g_NightVision = false;
+	g_DefuseKits = true;
+	g_HealthAmount = 100;
+	g_AllowGunCommand = true;
 }
 
 bool:LoadConfigFile(const String:path[])
@@ -604,29 +643,30 @@ bool:LoadConfigFile(const String:path[])
 	/* Load settings */
 	if (KvJumpToKey(kv, "Settings"))
 	{
-		g_AllowGunCommand = KvGetYesOrNo(kv, "guns_command", "yes");
+		g_AllowGunCommand = KvGetYesOrNo(kv, "guns_command", g_AllowGunCommand);
 		KvGoBack(kv);
 	}
 	
 	/* Load menu options */
 	if (KvJumpToKey(kv, "Menus"))
 	{
-		g_PrimaryMenu = KvGetGunMenu(kv, "primary", "yes");
-		g_SecondaryMenu = KvGetGunMenu(kv, "secondary", "yes");
-		g_AllowBuy = KvGetYesOrNo(kv, "buy", "no");
+		g_PrimaryMenu = KvGetGunMenu(kv, "primary", g_PrimaryMenu);
+		g_SecondaryMenu = KvGetGunMenu(kv, "secondary", g_SecondaryMenu);
+		g_AllowBuy = KvGetYesOrNo(kv, "buy", g_AllowBuy);
 		KvGoBack(kv);
 	}
 	
 	/* Load automatic stuff */
 	if (KvJumpToKey(kv, "AutoItems"))
 	{
-		g_ArmorAmount = KvGetNum(kv, "armor", 100);
-		g_Flashes = KvGetNum(kv, "flashbangs");
-		g_Helmets = KvGetYesOrNo(kv, "helmet", "yes");
-		g_Smokes = KvGetYesOrNo(kv, "smokegrenade", "no");
-		g_HEs = KvGetYesOrNo(kv, "hegrenade", "no");
-		g_NightVision = KvGetYesOrNo(kv, "nightvision", "no");
-		g_DefuseKits = KvGetYesOrNo(kv, "defusekits", "yes");
+		g_ArmorAmount = KvGetNum(kv, "armor", g_ArmorAmount);
+		g_Flashes = KvGetNum(kv, "flashbangs", g_Flashes);
+		g_Helmets = KvGetYesOrNo(kv, "helmet", g_Helmets);
+		g_Smokes = KvGetYesOrNo(kv, "smokegrenade", g_Smokes);
+		g_HEs = KvGetYesOrNo(kv, "hegrenade", g_HEs);
+		g_NightVision = KvGetYesOrNo(kv, "nightvision", g_NightVision);
+		g_DefuseKits = KvGetYesOrNo(kv, "defusekits", g_DefuseKits);
+		g_HealthAmount = KvGetNum(kv, "health", g_HealthAmount);
 		KvGoBack(kv);
 	}
 	
@@ -659,15 +699,17 @@ bool:LoadConfigFile(const String:path[])
 				} else if (strcmp(value, "armor") == 0) {
 					g_BotArmor = KvGetNum(kv, NULL_STRING, 100);
 				} else if (strcmp(value, "helmet") == 0) {
-					g_BotHelmets = KvGetYesOrNo(kv, NULL_STRING, "yes");
+					g_BotHelmets = KvGetYesOrNo(kv, NULL_STRING, true);
 				} else if (strcmp(value, "flashbangs") == 0) {
 					g_BotFlashes = KvGetNum(kv, NULL_STRING);
 				} else if (strcmp(value, "smokegrenade") == 0) {
-					g_BotSmokes = KvGetYesOrNo(kv, NULL_STRING, "no");
+					g_BotSmokes = KvGetYesOrNo(kv, NULL_STRING, false);
 				} else if (strcmp(value, "hegrenade") == 0) {
-					g_BotHEs = KvGetYesOrNo(kv, NULL_STRING, "no");
+					g_BotHEs = KvGetYesOrNo(kv, NULL_STRING, false);
 				} else if (strcmp(value, "defusekits") == 0) {
-					g_DefuseKits = KvGetYesOrNo(kv, NULL_STRING, "yes");
+					g_DefuseKits = KvGetYesOrNo(kv, NULL_STRING, true);
+				} else if (strcmp(value, "health") == 0) {
+					g_BotHealthAmount = KvGetNum(kv, NULL_STRING, 100);
 				}
 			} while (KvGotoNextKey(kv, false));
 			KvGoBack(kv);
@@ -770,6 +812,16 @@ SetClientArmor(client, armor)
 	}
 	
 	SetEntData(client, g_ArmorOffset, armor, 4, true);
+}
+
+SetClientHealth(client, health)
+{
+	if (g_HealthOffset == -1)
+	{
+		return;
+	}
+	
+	SetEntData(client, g_HealthOffset, health, 4, true);
 }
 
 GiveGrenades(client, flashnum, bool:he, bool:smoke)
