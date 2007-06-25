@@ -91,6 +91,8 @@ public Plugin:myinfo =
  
 public OnPluginStart()
 {
+	LoadTranslations("cssdm.phrases");
+	
 	RegConsoleCmd("say", Command_Say);
 	RegConsoleCmd("say_team", Command_Say);
 	
