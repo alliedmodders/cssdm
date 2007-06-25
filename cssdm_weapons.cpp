@@ -88,9 +88,7 @@ bool DM_ParseWeapons(char *error, size_t maxlength)
 	for (weapons = weapons->GetFirstTrueSubKey(); weapons != NULL; weapons = weapons->GetNextTrueSubKey())
 	{
 		dm_weapon_t *wp = new dm_weapon_t;
-		wp->ammoType = -1;
-		wp->maxCarry = -1;
-		
+
 		/* Deal with section name */
 		char name[64];
 		snprintf(name, sizeof(name), "weapon_%s", weapons->GetName());

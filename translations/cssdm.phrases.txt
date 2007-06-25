@@ -2,12 +2,12 @@
 {
 	"NoRespawn NotInGame"
 	{
-		"en"		"You cannot respawn while not in game."
+		"en"		"You must be in game to respawn."
 	}
 
 	"NoRespawn Alive"
 	{
-		"en"		"You cannot respawn while alive."
+		"en"		"You must be dead to respawn."
 	}
 
 	"NoRespawn Team"

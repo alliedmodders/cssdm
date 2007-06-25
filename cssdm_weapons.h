@@ -41,8 +41,6 @@ struct dm_weapon_t
 	char *classname;
 	char *display;
 	WeaponType type;
-	int ammoType;
-	int maxCarry;
 	int id;
 };
 
