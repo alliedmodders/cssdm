@@ -140,6 +140,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="tier1.lib vstdlib.lib tier0.lib"
 				OutputFile="$(OutDir)\cssdm.ext.dll"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
