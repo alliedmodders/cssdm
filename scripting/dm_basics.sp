@@ -75,7 +75,7 @@ public OnConfigsExecuted()
 	if (g_AmmoHooks && g_ActiveWepOffs > 0)
 	{
 		HookEvent("weapon_reload", Event_CheckDepleted);
-		HookEvent("weapon_fire_on_reload", Event_CheckDepleted);
+		HookEvent("weapon_fire_on_empty", Event_CheckDepleted);
 	}
 }
 
