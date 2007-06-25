@@ -32,7 +32,7 @@
 			/* Offset into gamerules constructor */
 			"g_pGameRules"
 			{
-				"linux"			"51"
+				"linux"			"40"
 				"windows"		"32"
 			}
 			/* Virtual indexes */
