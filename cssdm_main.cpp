@@ -68,7 +68,7 @@ SMEXT_LINK(&g_DM);
 
 #define VERIFY_OFFSET(name) \
 	if (!g_pDmConf->GetOffset(name, &offset) || !offset) { \
-		snprintf(error, maxlength, "Could not find offset \"%s\"", offset); \
+		snprintf(error, maxlength, "Could not find offset \"%s\"", name); \
 		return false; \
 	}
 

@@ -32,11 +32,11 @@
 #include <jit/jit_helpers.h>
 #include <jit/x86/x86_macros.h>
 
-dmpatch_t drpwpns_restore = {0, ""};
+dmpatch_t drpwpns_restore;
 void *drpwpns_address = NULL;
 void *drpwpns_callback = NULL;
 
-dmpatch_t csdrop_restore = {0, ""};
+dmpatch_t csdrop_restore;
 void *csdrop_address = NULL;
 void *csdrop_callback = NULL;
 
@@ -147,7 +147,7 @@ void InitCSDropDetour()
 	jitoffs_t orig_call = IA32_Call_Imm32(jit, 0);
 
 #if defined PLATFORM_LINUX
-	IA32_Add_Rm_Imm8(jit, REG_ESP, 20, MOD_REG);
+	IA32_Add_Rm_Imm8(jit, REG_ESP, 16, MOD_REG);
 #endif
 
 	/* Make the POST call */

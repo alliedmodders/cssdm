@@ -24,6 +24,7 @@
  * Version: $Id$
  */
 
+#include <string.h>
 #include "cssdm_weapons.h"
 #include "cssdm_headers.h"
 #include "sm_trie.h"

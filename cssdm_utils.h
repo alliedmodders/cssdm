@@ -40,6 +40,11 @@
 
 struct dmpatch_t
 {
+	dmpatch_t()
+	{
+		patch[0] = 0;
+		bytes = 0;
+	}
 	unsigned char patch[20];
 	size_t bytes;
 };
