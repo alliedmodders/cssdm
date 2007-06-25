@@ -30,7 +30,7 @@
 #define CSSDM_GUNMENU_RANDOM	2
 
 /** Plugin Stuff */
-new Handle:g_hEquipCfg = INVALID_HANDLE;			/* cssdm_equip_cfg cvar */
+new Handle:cssdm_enable_equipment;					/** cssdm_enable_equipment cvar */
 new g_ArmorOffset = -1;								/* m_ArmorValue offset */
 new g_NVOffset = -1;								/* m_bHasNightVision offset */
 new g_HealthOffset = -1;							/* m_iHealth offset */
@@ -94,7 +94,7 @@ public OnPluginStart()
 	RegConsoleCmd("say", Command_Say);
 	RegConsoleCmd("say_team", Command_Say);
 	
-	g_hEquipCfg = CreateConVar("cssdm_equip_cfg", "cssdm.equip.txt", "CS:S DM Equipment Config File");
+	cssdm_enable_equipment = CreateConVar("cssdm_enable_equipment", "1", "Sets whether the equipment plugin is enabled");
 	g_ArmorOffset = FindSendPropOffs("CCSPlayer", "m_ArmorValue");
 	g_NVOffset = FindSendPropOffs("CCSPlayer", "m_bHasNightVision");
 	g_HealthOffset = FindSendPropOffs("CCSPlayer", "m_iHealth");
@@ -113,34 +113,27 @@ public OnConfigsExecuted()
 {
 	LoadDefaults();
 	
-	decl String:cvar[64];
-	GetConVarString(g_hEquipCfg, cvar, sizeof(cvar));
-	
-	if (cvar[0] == '\0')
+	if (!GetConVarInt(cssdm_enable_equipment))
 	{
+		g_IsEnabled = false;
 		return;
 	}
-	
-	decl String:path[255];
-	Format(path, sizeof(path), "cfg/cssdm/%s", cvar);
-	
-	if ((g_IsEnabled = LoadConfigFile(path)) == false)
-	{
-		LogError("[CSSDM] Could not find equipment file \"%s\"", path);
-		return;
-	}
-	
-	if (strcmp(cvar, "cssdm.equip.txt") == 0)
-	{
-		/** See if there is a map version */
-		decl String:map[64];
-		GetCurrentMap(map, sizeof(map));
-		Format(path, sizeof(path), "cfg/cssdm/%s/cssdm.equip.txt", map);
 		
-		if (FileExists(path))
-		{
-			LoadConfigFile(path);
-		}
+	if ((g_IsEnabled = LoadConfigFile("cfg/cssdm/cssdm.equip.txt")) == false)
+	{
+		LogError("[CSSDM] Could not find equipment file \"%s\"", "cfg/cssdm/cssdm.equip.txt");
+		return;
+	}
+	
+	/** See if there is a map version */
+	decl String:map[64];
+	decl String:path[255];
+	GetCurrentMap(map, sizeof(map));
+	Format(path, sizeof(path), "cfg/cssdm/%s/cssdm.equip.txt", map);
+	
+	if (FileExists(path))
+	{
+		LoadConfigFile(path);
 	}
 }
 

@@ -21,7 +21,7 @@
 		"primary"		"yes"
 		
 		// Secondary gun menu
-		"secondary"		"random"
+		"secondary"		"yes"
 		
 		// Normal CS:S buy menu/commands
 		"buy"			"no"
@@ -42,13 +42,13 @@
 		"helmet"		"yes"
 		
 		// Number of flashbangs to give
-		"flashbangs"	"2"
+		"flashbangs"	"0"
 		
 		// Whether to give a smoke grenade
-		"smokegrenade"	"yes"
+		"smokegrenade"	"no"
 		
 		// Whether to give an HE grenade
-		"hegrenade"		"yes"
+		"hegrenade"		"no"
 
 		// whether to give defusekits to CTs
 		"defusekits"	"yes"
