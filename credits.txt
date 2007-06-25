@@ -1,5 +1,5 @@
 "Counter-Strike Deathmatch" and "Counter-Strike: Source Deathmatch" are
-(C)Copyright 2004-2007 by David "BAILOPAN" Anderson
+(C)Copyright 2004-2007 by David "BAILOPAN" Anderson and AlliedModders LLC
 
 "Counter-Strike" and 
 "Counter-Strike Source" are (C) Copyright VALVe Software.
