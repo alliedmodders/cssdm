@@ -68,7 +68,7 @@ void OnLevelInitialized()
 	engine->ServerCommand("exec cssdm/cssdm.cfg\n");
 
 	char map_cmd[128];
-	snprintf(map_cmd, sizeof(map_cmd), "exec cssdm/%s.cfg\n", STRING(gpGlobals->mapname));
+	snprintf(map_cmd, sizeof(map_cmd), "exec cssdm/maps/%s.cssdm.cfg\n", STRING(gpGlobals->mapname));
 	engine->ServerCommand(map_cmd);
 	
 	engine->ServerCommand("cssdm internal 1\n");

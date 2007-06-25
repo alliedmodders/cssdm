@@ -131,7 +131,7 @@ public OnConfigsExecuted()
 	decl String:map[64];
 	decl String:path[255];
 	GetCurrentMap(map, sizeof(map));
-	Format(path, sizeof(path), "cfg/cssdm/%s/cssdm.equip.txt", map);
+	Format(path, sizeof(path), "cfg/cssdm/maps/%s.equip.txt", map);
 	
 	if (FileExists(path))
 	{
