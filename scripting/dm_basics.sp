@@ -90,7 +90,7 @@ public OnMapEnd()
 	if (g_AmmoHooks)
 	{
 		UnhookEvent("weapon_reload", Event_CheckDepleted);
-		UnhookEvent("weapon_fire_on_reload", Event_CheckDepleted);
+		UnhookEvent("weapon_fire_on_empty", Event_CheckDepleted);
 	}
 }
 
@@ -99,10 +99,10 @@ public CvarChange_RefillAmmo(Handle:cvar, const String:oldvalue[], const String:
 	if (GetConVarInt(cvar) && !g_AmmoHooks && g_ActiveWepOffs > 0)
 	{
 		HookEvent("weapon_reload", Event_CheckDepleted);
-		HookEvent("weapon_fire_on_reload", Event_CheckDepleted);
+		HookEvent("weapon_fire_on_empty", Event_CheckDepleted);
 	} else if (!GetConVarInt(cvar) && g_AmmoHooks) {
 		UnhookEvent("weapon_reload", Event_CheckDepleted);
-		UnhookEvent("weapon_fire_on_reload", Event_CheckDepleted);
+		UnhookEvent("weapon_fire_on_empty", Event_CheckDepleted);
 	}
 }
 
