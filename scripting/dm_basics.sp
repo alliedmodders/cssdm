@@ -2,6 +2,7 @@
  * dm_basics.sp
  * Base CS:S DM admin/control functions.
  * This file is part of CS:S DM, Copyright (C) 2005-2007 AlliedModders LLC
+ * by David "BAILOPAN" Anderson, http://www.bailopan.net/cssdm/
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -205,9 +206,25 @@ public Action:Timer_ChangeMap(Handle:timer)
 	return Plugin_Stop;
 }
 
+public Action:Timer_Welcome(Handle:timer, any:userid)
+{
+	new client = GetClientOfUserId(userid);
+	
+	if (!client || !IsClientInGame(client))
+	{
+		return Plugin_Stop;
+	}
+	
+	PrintToChat(client, "[CSSDM] Counter-Strike Source: Deathmatch (version %s)", CSSDM_VERSION);
+	PrintToChat(client, "[CSSDM] Visit http://www.bailopan.net/cssdm/ to download.");
+	
+	return Plugin_Stop;
+}
+
 public OnClientPutInServer(client)
 {
 	g_DeathTimes[client] = 0.0;
+	CreateTimer(10.0, Timer_Welcome, GetClientUserId(client));
 }
 
 public Action:DM_OnClientDeath(client)

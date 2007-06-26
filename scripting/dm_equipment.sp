@@ -2,6 +2,7 @@
  * dm_equipment.sp
  * Adds preset spawning to CS:S DM.
  * This file is part of CS:S DM, Copyright (C) 2005-2007 AlliedModders LLC
+ * by David "BAILOPAN" Anderson, http://www.bailopan.net/cssdm/
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License

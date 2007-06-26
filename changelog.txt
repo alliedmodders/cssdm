@@ -21,6 +21,7 @@ CS:S DM Changelog (Changelog from 0.1 to 0.5 lost.)
 	- Added a "Random Weapons" feature to the weapon menus.
 	- Removed the grenade and armor menus.
 	- Added a new interactive spawn point editor ("cssdm_spawn_menu").
+	- Added a plugin to manage bot_quota correctly.
 	- Removed cssdm_addspawn.
 	- Improved bot support for automatic items.
 	- Fixed a bug where C4 would be removed when CS:S DM was disabled.
