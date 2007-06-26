@@ -47,7 +47,7 @@ BEGIN
             VALUE "FileVersion", "2.0.0.403"
             VALUE "InternalName", "cssdm"
             VALUE "LegalCopyright", "Copyright (c) 2004-2007, AlliedModders LLC and David 'BAILOPAN' Anderson"
-            VALUE "OriginalFilename", "cssdm_mm.dll"
+            VALUE "OriginalFilename", "cssdm.ext.dll"
             VALUE "ProductName", "CS:S DM"
             VALUE "ProductVersion", "2.0.0.403"
         END
