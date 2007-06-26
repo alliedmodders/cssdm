@@ -48,6 +48,8 @@ public:
 	virtual void SDK_OnAllLoaded();
 	//virtual void SDK_OnPauseChange(bool paused);
 	virtual bool QueryRunning(char *error, size_t maxlength);
+	bool QueryInterfaceDrop(SMInterface *pInterface);
+	void NotifyInterfaceDrop(SMInterface *pInterface);
 public:
 	virtual bool SDK_OnMetamodLoad(ISmmAPI *ismm, char *error, size_t maxlength, bool late);
 	//virtual bool SDK_OnMetamodUnload(char *error, size_t maxlength);

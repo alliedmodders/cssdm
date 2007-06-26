@@ -243,3 +243,23 @@ bool Deathmatch::QueryRunning(char *error, size_t maxlength)
 
 	return true;
 }
+
+bool Deathmatch::QueryInterfaceDrop(SMInterface *pInterface)
+{
+	if (pInterface == bintools)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void Deathmatch::NotifyInterfaceDrop(SMInterface *pInterface)
+{
+	/* We have to take care of bintools early then... */
+	if (pInterface == bintools)
+	{
+		ShutdownUtils();
+		bintools = NULL;
+	}
+}
