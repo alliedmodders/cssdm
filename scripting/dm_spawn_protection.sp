@@ -121,7 +121,9 @@ public Action:StopProtection(Handle:timer, any:client)
 
 public DM_OnClientPostSpawned(client)
 {
-	if (!GetConVarInt(g_ProtVar) || !IsClientInGame(client))
+	if (!GetConVarInt(g_ProtVar) 
+		|| !IsClientInGame(client)
+		|| g_PlayerTimers[client] != INVALID_HANDLE)
 	{
 		return;
 	}
