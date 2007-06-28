@@ -23,13 +23,14 @@
 
 
 #include <sourcemod>
+#include <cssdm>
 
 public Plugin:myinfo = 
 {
 	name = "CS:S DM Bot Quotas",
 	author = "BAILOPAN",
 	description = "Bot Quota Correction for CS:S DM",
-	version = "2.0.0.0",
+	version = CSSDM_VERSION,
 	url = "http://www.bailopan.net/cssdm/"
 }
 
@@ -47,6 +48,11 @@ public OnPluginStart()
 	/* Create our ConVars */
 	BalanceAmt = CreateConVar("cssdm_bots_balance", "0", "Minimum number of players (bot_quota)")
 	HookConVarChange(BalanceAmt, OnBalanceChange)
+}
+
+public OnMapStart()
+{
+	BalanceBots(GetConVarInt(BalanceAmt));
 }
 
 public OnBalanceChange(Handle:convar, const String:oldval[], const String:newval[])
