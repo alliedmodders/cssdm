@@ -217,7 +217,7 @@ public DM_OnClientSpawned(client)
 		}
 		GiveGrenades(client, g_BotFlashes, g_BotHEs, g_BotSmokes);
 	}
-	if (g_SpawnTimers[client] == INVALID_HANDLE)
+	if (!g_AllowBuy && g_SpawnTimers[client] == INVALID_HANDLE)
 	{
 		/* Small delay - we want to avoid ResetHUD */
 		g_SpawnTimers[client] = CreateTimer(0.1, PlayerPostSpawn, client);
