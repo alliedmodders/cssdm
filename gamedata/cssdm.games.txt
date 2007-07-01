@@ -10,6 +10,7 @@
 			"LagCompPatch_Linux"		"\x90\x90\x90\x90\x90\x90"
 			"TakeDmgPatch1_Windows"		"\xEB"
 			"TakeDmgPatch1_Linux"		"\x90\x90\x90\x90\x90\x90"
+			"TakeDmgPatch2_Windows"		"\x90\x90\x90\x90\x90\x90"
 			"TakeDmgPatch2_Linux"		"\x90\x90\x90\x90\x90\x90"
 		}
 		"Offsets"
@@ -27,6 +28,7 @@
 			}
 			"TakeDmgPatch2"
 			{
+				"windows"		"161"
 				"linux"			"366"
 			}
 			/* Offset into gamerules constructor */
