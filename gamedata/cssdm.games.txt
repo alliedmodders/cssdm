@@ -10,7 +10,7 @@
 			"LagCompPatch_Linux"		"\x90\x90\x90\x90\x90\x90"
 			"TakeDmgPatch1_Windows"		"\xEB"
 			"TakeDmgPatch1_Linux"		"\x90\x90\x90\x90\x90\x90"
-			"TakeDmgPatch2_Windows"		"\x90\x90\x90\x90\x90\x90"
+			"TakeDmgPatch2_Windows"		"\x90\xE9"
 			"TakeDmgPatch2_Linux"		"\x90\x90\x90\x90\x90\x90"
 		}
 		"Offsets"
@@ -23,7 +23,7 @@
 			}
 			"TakeDmgPatch1"
 			{
-				"windows"		"613"
+				"windows"		"513"
 				"linux"			"1547"
 			}
 			"TakeDmgPatch2"
