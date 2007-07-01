@@ -29,6 +29,7 @@
 #include "cssdm_ctrl.h"
 #include "cssdm_ffa.h"
 #include "cssdm_callbacks.h"
+#include "cssdm_events.h"
 
 extern ConVar cssdm_enabled;
 extern ConVar cssdm_ffa_enabled;
@@ -80,6 +81,7 @@ void OnLevelEnd()
 	 * This is so our DM_Enable call is properly paired, but
 	 * also so CGameRules hooks get flushed.
 	 */
+	DM_ClearRagdollTimers();
 	if (g_IsRunning)
 	{
 		DM_Disable();

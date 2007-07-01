@@ -51,7 +51,7 @@ public:
 			int index = pack->ReadCell();
 			int serial = pack->ReadCell();
 			edict_t *pEdict = engine->PEntityOfEntIndex(index);
-			if (DM_CheckSerial(pEdict, serial))
+			if (pEdict && !pEdict->IsFree() && DM_CheckSerial(pEdict, serial))
 			{
 				CBaseEntity *pEntity = DM_GetBaseEntity(index);
 				if (pEntity)
@@ -121,6 +121,16 @@ public:
 		g_pSM->FreeDataPack((IDataPack *)pData);
 	}
 } s_PlayerSpawner;
+
+void DM_ClearRagdollTimers()
+{
+	List<ITimer *>::iterator iter = g_RagdollTimers.begin();
+	while (iter != g_RagdollTimers.end())
+	{
+		timersys->KillTimer((*iter));
+		iter = g_RagdollTimers.erase(iter);
+	}
+}
 
 void DM_SchedRespawn(int client)
 {
@@ -358,13 +368,7 @@ IMPLEMENT_EVENT(round_end)
 {
 	g_InRoundRestart = true;
 
-	/* Clear our ragdoll timers to prevent a crash after map cleanup */
-	List<ITimer *>::iterator iter = g_RagdollTimers.begin();
-	while (iter != g_RagdollTimers.end())
-	{
-		timersys->KillTimer((*iter));
-		iter = g_RagdollTimers.erase(iter);
-	}
+	DM_ClearRagdollTimers();
 
 	for (int i=1; i<=gpGlobals->maxClients; i++)
 	{

@@ -47,6 +47,7 @@ DECLARE_EVENT(round_start);
 DECLARE_EVENT(round_end);
 DECLARE_EVENT(item_pickup);
 
+void DM_ClearRagdollTimers();
 void OnClientCommand_Post(edict_t *edict);
 void OnClientDropWeapons(CBaseEntity *pEntity);
 void OnClientDroppedWeapon(CBaseEntity *pEntity, CBaseEntity *pWeapon);
