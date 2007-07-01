@@ -24,6 +24,7 @@
 		"secondary"		"yes"
 		
 		// Normal CS:S buy menu/commands
+		// If enabled, the main equipment menu will be disabled.
 		"buy"			"no"
 	}
 	

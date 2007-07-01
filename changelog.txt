@@ -1,6 +1,14 @@
 CS:S DM Changelog (Changelog from 0.1 to 0.5 lost.)
 
-2.0.0 Beta 1 - June 24, 2007
+2.0.0 Beta 4 - July 1, 2007
+	- Enabling "buy" in cssdm.equip.txt now disables the equip menu.
+	- Fixed cssdm_bots_balance not working after mapchange.
+	- Fixed an RTE in spawn protection.
+	- Fixed a crashbug on mapchange.
+	- Fixed bug where FFA would not work after one mapchange.
+	- Fixed FFA not working entirely right on Windows.
+
+2.0.0 Beta 1,2,3 - June 24, 2007
 	- Rewrote CS:S DM to be a SourceMod extension.
 	- CS:S DM is now open source, under the GNU General Public License.
 	- CS:S DM's spawning, equipment, and other features have been moved
