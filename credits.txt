@@ -13,11 +13,14 @@ Credits:
     * Advice, Help - Damaged Soul, PM OnoTo, fysh
     * Data Map/SendTable Stuff - Discovered by Libre
     * SourceMod Development Team
+    * faluco for finding CS:S DM's "divine bug"
+      (didn't CSDM have one of those too...)
 Donations:
     * kunk (http://www.ggh.greatbasin.net/)
 Translations:
     * French: Onix.fr
     * Turkish: Shaman
+    * German: Isias
 
 3rd party spawn points:
 	Kenty:
