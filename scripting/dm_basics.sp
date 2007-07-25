@@ -68,7 +68,7 @@ public OnPluginStart()
 	g_ActiveWepOffs = FindSendPropOffs("CCSPlayer", "m_hActiveWeapon");
 }
 
-public OnConfigsExecuted()
+public DM_OnStartup()
 {
 	RestartMapTimer();
 	
@@ -80,17 +80,23 @@ public OnConfigsExecuted()
 	}
 }
 
-public OnMapEnd()
+public DM_OnShutdown()
 {
 	if (g_ChangeMapTimer != INVALID_HANDLE)
 	{
 		CloseHandle(g_ChangeMapTimer);
 		g_ChangeMapTimer = INVALID_HANDLE;
 	}
+	ShutdownAmmoHooks();
+}
+
+ShutdownAmmoHooks()
+{
 	if (g_AmmoHooks)
 	{
 		UnhookEvent("weapon_reload", Event_CheckDepleted);
 		UnhookEvent("weapon_fire_on_empty", Event_CheckDepleted);
+		g_AmmoHooks = false;
 	}
 }
 
