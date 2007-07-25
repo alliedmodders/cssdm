@@ -15,6 +15,9 @@ Credits:
     * SourceMod Development Team
 Donations:
     * kunk (http://www.ggh.greatbasin.net/)
+Translations:
+    * French: Onix.fr
+    * Turkish: Shaman
 
 3rd party spawn points:
 	Kenty:

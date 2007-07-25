@@ -1,5 +1,8 @@
 CS:S DM Changelog (Changelog from 0.1 to 0.5 lost.)
 
+2.0.0 Final - July 25, 2007
+	- Fixed a bug where infinite ammo was not disabled when DM was not running.
+
 2.0.0 Beta 4 - July 1, 2007
 	- Enabling "buy" in cssdm.equip.txt now disables the equip menu.
 	- Fixed cssdm_bots_balance not working after mapchange.

@@ -1,48 +1,66 @@
-"Phrases"
+﻿"Phrases"
 {
 	"NoRespawn NotInGame"
 	{
 		"en"		"You must be in game to respawn."
+		"fr"		"Vous devez etre dans le jeu pour faire un respawn."
+		"tr"		"Yeniden doğmak için oyunda olmalısınız."
 	}
 
 	"NoRespawn Alive"
 	{
 		"en"		"You must be dead to respawn."
+		"fr"		"Vous devez etre mort pour pouvoir faire un respawn."
+		"tr"		"Yeniden doğmak için ölü olmalısınız."
 	}
 
 	"NoRespawn Team"
 	{
 		"en"		"You must be on a team to respawn."
+		"fr"		"Vous devez etre dans une Team pour faire un respawn."
+		"tr"		"Yeniden doğmak için bir takımda olmalısınız."
 	}
 	
 	"NoRespawn Wait"
 	{
 		"#format"	"{1:.1f}"
 		"en"		"You must wait {1} more seconds before respawning."
+		"fr"		"Vous devez attendre {1} secondes avant de reapparaitre."
+		"tr"		"Yeniden doğmak için {1} saniye daha beklemelisiniz."
 	}
 	
 	"GunsMenuDisabled"
 	{
 		"en"		"The guns menu command is disabled."
+		"fr"		"La commande guns est inactive."
+		"tr"		"Silahlar menüsü komutu etkin değil."
 	}
 	
 	"GunsMenuNotAvailable"
 	{
 		"en"		"The guns menu is not available."
+		"fr"		"La commande guns n'est pas valable."
+		"tr"		"Silahlar menüsü mevcut değil."
 	}
 	
 	"GunsMenuAlreadyEnabled"
 	{
 		"en"		"Your guns menu is already enabled."
+		"fr"		"Votre menu est deja actif."
+		"tr"		"Silahlar menünüz zaten etkin."
 	}
 	
 	"GunsMenuReactivated"
 	{
 		"en"		"Your guns menu has been enabled for your next respawn."
+		"fr"		"Votre menu sera actif au prochain respawn."
+		"tr"		"Silahlar menünüz yeniden doğuşunuz için etkinleştirildi."
 	}
 	
 	"SayGunsNotify"
 	{
 		"en"		"Say 'guns' in chat to re-enable your menu."
+		"fr"		"Dites 'guns' dans le T'chat pour ouvrir le menu."
+		"tr"		"Menünüzü yeniden etkinleştirmek için 'guns' yazın."
 	}
 }
