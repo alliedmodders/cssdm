@@ -18,7 +18,7 @@
 #endif
 #define _cssdm_included
 
-#define CSSDM_VERSION		"2.0.0.414"
+#define CSSDM_VERSION		"2.0.0.416"
 
 #define CSSDM_MAX_WEAPONS		32
 
