@@ -37,6 +37,7 @@ CS:S DM Changelog (Changelog from 0.1 to 0.5 lost.)
 	- Improved bot support for automatic items.
 	- Fixed a bug where C4 would be removed when CS:S DM was disabled.
 	- The "respawn" command will now properly obey spawn wait times.
+	- Updates are easier to patch; a text file holds all internal offsets.
 
 0.97.1 Beta - February 14, 2007
 	- Fixed FFA mode not working on Windows.
