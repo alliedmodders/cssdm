@@ -703,7 +703,7 @@ bool:LoadConfigFile(const String:path[])
 				} else if (strcmp(value, "hegrenade") == 0) {
 					g_BotHEs = KvGetYesOrNo(kv, NULL_STRING, false);
 				} else if (strcmp(value, "defusekits") == 0) {
-					g_DefuseKits = KvGetYesOrNo(kv, NULL_STRING, true);
+					g_BotDefuseKits = KvGetYesOrNo(kv, NULL_STRING, true);
 				} else if (strcmp(value, "health") == 0) {
 					g_BotHealthAmount = KvGetNum(kv, NULL_STRING, 100);
 				}
