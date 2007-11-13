@@ -27,22 +27,24 @@
 #include <string.h>
 #include "cssdm_weapons.h"
 #include "cssdm_headers.h"
-#include "sm_trie.h"
+#include <sm_trie_tpl.h>
 #include <sh_vector.h>
 
 using namespace SourceHook;
 
-Trie *g_pWeaponLookup = NULL;
+KTrie<dm_weapon_t *> g_WeaponLookup;
 CVector<dm_weapon_t *> g_Weapons;
 
 dm_weapon_t *DM_FindWeapon(const char *name)
 {
-	dm_weapon_t *wp = NULL;
-	if (!sm_trie_retrieve(g_pWeaponLookup, name,  (void **)&wp))
+	dm_weapon_t **pWp;
+
+	if ((pWp = g_WeaponLookup.retrieve(name)) == NULL)
 	{
 		return NULL;
 	}
-	return wp;
+
+	return *pWp;
 }
 
 dm_weapon_t *DM_GetWeapon(unsigned int index)
@@ -84,8 +86,6 @@ bool DM_ParseWeapons(char *error, size_t maxlength)
 		return false;
 	}
 
-	g_pWeaponLookup = sm_trie_create();
-
 	for (weapons = weapons->GetFirstTrueSubKey(); weapons != NULL; weapons = weapons->GetNextTrueSubKey())
 	{
 		dm_weapon_t *wp = new dm_weapon_t;
@@ -114,7 +114,7 @@ bool DM_ParseWeapons(char *error, size_t maxlength)
 		if (wp->type != WeaponType_Invalid)
 		{
 			wp->id = (int)g_Weapons.size();
-			sm_trie_insert(g_pWeaponLookup, weapons->GetName(), wp);
+			g_WeaponLookup.insert(weapons->GetName(), wp);
 			g_Weapons.push_back(wp);
 		}
 	}
@@ -134,10 +134,5 @@ void DM_FreeWeapons()
 		delete wp;
 	}
 	g_Weapons.clear();
-
-	if (g_pWeaponLookup)
-	{
-		sm_trie_destroy(g_pWeaponLookup);
-		g_pWeaponLookup = NULL;
-	}
+	g_WeaponLookup.clear();
 }
