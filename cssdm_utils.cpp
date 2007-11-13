@@ -255,9 +255,10 @@ size_t DM_StringToBytes(const char *str, unsigned char buffer[], size_t maxlengt
 
 void DM_ApplyPatch(void *address, int offset, const dmpatch_t *patch, dmpatch_t *restore)
 {
-	DM_ProtectMemory(address, 20, PAGE_EXECUTE_READWRITE);
-
 	unsigned char *addr = (unsigned char *)address + offset;
+
+	DM_ProtectMemory(addr, 20, PAGE_EXECUTE_READWRITE);
+
 	if (restore)
 	{
 		for (size_t i=0; i<patch->bytes; i++)
