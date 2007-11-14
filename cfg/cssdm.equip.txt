@@ -33,7 +33,7 @@
 	//
 	"AutoItems"
 	{
-		// Health amount to give
+		// Health amount to give (0 to use default from game/other plugin)
 		"health"		"100"
 
 		// Armor amount to give

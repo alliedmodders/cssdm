@@ -56,6 +56,7 @@ ConVar cssdm_spawn_method("cssdm_spawn_method",
 						  "Sets how and where players are spawned",
 						  false, 0.0f, false, 0.0f,
 						  ChangeSpawnStatus);
+ConVar cssdm_remove_drops("cssdm_remove_drops", "1", 0, "Sets whether dropped items are removed");
 
 class LinkConVars : public IConCommandBaseAccessor
 {
@@ -129,4 +130,9 @@ bool DM_IsEnabled()
 bool DM_IsFFAEnabled()
 {
 	return (cssdm_ffa_enabled.GetInt() != 0);
+}
+
+bool DM_ShouldRemoveDrops()
+{
+	return (cssdm_remove_drops.GetInt() != 0);
 }

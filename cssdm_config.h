@@ -33,6 +33,7 @@ float DM_GetRespawnWait();
 bool DM_AllowC4();
 bool DM_IsEnabled();
 bool DM_IsFFAEnabled();
+bool DM_ShouldRemoveDrops();
 const char *DM_GetSpawnMethod();
 
 /* Internal API */

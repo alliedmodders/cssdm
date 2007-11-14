@@ -193,7 +193,7 @@ void OnClientDropWeapons(CBaseEntity *pEntity)
 
 void OnClientDroppedWeapon(CBaseEntity *pEntity, CBaseEntity *pWeapon)
 {
-	if (!g_IsRunning || !pWeapon)
+	if (!g_IsRunning || !pWeapon || !DM_ShouldRemoveDrops())
 	{
 		return;
 	}
