@@ -3,7 +3,8 @@
 
 SMSDK = ../../../sourcemod/trunk
 SRCDS = ~/srcds
-SOURCEMM = ../../../sourcemm
+SOURCEMM = ../../../sourcemm/branches/sourcemm-1.4.3
+HL2SDK = ../../../sourcemm/hl2sdk
 
 #####################################
 ### EDIT BELOW FOR OTHER PROJECTS ###
@@ -16,7 +17,7 @@ LINK_HL2 = $(HL2LIB)/tier1_i486.a vstdlib_i486.so tier0_i486.so
 
 OBJECTS = sdk/smsdk_ext.cpp cssdm_weapons.cpp cssdm_utils.cpp cssdm_players.cpp \
 	cssdm_main.cpp cssdm_ffa.cpp cssdm_events.cpp cssdm_detours.cpp cssdm_ctrl.cpp \
-	cssdm_config.cpp cssdm_callbacks.cpp sm_trie.cpp
+	cssdm_config.cpp cssdm_callbacks.cpp 
 
 ##############################################
 ### CONFIGURE ANY OTHER FLAGS/OPTIONS HERE ###
@@ -29,17 +30,15 @@ CPP = gcc-4.1
 
 HL2PUB = $(HL2SDK)/public
 HL2LIB = $(HL2SDK)/linux_sdk
-HL2SDK = $(SOURCEMM)/hl2sdk
-SMM_TRUNK = $(SOURCEMM)/trunk
 
 LINK = $(LINK_HL2) -static-libgcc
 
 INCLUDE = -I. -I.. -Isdk -I$(HL2PUB) -I$(HL2PUB)/dlls -I$(HL2PUB)/engine -I$(HL2PUB)/tier0 -I$(HL2PUB)/tier1 \
-	-I$(HL2PUB)/vstdlib -I$(HL2SDK)/tier1 -I$(SMM_TRUNK) -I$(SMM_TRUNK)/sourcehook -I$(SMM_TRUNK)/sourcemm \
+	-I$(HL2PUB)/vstdlib -I$(HL2SDK)/tier1 -I$(SOURCEMM) -I$(SOURCEMM)/sourcehook -I$(SOURCEMM)/sourcemm \
 	-I$(SMSDK)/public -I$(SMSDK)/public/sourcepawn -I$(SMSDK)/public/extensions \
 	-I$(HL2SDK)/dlls -I$(HL2SDK)/game_shared
 
-CFLAGS = -D_LINUX -DNDEBUG -Dstricmp=strcasecmp -D_stricmp=strcasecmp -D_strnicmp=strncasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf -D_vsnprintf=vsnprintf -D_alloca=alloca -Dstrcmpi=strcasecmp -Wall -Werror -Wno-switch -Wno-unused -Wno-invalid-offsetof -fPIC -msse -DSOURCEMOD_BUILD -DHAVE_STDINT_H
+CFLAGS = -D_LINUX -DNDEBUG -Dstricmp=strcasecmp -D_stricmp=strcasecmp -D_strnicmp=strncasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf -D_vsnprintf=vsnprintf -D_alloca=alloca -Dstrcmpi=strcasecmp -Wall -Werror -Wno-switch -Wno-unused -Wno-invalid-offsetof -fPIC -msse -DSOURCEMOD_BUILD -DHAVE_STDINT_H -Wno-uninitialized
 CPPFLAGS = -Wno-non-virtual-dtor -fno-exceptions -fno-rtti
 
 ################################################
