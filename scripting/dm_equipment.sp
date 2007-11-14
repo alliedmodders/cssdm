@@ -104,7 +104,7 @@ public OnPluginStart()
 	g_NVOffset = FindSendPropOffs("CCSPlayer", "m_bHasNightVision");
 	g_HealthOffset = FindSendPropOffs("CCSPlayer", "m_iHealth");
 	
-	g_hEquipMenu = CreateMenu(Menu_EquipHandler, MenuAction_DrawItem);
+	g_hEquipMenu = CreateMenu(Menu_EquipHandler, MenuAction_DrawItem|MenuAction_DisplayItem);
 	SetMenuTitle(g_hEquipMenu, "Weapon Options:");
 	SetMenuExitButton(g_hEquipMenu, false);
 	AddMenuItem(g_hEquipMenu, "", "New weapons");
@@ -438,6 +438,21 @@ public Menu_EquipHandler(Handle:menu, MenuAction:action, param1, param2)
 		}
 		g_GunMenuAvailable[param1] = false;
 	}
+	else if (action == MenuAction_DisplayItem)
+	{
+		decl style;
+		decl String:info[12], String:lang_phrase[32];
+		
+		if (!GetMenuItem(menu, param2, info, sizeof(info), style, lang_phrase, sizeof(lang_phrase)))
+		{
+			return 0;
+		}
+		
+		decl String:t_phrase[64];
+		Format(t_phrase, sizeof(t_phrase), "%T", lang_phrase, param1);
+		
+		return RedrawMenuItem(t_phrase);
+	}
 	
 	return 0;
 }
@@ -456,6 +471,15 @@ public Menu_PrimaryHandler(Handle:menu, MenuAction:action, param1, param2)
 	else if (action == MenuAction_Select)
 	{
 		GivePrimary(param1, param2);
+	}
+	else if (action == MenuAction_Display)
+	{
+		new Handle:hPanel = Handle:param2;
+		decl String:title[128];
+		
+		Format(title, sizeof(title), "%T:", "Primary weapon", param1);
+		
+		SetPanelTitle(hPanel, title);
 	}
 	
 	return 0;
@@ -487,6 +511,15 @@ public Menu_SecondaryHandler(Handle:menu, MenuAction:action, param1, param2)
 		{
 			DisplayMenu(g_hPrimaryMenu, param1, MENU_TIME_FOREVER);
 		}
+	}
+	else if (action == MenuAction_Display)
+	{
+		new Handle:hPanel = Handle:param2;
+		decl String:title[128];
+		
+		Format(title, sizeof(title), "%T:", "Secondary weapon", param1);
+		
+		SetPanelTitle(hPanel, title);
 	}
 	
 	return 0;
@@ -798,7 +831,7 @@ bool:LoadConfigFile(const String:path[])
 	{
 		CloseHandle(g_hPrimaryMenu);
 	}
-	g_hPrimaryMenu = CreateMenu(Menu_PrimaryHandler, MenuAction_DrawItem);
+	g_hPrimaryMenu = CreateMenu(Menu_PrimaryHandler, MenuAction_DrawItem|MenuAction_Display);
 	SetMenuTitle(g_hPrimaryMenu, "Primary weapon:");
 	for (new i=0; i<g_PrimaryCount; i++)
 	{
@@ -813,7 +846,7 @@ bool:LoadConfigFile(const String:path[])
 	{
 		CloseHandle(g_hSecondaryMenu);
 	}
-	g_hSecondaryMenu = CreateMenu(Menu_SecondaryHandler, MenuAction_DrawItem);
+	g_hSecondaryMenu = CreateMenu(Menu_SecondaryHandler, MenuAction_DrawItem|MenuAction_Display);
 	SetMenuTitle(g_hSecondaryMenu, "Secondary weapon:");
 	for (new i=0; i<g_SecondaryCount; i++)
 	{
