@@ -98,6 +98,8 @@ public OnPluginStart()
 	RegConsoleCmd("say_team", Command_Say);
 	
 	cssdm_enable_equipment = CreateConVar("cssdm_enable_equipment", "1", "Sets whether the equipment plugin is enabled");
+	HookConVarChange(cssdm_enable_equipment, OnEquipmentEnableChange);
+	
 	g_ArmorOffset = FindSendPropOffs("CCSPlayer", "m_ArmorValue");
 	g_NVOffset = FindSendPropOffs("CCSPlayer", "m_bHasNightVision");
 	g_HealthOffset = FindSendPropOffs("CCSPlayer", "m_iHealth");
@@ -112,19 +114,24 @@ public OnPluginStart()
 	AddMenuItem(g_hEquipMenu, "", "Random weapons every time");
 }
 
+public OnEquipmentEnableChange(Handle:convar, const String:oldValue[], const String:newValue[])
+{
+	g_IsEnabled = StringToInt(newValue) ? true : false;
+}
+
 public OnConfigsExecuted()
 {
 	LoadDefaults();
 	
-	if (!GetConVarInt(cssdm_enable_equipment))
-	{
-		g_IsEnabled = false;
-		return;
-	}
-		
 	if ((g_IsEnabled = LoadConfigFile("cfg/cssdm/cssdm.equip.txt")) == false)
 	{
 		LogError("[CSSDM] Could not find equipment file \"%s\"", "cfg/cssdm/cssdm.equip.txt");
+		return;
+	}
+	
+	if (!GetConVarInt(cssdm_enable_equipment))
+	{
+		g_IsEnabled = false;
 		return;
 	}
 	
@@ -169,6 +176,11 @@ public OnClientDisconnect(client)
 
 public DM_OnClientSpawned(client)
 {
+	if (!ShouldRun())
+	{
+		return;
+	}
+	
 	if (!IsFakeClient(client))
 	{
 		if (g_ArmorAmount > 0)
@@ -191,7 +203,9 @@ public DM_OnClientSpawned(client)
 		{
 			GiveNightVision(client);
 		}
-	} else {
+	}
+	else
+	{
 		/* See if we'll need to strip this bot */
 		if (g_BotSecondaryCount || g_BotPrimaryCount)
 		{
@@ -530,8 +544,10 @@ GivePrimary(client, list_index)
 		{
 			weapon_index = GetRandomInt(0, g_PrimaryCount-1);
 			weapon_index = g_PrimaryList[weapon_index];
-		} else {
+		} else if (g_PrimaryCount == 1) {
 			weapon_index = g_PrimaryList[0];
+		} else {
+			return;
 		}
 	} else {
 		weapon_index = g_PrimaryList[list_index];
@@ -561,8 +577,10 @@ GiveSecondary(client, list_index)
 		{
 			weapon_index = GetRandomInt(0, g_SecondaryCount-1);
 			weapon_index = g_SecondaryList[weapon_index];
-		} else {
+		} else if (g_SecondaryCount == 1) {
 			weapon_index = g_SecondaryList[0];
+		} else {
+			return;
 		}
 	} else {
 		weapon_index = g_SecondaryList[list_index];
