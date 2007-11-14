@@ -62,13 +62,18 @@ public OnBalanceChange(Handle:convar, const String:oldval[], const String:newval
 
 BalanceBots(quota)
 {
+	if (!quota)
+	{
+		return;
+	}
+	
 	new maxClients = GetMaxClients()
 	new humans, bots
 	
 	/* Get the number of valid humans and bots */
 	for (new i=1; i<=maxClients; i++)
 	{
-		if (!IsPlayerInGame(i))
+		if (!IsClientInGame(i))
 		{
 			continue
 		}
