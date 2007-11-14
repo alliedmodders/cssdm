@@ -1,5 +1,27 @@
 CS:S DM Changelog (Changelog from 0.1 to 0.5 lost.)
 
+2.1.0 (Stable) November 14, 2007
+	- Added the ability to translate equipment menus (translation file must 
+	  be updated if you upgrade).
+	- Added the ability to skip a weapon selection menu via "Exit."
+	- Added an experimental cssdm_remove_drops cvar for specifying whether 
+	  CS:S DM removes weapon drops.
+	- Fixed a bug where if you only selected one gun, you could not opt to 
+	  repeat the selection on the main equipment menu.
+	- Fixed a bug where dm_equipment could perform actions on players/bots 
+	  when cssdm_enable_equipment was 0.
+	- Fixed a bug where an unspecified primary or secondary weapon could be 
+	  given if the cssdm.equip.txt file specified none in the list and the 
+	  player selected "Random."
+	- Fixed a bug where bot_quota would stop working if cssdm_bots_balance 
+	  was set to "0".
+	- Fixed "nightvision" not being in the cssdm.equip.txt config file.
+	- Fixed bots always getting defuse kits.
+	- Fixed a bug where CS:S DM crashed if FFA mode was set on the latest 
+	  CS:S version.
+	- Updated some library code from SourceMod that had received bug fixes 
+	  since the last release.
+
 2.0.0 Final - July 25, 2007
 	- Fixed a bug where infinite ammo was not disabled when DM was not running.
 
