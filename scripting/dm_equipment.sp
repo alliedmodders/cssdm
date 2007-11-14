@@ -403,7 +403,7 @@ public Menu_EquipHandler(Handle:menu, MenuAction:action, param1, param2)
 	{
 		if (param2 == 1 || param2 == 2)
 		{
-			if (g_PrimaryChoices[param1] == -1 && g_PrimaryChoices[param1] == -1)
+			if (g_PrimaryChoices[param1] == -1 && g_SecondaryChoices[param1] == -1)
 			{
 				return ITEMDRAW_DISABLED;
 			}
@@ -475,6 +475,14 @@ public Menu_SecondaryHandler(Handle:menu, MenuAction:action, param1, param2)
 	else if (action == MenuAction_Select)
 	{
 		GiveSecondary(param1, param2);
+		if (ChooseFromPrimary())
+		{
+			DisplayMenu(g_hPrimaryMenu, param1, MENU_TIME_FOREVER);
+		}
+	}
+	else if (action == MenuAction_Cancel
+			 && param2 == MenuCancel_Exit)
+	{
 		if (ChooseFromPrimary())
 		{
 			DisplayMenu(g_hPrimaryMenu, param1, MENU_TIME_FOREVER);
