@@ -27,7 +27,7 @@
 /* Basic information exposed publicly */
 #define SMEXT_CONF_NAME			"CS:S DM"
 #define SMEXT_CONF_DESCRIPTION	"Deathmatch for CS:S"
-#define SMEXT_CONF_VERSION		"2.0.0.416"
+#define SMEXT_CONF_VERSION		"2.1.0.446"
 #define SMEXT_CONF_AUTHOR		"AlliedModders"
 #define SMEXT_CONF_URL			"http://www.bailopan.net/cssdm/"
 #define SMEXT_CONF_LOGTAG		"CSSDM"

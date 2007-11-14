@@ -28,7 +28,7 @@
 public Plugin:myinfo = 
 {
 	name = "CS:S DM Bot Quotas",
-	author = "BAILOPAN",
+	author = "AlliedModders LLC",
 	description = "Bot Quota Correction for CS:S DM",
 	version = CSSDM_VERSION,
 	url = "http://www.bailopan.net/cssdm/"

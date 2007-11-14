@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;..\sdk;..\..\..\public;..\..\..\public\sourcepawn"
+				AdditionalIncludeDirectories="..\sdk;$(SOURCEMOD)\public;$(SOURCEMOD)\public\extensions;$(SOURCEMOD)\public\sourcepawn;$(HL2SDK)\game_shared;$(HL2SDK)\dlls;$(HL2SDK)\public;$(HL2SDK)\public\dlls;$(HL2SDK)\public\engine;$(HL2SDK)\public\tier0;$(HL2SDK)\public\tier1;$(HL2SDK)\public\vstdlib;$(HL2SDK)\tier1;$(SOURCEMM142);$(SOURCEMM142)\sourcemm;$(SOURCEMM142)\sourcehook"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;SDK_EXPORTS;_CRT_SECURE_NO_DEPRECATE;SOURCEMOD_BUILD"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="tier1.lib vstdlib.lib tier0.lib"
+				AdditionalDependencies="$(HL2SDK)\lib\public\tier1.lib $(HL2SDK)\lib\public\vstdlib.lib $(HL2SDK)\lib\public\tier0.lib"
 				OutputFile="$(OutDir)\cssdm.ext.dll"
 				LinkIncremental="2"
 				IgnoreDefaultLibraryNames="LIBCMT"
@@ -120,7 +120,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..;..\sdk;..\..\..\public;..\..\..\public\sourcepawn"
+				AdditionalIncludeDirectories="..\sdk;$(SOURCEMOD)\public;$(SOURCEMOD)\public\extensions;$(SOURCEMOD)\public\sourcepawn;$(HL2SDK)\game_shared;$(HL2SDK)\dlls;$(HL2SDK)\public;$(HL2SDK)\public\dlls;$(HL2SDK)\public\engine;$(HL2SDK)\public\tier0;$(HL2SDK)\public\tier1;$(HL2SDK)\public\vstdlib;$(HL2SDK)\tier1;$(SOURCEMM142);$(SOURCEMM142)\sourcemm;$(SOURCEMM142)\sourcehook"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;SDK_EXPORTS;_CRT_SECURE_NO_DEPRECATE;SOURCEMOD_BUILD"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -140,7 +140,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="tier1.lib vstdlib.lib tier0.lib"
+				AdditionalDependencies="$(HL2SDK)\lib\public\tier1.lib $(HL2SDK)\lib\public\vstdlib.lib $(HL2SDK)\lib\public\tier0.lib"
 				OutputFile="$(OutDir)\cssdm.ext.dll"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
@@ -301,14 +301,6 @@
 			Name="SourceMod SDK"
 			UniqueIdentifier="{31958233-BB2D-4e41-A8F9-CE8A4684F436}"
 			>
-			<File
-				RelativePath="..\sm_trie.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\sm_trie.h"
-				>
-			</File>
 			<File
 				RelativePath="..\sdk\smsdk_config.h"
 				>

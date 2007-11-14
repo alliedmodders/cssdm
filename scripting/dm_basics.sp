@@ -222,7 +222,7 @@ public Action:Timer_Welcome(Handle:timer, any:userid)
 	}
 	
 	PrintToChat(client, "[CSSDM] Counter-Strike Source: Deathmatch (version %s)", CSSDM_VERSION);
-	PrintToChat(client, "[CSSDM] Visit http://www.bailopan.net/cssdm/ to download.");
+	PrintToChat(client, "[CSSDM] Visit http://www.bailopan.net/cssdm to download.");
 	
 	return Plugin_Stop;
 }

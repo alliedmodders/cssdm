@@ -26,8 +26,8 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,0,0,416
- PRODUCTVERSION 2,0,0,416
+ FILEVERSION 2,1,0,446
+ PRODUCTVERSION 2,0,0,446
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -44,12 +44,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "CS:S DM"
             VALUE "FileDescription", "CS:S DM"
-            VALUE "FileVersion", "2.0.0.414"
+            VALUE "FileVersion", "2.1.0.446"
             VALUE "InternalName", "cssdm"
             VALUE "LegalCopyright", "Copyright (c) 2004-2007, AlliedModders LLC and David 'BAILOPAN' Anderson"
             VALUE "OriginalFilename", "cssdm.ext.dll"
             VALUE "ProductName", "CS:S DM"
-            VALUE "ProductVersion", "2.0.0.414"
+            VALUE "ProductVersion", "2.1.0.446"
         END
     END
     BLOCK "VarFileInfo"
