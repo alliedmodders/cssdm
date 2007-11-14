@@ -39,7 +39,8 @@
 		// Armor amount to give
 		"armor"			"100"
 		
-		// Whether to give a helme
+		// Whether to give a helmet.  If you want to disable armor, you must 
+		// set this to "no" as well as setting armor to 0.
 		"helmet"		"yes"
 		
 		// Number of flashbangs to give
@@ -51,8 +52,11 @@
 		// Whether to give an HE grenade
 		"hegrenade"		"no"
 
-		// whether to give defusekits to CTs
+		// Whether to give defusekits to CTs
 		"defusekits"	"yes"
+		
+		// Whether to give nightvision
+		"nightvision"	"yes"
 	}
 	
 	//
