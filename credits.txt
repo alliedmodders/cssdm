@@ -51,3 +51,23 @@ Translations:
 		wired
 	jsterline:
 		cs_militia
+	LyteFly:
+		de_dust2_unlimited
+	Evil_enc:
+		de_socom_ext
+		surf_japan_v10
+		surf_10x_final
+	bug:
+		de_desert_atrocity_v3
+		de_qatar
+		knas_speedcastle2007
+	Dark4eg:
+		de_dust2_finale
+	szidzse:
+		de_losttemple_pro
+		de_russka
+		de_tuscan
+		de_season
+		de_cpl_fire
+		de_cpl_mill
+		de_cpl_strike

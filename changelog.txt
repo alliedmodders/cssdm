@@ -1,5 +1,9 @@
 CS:S DM Changelog (Changelog from 0.1 to 0.5 lost.)
 
+2.1.0.1 (stable) September 7, 2009
+	- Updated sourcemod/gamedata/cssdm.games.txt for latest CS:S update.
+	- Added more spawn files posted in the community forums.
+
 2.1.0 (Stable) November 14, 2007
 	- Added the ability to translate equipment menus (translation file must 
 	  be updated if you upgrade).
