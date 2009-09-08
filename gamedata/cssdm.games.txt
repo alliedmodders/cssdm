@@ -41,7 +41,7 @@
 			"IPointsForKill"
 			{
 				"windows"		"63"
-				"linux"			"63"
+				"linux"			"64"
 			}
 			"Weapon_GetSlot"
 			{
