@@ -34,7 +34,7 @@
 			"TakeDmgPatch1"
 			{
 				"windows"		"752"
-				"linux"			"1905"
+				"linux"			"1900"
 				"mac"			"2067"
 			}
 			"TakeDmgPatch2"
