@@ -43,12 +43,12 @@
 				"linux"			"683"
 				"mac"			"730"
 			}
-			/* Offset into gamerules constructor */
+			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
 			{
 				"windows"		"32"
-				"linux"			"54"
-				"mac"			"57"
+				"linux"			"1"
+				"mac"			"1"
 			}
 			/* Virtual indexes */
 			"IPointsForKill"
@@ -89,7 +89,7 @@
 			"CalcDomRevPatch"
 			{
 				"windows"		"63"
-				"linux"			"95"
+				"linux"			"94"
 				"mac"			"97"
 			}
 		}
@@ -127,8 +127,8 @@
 			{
 				"library"		"server"
 				"windows"		"\x56\x68\x2A\x2A\x2A\x2A\x8B\xF1\xE8\x2A\x2A\x2A\x2A\xC7\x2A\x2A\x2A\x2A\x2A\xA1\x2A\x2A\x2A\x2A\x8B\x2A\x2A\x2A\x2A\x2A\x89\x2A\x2A\x2A\x2A\x2A\x8B\x48"
-				"linux"			"@_ZN10CGameRulesC2Ev"
-				"mac"			"@_ZN10CGameRulesC2Ev"
+				"linux"			"@g_pGameRules"
+				"mac"			"@g_pGameRules"
 			}
 			"CSWeaponDrop"
 			{

@@ -160,6 +160,7 @@ bool DM_Prepare_FFA(char *error, size_t maxlength)
 
 	/* Load the GameRules pointer */
 	int offset;
+#ifdef _MSC_VER
 	if (!g_pDmConf->GetOffset("g_pGameRules", &offset)
 		|| !offset)
 	{
@@ -167,6 +168,9 @@ bool DM_Prepare_FFA(char *error, size_t maxlength)
 		return false;
 	}
 	g_gamerules_addr = (void **)*(void **)((unsigned char *)gamerules + offset);
+#else
+	g_gamerules_addr = reinterpret_cast<void **>(gamerules);
+#endif
 
 	/* Get the "IPointsForKill" offset */
 	if (!g_pDmConf->GetOffset("IPointsForKill", &offset)

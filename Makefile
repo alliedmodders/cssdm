@@ -1,10 +1,9 @@
 #(C)2004-2006 SourceMM Development Team
 # Makefile written by David "BAILOPAN" Anderson
 
-SMSDK = ../../../sourcemod/trunk
-SRCDS = ~/srcds
-SOURCEMM = ../../../sourcemm/branches/sourcemm-1.4.3
-HL2SDK = ../../../sourcemm/hl2sdk
+SMSDK = ../sourcemod-1.3
+SOURCEMM = ../mmsource-1.8
+HL2SDK = ../hl2sdk-ob-valve
 
 #####################################
 ### EDIT BELOW FOR OTHER PROJECTS ###
@@ -13,7 +12,7 @@ HL2SDK = ../../../sourcemm/hl2sdk
 PROJECT = cssdm
 
 #Uncomment for SourceMM-enabled extensions
-LINK_HL2 = $(HL2LIB)/tier1_i486.a vstdlib_i486.so tier0_i486.so 
+LINK_HL2 = $(HL2LIB)/tier1_i486.a libvstdlib.so libtier0.so
 
 OBJECTS = sdk/smsdk_ext.cpp cssdm_weapons.cpp cssdm_utils.cpp cssdm_players.cpp \
 	cssdm_main.cpp cssdm_ffa.cpp cssdm_events.cpp cssdm_detours.cpp cssdm_ctrl.cpp \
@@ -29,16 +28,19 @@ CPP_GCC4_FLAGS = -fvisibility=hidden -fvisibility-inlines-hidden
 CPP = gcc-4.1
 
 HL2PUB = $(HL2SDK)/public
-HL2LIB = $(HL2SDK)/linux_sdk
+HL2LIB = $(HL2SDK)/lib/linux
 
 LINK = $(LINK_HL2) -static-libgcc
 
-INCLUDE = -I. -I.. -Isdk -I$(HL2PUB) -I$(HL2PUB)/dlls -I$(HL2PUB)/engine -I$(HL2PUB)/tier0 -I$(HL2PUB)/tier1 \
-	-I$(HL2PUB)/vstdlib -I$(HL2SDK)/tier1 -I$(SOURCEMM) -I$(SOURCEMM)/sourcehook -I$(SOURCEMM)/sourcemm \
-	-I$(SMSDK)/public -I$(SMSDK)/public/sourcepawn -I$(SMSDK)/public/extensions \
-	-I$(HL2SDK)/dlls -I$(HL2SDK)/game_shared
+INCLUDE = -I. -I.. -Isdk -I$(HL2PUB) -I$(HL2PUB)/game/server -I$(HL2PUB)/engine -I$(HL2PUB)/tier0 \
+	-I$(HL2PUB)/tier1 -I$(HL2PUB)/vstdlib -I$(HL2SDK)/tier1 -I$(SOURCEMM)/core \
+	-I$(SOURCEMM)/core/sourcehook -I$(SMSDK)/public -I$(SMSDK)/public/sourcepawn -I$(SMSDK)/public/extensions \
+	-I$(HL2SDK)/game/server -I$(HL2SDK)/game/shared
 
-CFLAGS = -D_LINUX -DNDEBUG -Dstricmp=strcasecmp -D_stricmp=strcasecmp -D_strnicmp=strncasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf -D_vsnprintf=vsnprintf -D_alloca=alloca -Dstrcmpi=strcasecmp -Wall -Werror -Wno-switch -Wno-unused -Wno-invalid-offsetof -fPIC -msse -DSOURCEMOD_BUILD -DHAVE_STDINT_H -Wno-uninitialized
+CFLAGS = -D_LINUX -DNDEBUG -Dstricmp=strcasecmp -D_stricmp=strcasecmp -D_strnicmp=strncasecmp \
+		 -Dstrnicmp=strncasecmp -D_snprintf=snprintf -D_vsnprintf=vsnprintf -D_alloca=alloca \
+		 -Dstrcmpi=strcasecmp -Wall -Werror -Wno-switch -Wno-unused -Wno-invalid-offsetof -fPIC \
+		 -msse -DSOURCEMOD_BUILD -DHAVE_STDINT_H -Wno-uninitialized -m32
 CPPFLAGS = -Wno-non-virtual-dtor -fno-exceptions -fno-rtti
 
 ################################################
@@ -68,8 +70,8 @@ $(BIN_DIR)/%.o: %.cpp
 
 all:
 	mkdir -p $(BIN_DIR)/sdk
-	ln -sf $(SRCDS)/bin/vstdlib_i486.so vstdlib_i486.so
-	ln -sf $(SRCDS)/bin/tier0_i486.so tier0_i486.so
+	ln -sf $(HL2LIB)/libvstdlib.so libvstdlib.so
+	ln -sf $(HL2LIB)/libtier0.so libtier0.so
 	$(MAKE) extension
 
 extension: $(OBJ_LINUX)
