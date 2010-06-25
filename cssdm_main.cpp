@@ -91,6 +91,7 @@ bool Deathmatch::SDK_OnLoad(char *error, size_t maxlength, bool late)
 
 	void *addr;
 	int offset;
+	VERIFY_OFFSET("CSWeaponDropPatch");
 	VERIFY_SIGNATURE("UTIL_Remove");
 	VERIFY_SIGNATURE("RoundRespawn");
 	VERIFY_SIGNATURE("CSWeaponDrop");
@@ -98,7 +99,6 @@ bool Deathmatch::SDK_OnLoad(char *error, size_t maxlength, bool late)
 	VERIFY_OFFSET("Weapon_GetSlot");
 	VERIFY_OFFSET("RemoveAllItems");
 	VERIFY_OFFSET("DropWeaponsPatch");
-	VERIFY_OFFSET("CSWeaponDropPatch");
 	VERIFY_OFFSET("GiveAmmo");
 
 	if (!DM_ParseWeapons(error, maxlength))
@@ -123,6 +123,7 @@ bool Deathmatch::SDK_OnMetamodLoad(ISmmAPI *ismm, char *error, size_t maxlen, bo
 	GET_V_IFACE_ANY(GetServerFactory, gameents,IServerGameEnts, INTERFACEVERSION_SERVERGAMEENTS);
 	GET_V_IFACE_ANY(GetServerFactory, botmanager, IBotManager, INTERFACEVERSION_PLAYERBOTMANAGER);
 	GET_V_IFACE_ANY(GetServerFactory, gameclients, IServerGameClients, INTERFACEVERSION_SERVERGAMECLIENTS);
+	GET_V_IFACE_CURRENT(GetEngineFactory, icvar, ICvar, CVAR_INTERFACE_VERSION);
 
 	return true;
 }
