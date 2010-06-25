@@ -120,7 +120,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\sdk;$(SOURCEMOD)\public;$(SOURCEMOD)\public\extensions;$(SOURCEMOD)\public\sourcepawn;$(HL2SDK)\game_shared;$(HL2SDK)\dlls;$(HL2SDK)\public;$(HL2SDK)\public\dlls;$(HL2SDK)\public\engine;$(HL2SDK)\public\tier0;$(HL2SDK)\public\tier1;$(HL2SDK)\public\vstdlib;$(HL2SDK)\tier1;$(SOURCEMM142);$(SOURCEMM142)\sourcemm;$(SOURCEMM142)\sourcehook"
+				AdditionalIncludeDirectories="..\sdk;&quot;$(SOURCEMOD)\public&quot;;&quot;$(SOURCEMOD)\public\extensions&quot;;&quot;$(SOURCEMOD)\public\sourcepawn&quot;;&quot;$(HL2SDKOBVALVE)\game\shared&quot;;&quot;$(HL2SDKOBVALVE)\public\game\server&quot;;&quot;$(HL2SDKOBVALVE)\game\server&quot;;&quot;$(HL2SDKOBVALVE)\public&quot;;&quot;$(HL2SDKOBVALVE)\public\engine&quot;;&quot;$(HL2SDKOBVALVE)\public\tier0&quot;;&quot;$(HL2SDKOBVALVE)\public\tier1&quot;;&quot;$(HL2SDKOBVALVE)\public\vstdlib&quot;;&quot;$(HL2SDKOBVALVE)\tier1&quot;;&quot;$(MMSOURCE18)&quot;;&quot;$(MMSOURCE18)\core&quot;;&quot;$(MMSOURCE18)\core\sourcehook&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;SDK_EXPORTS;_CRT_SECURE_NO_DEPRECATE;SOURCEMOD_BUILD"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -140,7 +140,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(HL2SDK)\lib\public\tier1.lib $(HL2SDK)\lib\public\vstdlib.lib $(HL2SDK)\lib\public\tier0.lib"
+				AdditionalDependencies="$(HL2SDKOBVALVE)\lib\public\tier1.lib $(HL2SDKOBVALVE)\lib\public\vstdlib.lib $(HL2SDKOBVALVE)\lib\public\tier0.lib"
 				OutputFile="$(OutDir)\cssdm.ext.dll"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"

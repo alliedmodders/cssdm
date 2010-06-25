@@ -29,7 +29,7 @@
 			{
 				"windows"		"41"
 				"linux"			"40"
-				"mac"			"31"
+				"mac"			"40"
 			}
 			"TakeDmgPatch1"
 			{
