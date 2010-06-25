@@ -44,5 +44,6 @@ extern IBotManager *botmanager;
 extern bool g_IsRunning;
 extern bool g_IsInGlobalShutdown;
 extern ISourcePawnEngine *spengine;
+extern ICvar *icvar;
 
 #endif //_INCLUDE_CSSDM_HEADERS_H_

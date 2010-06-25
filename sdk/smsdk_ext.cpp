@@ -17,7 +17,7 @@
  */
 
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include "smsdk_ext.h"
 
 /**
@@ -221,11 +221,12 @@ ISmmAPI *g_SMAPI = NULL;					/**< SourceMM API pointer */
 
 IVEngineServer *engine = NULL;				/**< IVEngineServer pointer */
 IServerGameDLL *gamedll = NULL;				/**< IServerGameDLL pointer */
+ICvar *icvar = NULL;
 
 /** Exposes the extension to Metamod */
 SMM_API void *PL_EXPOSURE(const char *name, int *code)
 {
-	if (name && !strcmp(name, PLAPI_NAME))
+	if (name && !strcmp(name, METAMOD_PLAPI_NAME))
 	{
 		if (code)
 		{
@@ -246,8 +247,8 @@ bool SDKExtension::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, 
 {
 	PLUGIN_SAVEVARS();
 
-	GET_V_IFACE_ANY(serverFactory, gamedll, IServerGameDLL, INTERFACEVERSION_SERVERGAMEDLL);
-	GET_V_IFACE_CURRENT(engineFactory, engine, IVEngineServer, INTERFACEVERSION_VENGINESERVER);
+	GET_V_IFACE_ANY(GetServerFactory, gamedll, IServerGameDLL, INTERFACEVERSION_SERVERGAMEDLL);
+	GET_V_IFACE_CURRENT(GetEngineFactory, engine, IVEngineServer, INTERFACEVERSION_VENGINESERVER);
 
 	m_SourceMMLoaded = true;
 

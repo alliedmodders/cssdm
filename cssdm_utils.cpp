@@ -30,7 +30,7 @@
 #include "cssdm_includesdk.h"
 #include <sh_list.h>
 
-#if defined PLATFORM_LINUX
+#if defined PLATFORM_POSIX
 #include <sys/mman.h>
 #define	PAGE_SIZE	4096
 #define ALIGN(ar) ((long)ar & ~(PAGE_SIZE-1))
@@ -301,7 +301,7 @@ bool InitializeUtils(char *error, size_t maxlength)
 {
 	void *addr;
 	int offset;
-	PassInfo pass[4];
+	SourceMod::PassInfo pass[4];
 
 	/** ROUNDRESPAWN */
 	g_pDmConf->GetMemSig("RoundRespawn", &addr);

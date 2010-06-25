@@ -40,7 +40,7 @@
 SH_DECL_HOOK3_void(IServerGameDLL, ServerActivate, SH_NOATTRIB, 0, edict_t *, int, int);
 SH_DECL_HOOK0_void(IServerGameDLL, LevelShutdown, SH_NOATTRIB, 0)
 SH_DECL_HOOK0_void(IServerGameDLL, DLLShutdown, SH_NOATTRIB, false);
-SH_DECL_HOOK1_void(IServerGameClients, ClientCommand, SH_NOATTRIB, false, edict_t *);
+SH_DECL_HOOK2_void(IServerGameClients, ClientCommand, SH_NOATTRIB, false, edict_t *, const CCommand &);
 
 Deathmatch g_DM;
 IGameEventManager2 *gameevents = NULL;
@@ -106,7 +106,7 @@ bool Deathmatch::SDK_OnLoad(char *error, size_t maxlength, bool late)
 		return false;
 	}
 
-	gpGlobals = g_SMAPI->pGlobals();
+	gpGlobals = g_SMAPI->GetCGlobals();
 
 	SM_InitConCommandBase();
 
@@ -117,12 +117,12 @@ bool Deathmatch::SDK_OnLoad(char *error, size_t maxlength, bool late)
 
 bool Deathmatch::SDK_OnMetamodLoad(ISmmAPI *ismm, char *error, size_t maxlen, bool late)
 {
-	GET_V_IFACE_CURRENT(engineFactory, gameevents, IGameEventManager2, INTERFACEVERSION_GAMEEVENTSMANAGER2);
-	GET_V_IFACE_CURRENT(fileSystemFactory, basefilesystem, IBaseFileSystem, BASEFILESYSTEM_INTERFACE_VERSION);
-	GET_V_IFACE_ANY(serverFactory, playerinfomngr, IPlayerInfoManager, INTERFACEVERSION_PLAYERINFOMANAGER);
-	GET_V_IFACE_ANY(serverFactory, gameents,IServerGameEnts, INTERFACEVERSION_SERVERGAMEENTS);
-	GET_V_IFACE_ANY(serverFactory, botmanager, IBotManager, INTERFACEVERSION_PLAYERBOTMANAGER);
-	GET_V_IFACE_ANY(serverFactory, gameclients, IServerGameClients, INTERFACEVERSION_SERVERGAMECLIENTS);
+	GET_V_IFACE_CURRENT(GetEngineFactory, gameevents, IGameEventManager2, INTERFACEVERSION_GAMEEVENTSMANAGER2);
+	GET_V_IFACE_CURRENT(GetFileSystemFactory, basefilesystem, IBaseFileSystem, BASEFILESYSTEM_INTERFACE_VERSION);
+	GET_V_IFACE_ANY(GetServerFactory, playerinfomngr, IPlayerInfoManager, INTERFACEVERSION_PLAYERINFOMANAGER);
+	GET_V_IFACE_ANY(GetServerFactory, gameents,IServerGameEnts, INTERFACEVERSION_SERVERGAMEENTS);
+	GET_V_IFACE_ANY(GetServerFactory, botmanager, IBotManager, INTERFACEVERSION_PLAYERBOTMANAGER);
+	GET_V_IFACE_ANY(GetServerFactory, gameclients, IServerGameClients, INTERFACEVERSION_SERVERGAMECLIENTS);
 
 	return true;
 }

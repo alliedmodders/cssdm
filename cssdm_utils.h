@@ -29,7 +29,7 @@
 
 #include "smsdk_ext.h"
 
-#if defined PLATFORM_LINUX
+#if defined PLATFORM_POSIX
 #define EXTRA_VTBL_OFFSET	1
 #elif defined PLATFORM_WINDOWS
 #define EXTRA_VTBL_OFFSET	0

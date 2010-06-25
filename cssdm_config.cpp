@@ -29,10 +29,11 @@
 #include "cssdm_ctrl.h"
 #include "cssdm_ffa.h"
 #include "cssdm_callbacks.h"
+#include "cssdm_headers.h"
 
-void ChangeStatus(ConVar *cvar, const char *value);
-void ChangeFFAStatus(ConVar *cvar, const char *value);
-void ChangeSpawnStatus(ConVar *cvar, const char *value);
+static void ChangeStatus(IConVar *cvar, const char *value, float flOldValue);
+static void ChangeFFAStatus(IConVar *cvar, const char *value, float flOldValue);
+static void ChangeSpawnStatus(IConVar *cvar, const char *value, float flOldValue);
 
 ConVar cssdm_ragdoll_time("cssdm_ragdoll_time", "2", 0, "Sets ragdoll stay time", true, 0.0, true, 20.0);
 ConVar cssdm_respawn_wait("cssdm_respawn_wait", "0.75", 0, "Sets respawn wait time");
@@ -69,10 +70,11 @@ public:
 
 void SM_InitConCommandBase()
 {
-	ConCommandBaseMgr::OneTimeInit(&s_LinkConVars);
+	g_pCVar = icvar;
+	ConVar_Register(0, &s_LinkConVars);
 }
 
-void ChangeStatus(ConVar *cvar, const char *value)
+static void ChangeStatus(IConVar *cvar, const char *value, float flOldValue)
 {
 	if (cssdm_enabled.GetInt())
 	{
@@ -82,7 +84,7 @@ void ChangeStatus(ConVar *cvar, const char *value)
 	}
 }
 
-void ChangeFFAStatus(ConVar *cvar, const char *value)
+static void ChangeFFAStatus(IConVar *cvar, const char *value, float flOldValue)
 {
 	if (cssdm_ffa_enabled.GetInt() && !DM_FFA_IsPatched() && DM_FFA_IsPrepared())
 	{
@@ -92,7 +94,7 @@ void ChangeFFAStatus(ConVar *cvar, const char *value)
 	}
 }
 
-void ChangeSpawnStatus(ConVar *cvar, const char *value)
+static void ChangeSpawnStatus(IConVar *cvar, const char *value, float flOldValue)
 {
 	if (strcmp(value, cssdm_spawn_method.GetString()) == 0)
 	{

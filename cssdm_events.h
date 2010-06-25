@@ -47,8 +47,10 @@ DECLARE_EVENT(round_start);
 DECLARE_EVENT(round_end);
 DECLARE_EVENT(item_pickup);
 
+class CCommand;
+
 void DM_ClearRagdollTimers();
-void OnClientCommand_Post(edict_t *edict);
+void OnClientCommand_Post(edict_t *edict, const CCommand &args);
 void OnClientDropWeapons(CBaseEntity *pEntity);
 void OnClientDroppedWeapon(CBaseEntity *pEntity, CBaseEntity *pWeapon);
 

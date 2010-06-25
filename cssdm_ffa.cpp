@@ -35,6 +35,8 @@ SH_DECL_MANUALHOOK2(CGameRules_IPointsForKill, 62+EXTRA_VTBL_OFFSET, 0, 0, int, 
 #define PLATFORM_NAME	"Windows"
 #elif defined PLATFORM_LINUX
 #define PLATFORM_NAME	"Linux"
+#elif defined __APPLE__
+#define PLATFORM_NAME	"Mac"
 #endif
 
 bool g_FFA_Patched = false;
@@ -43,16 +45,22 @@ bool g_FFA_Prepared = false;
 void **g_gamerules_addr = NULL;
 
 /* Lagcomp */
-int g_lagcomp_offset = 0;
-void *g_lagcomp_addr = NULL;
-dmpatch_t g_lagcomp_patch;
-dmpatch_t g_lagcomp_restore;
+static int g_lagcomp_offset = 0;
+static void *g_lagcomp_addr = NULL;
+static dmpatch_t g_lagcomp_patch;
+static dmpatch_t g_lagcomp_restore;
 
 /* Takedamage */
-int g_takedmg_offset[5] = {0};
-void *g_takedmg_addr = NULL;
-dmpatch_t g_takedmg_patch[2];
-dmpatch_t g_takedmg_restore[2];
+static int g_takedmg_offset[5] = {0};
+static void *g_takedmg_addr = NULL;
+static dmpatch_t g_takedmg_patch[2];
+static dmpatch_t g_takedmg_restore[2];
+
+/* Calc domination and revenge */
+static int g_domrev_offset = 0;
+static void *g_domrev_addr = NULL;
+static dmpatch_t g_domrev_patch;
+static dmpatch_t g_domrev_restore;
 
 int OnIPointsForKill(CBasePlayer *pl1, CBasePlayer *pl2)
 {
@@ -95,6 +103,11 @@ bool DM_Prepare_FFA(char *error, size_t maxlength)
 		snprintf(error, maxlength, "Could not find \"WantsLagComp\" signature!");
 		return false;
 	}
+	if (!g_pDmConf->GetMemSig("CalcDominationAndRevenge", &g_domrev_addr) || !g_domrev_addr)
+	{
+		snprintf(error, maxlength, "Could not find \"CalcDominationAndRevenge\" signature!");
+		return false;
+	}
 	if (!g_pDmConf->GetMemSig("CGameRules", &gamerules) || !gamerules)
 	{
 		snprintf(error, maxlength, "Could not find \"CGameRules\" signature!");
@@ -108,6 +121,17 @@ bool DM_Prepare_FFA(char *error, size_t maxlength)
 		return false;
 	}
 	if (!DM_FFA_LoadPatch("LagCompPatch", &g_lagcomp_patch, error, maxlength))
+	{
+		return false;
+	}
+
+	if (!g_pDmConf->GetOffset("CalcDomRevPatch", &g_domrev_offset)
+		|| !g_domrev_offset)
+	{
+		snprintf(error, maxlength, "Could not find CalcDomRevPatch offset");
+		return false;
+	}
+	if (!DM_FFA_LoadPatch("CalcDomRevPatch", &g_domrev_patch, error, maxlength))
 	{
 		return false;
 	}
@@ -168,6 +192,7 @@ bool DM_Patch_FFA()
 	DM_ApplyPatch(g_lagcomp_addr, g_lagcomp_offset, &g_lagcomp_patch, &g_lagcomp_restore);
 	DM_ApplyPatch(g_takedmg_addr, g_takedmg_offset[0], &g_takedmg_patch[0], &g_takedmg_restore[0]);
 	DM_ApplyPatch(g_takedmg_addr, g_takedmg_offset[1], &g_takedmg_patch[1], &g_takedmg_restore[1]);
+	DM_ApplyPatch(g_domrev_addr, g_domrev_offset, &g_domrev_patch, &g_domrev_restore);
 
 	SH_ADD_MANUALHOOK_STATICFUNC(CGameRules_IPointsForKill, *g_gamerules_addr, OnIPointsForKill, false);
 
@@ -191,6 +216,7 @@ bool DM_Unpatch_FFA()
 	DM_ApplyPatch(g_lagcomp_addr, g_lagcomp_offset, &g_lagcomp_restore, NULL);
 	DM_ApplyPatch(g_takedmg_addr, g_takedmg_offset[0], &g_takedmg_restore[0], NULL);
 	DM_ApplyPatch(g_takedmg_addr, g_takedmg_offset[1], &g_takedmg_restore[1], NULL);
+	DM_ApplyPatch(g_domrev_addr, g_domrev_offset, &g_domrev_restore, NULL);
 
 	g_FFA_Patched = false;
 

@@ -135,21 +135,21 @@ bool DM_Enable()
 
 CON_COMMAND(cssdm, "CS:S DM console menu")
 {
-	int args = engine->Cmd_Argc();
-	if (args < 2)
+	int argc = args.ArgC();
+	if (argc < 2)
 	{
 		/* :TODO: display menu */
 		return;
 	}
 
-	const char *arg = engine->Cmd_Argv(1);
+	const char *arg = args.Arg(1);
 	if (strcmp(arg, "internal") == 0)
 	{
-		if (args < 3)
+		if (argc < 3)
 		{
 			return;
 		}
-		int num = atoi(engine->Cmd_Argv(2));
+		int num = atoi(args.Arg(2));
 		if (num == 1)
 		{
 			DM_StartEverything();

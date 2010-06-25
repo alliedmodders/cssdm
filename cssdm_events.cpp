@@ -147,14 +147,14 @@ void DM_SchedRespawn(int client)
 	player->respawn_timer = timersys->CreateTimer(&s_PlayerSpawner, DM_GetRespawnWait(), pack, 0);
 }
 
-void OnClientCommand_Post(edict_t *edict)
+void OnClientCommand_Post(edict_t *edict, const CCommand &args)
 {
 	if (!g_IsRunning)
 	{
 		return;
 	}
 
-	const char *cmd = engine->Cmd_Argv(0);
+	const char *cmd = args.Arg(0);
 
 	if (strcmp(cmd, "joinclass") == 0)
 	{
