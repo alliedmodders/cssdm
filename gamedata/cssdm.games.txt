@@ -12,11 +12,11 @@
 			
 			"TakeDmgPatch1_Windows"		"\xEB"
 			"TakeDmgPatch1_Linux"		"\x90\x90\x90\x90\x90\x90"
-			"TakeDmgPatch1_Mac"		"\x90\x90\x90\x90\x90\x90"
+			"TakeDmgPatch1_Mac"		"\x90\x90\x90"
 			
 			"TakeDmgPatch2_Windows"		"\x90\xE9"
 			"TakeDmgPatch2_Linux"		"\x90\x90\x90\x90\x90\x90"
-			"TakeDmgPatch2_Mac"		"\x90\x90\x90\x90\x90\x90"
+			"TakeDmgPatch2_Mac"		"\x90\x90\x90"
 			
 			"CalcDomRevPatch_Windows"	"\x90\x90\x90\x90\x90\x90"
 			"CalcDomRevPatch_Linux"		"\x90\x90\x90\x90\x90\x90"
@@ -29,7 +29,7 @@
 			{
 				"windows"		"41"
 				"linux"			"40"
-				"mac"			"40"
+				"mac"			"31"
 			}
 			"TakeDmgPatch1"
 			{
@@ -80,11 +80,13 @@
 			{
 				"windows"		"7"
 				"linux"			"6"
+				"mac"			"6"
 			}
 			"CSWeaponDropPatch"
 			{
 				"windows"		"6"
 				"linux"			"6"
+				"mac"			"6"
 			}
 			"CalcDomRevPatch"
 			{
