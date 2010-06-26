@@ -38,16 +38,16 @@ static void ChangeSpawnStatus(IConVar *cvar, const char *value, float flOldValue
 ConVar cssdm_ragdoll_time("cssdm_ragdoll_time", "2", 0, "Sets ragdoll stay time", true, 0.0, true, 20.0);
 ConVar cssdm_respawn_wait("cssdm_respawn_wait", "0.75", 0, "Sets respawn wait time");
 ConVar cssdm_allow_c4("cssdm_allow_c4", "0", 0, "Sets whether C4 is allowed");
-ConVar cssdm_version("cssdm_version", SMEXT_CONF_VERSION, FCVAR_SPONLY|FCVAR_REPLICATED|FCVAR_NOTIFY, "CS:S DM Version");
+ConVar cssdm_version("cssdm_version", SMEXT_CONF_VERSION, FCVAR_REPLICATED|FCVAR_NOTIFY, "CS:S DM Version");
 ConVar cssdm_enabled("cssdm_enabled", 
 					 "1", 
-					 FCVAR_SPONLY|FCVAR_REPLICATED|FCVAR_NOTIFY, 
+					 FCVAR_REPLICATED|FCVAR_NOTIFY, 
 					 "Sets whether CS:S DM is enabled",
 					 false, 0.0f, false, 0.0f,
 					 ChangeStatus);
 ConVar cssdm_ffa_enabled("cssdm_ffa_enabled", 
 						 "0", 
-						 FCVAR_SPONLY|FCVAR_REPLICATED|FCVAR_NOTIFY, 
+						 FCVAR_REPLICATED|FCVAR_NOTIFY, 
 						 "Sets whether Free-For-All mode is enabled",
 						 false, 0.0f, false, 0.0f,
 						 ChangeFFAStatus);

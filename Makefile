@@ -11,9 +11,6 @@ HL2SDK = ../hl2sdk-ob-valve
 
 PROJECT = cssdm
 
-#Uncomment for SourceMM-enabled extensions
-LINK_HL2 = $(HL2LIB)/tier1_i486.a libvstdlib.so libtier0.so
-
 OBJECTS = sdk/smsdk_ext.cpp cssdm_weapons.cpp cssdm_utils.cpp cssdm_players.cpp \
 	cssdm_main.cpp cssdm_ffa.cpp cssdm_events.cpp cssdm_detours.cpp cssdm_ctrl.cpp \
 	cssdm_config.cpp cssdm_callbacks.cpp 
@@ -25,22 +22,35 @@ OBJECTS = sdk/smsdk_ext.cpp cssdm_weapons.cpp cssdm_utils.cpp cssdm_players.cpp 
 C_OPT_FLAGS = -O3 -funroll-loops -s -pipe -fno-strict-aliasing
 C_DEBUG_FLAGS = -g -ggdb3
 CPP_GCC4_FLAGS = -fvisibility=hidden -fvisibility-inlines-hidden
-CPP = gcc-4.1
+CPP = gcc
+
+OS := $(shell uname -s)
+ifeq "$(OS)" "Darwin"
+	LIB_EXT = dylib
+	HL2LIB = $(HL2SDK)/lib/mac
+	CFLAGS += -isysroot /Developer/SDKs/MacOSX10.5.sdk
+	LINK = -dynamiclib -lstdc++ -mmacosx-version-min=10.5
+else
+	LIB_EXT = so
+	CFLAGS += -D_LINUX
+	LINK = -shared
+	HL2LIB = $(HL2SDK)/lib/linux
+endif
 
 HL2PUB = $(HL2SDK)/public
-HL2LIB = $(HL2SDK)/lib/linux
 
-LINK = $(LINK_HL2) -static-libgcc
+LINK_HL2 = $(HL2LIB)/tier1_i486.a libvstdlib.$(LIB_EXT) libtier0.$(LIB_EXT)
+LINK += $(LINK_HL2) -static-libgcc
 
 INCLUDE = -I. -I.. -Isdk -I$(HL2PUB) -I$(HL2PUB)/game/server -I$(HL2PUB)/engine -I$(HL2PUB)/tier0 \
 	-I$(HL2PUB)/tier1 -I$(HL2PUB)/vstdlib -I$(HL2SDK)/tier1 -I$(SOURCEMM)/core \
 	-I$(SOURCEMM)/core/sourcehook -I$(SMSDK)/public -I$(SMSDK)/public/sourcepawn -I$(SMSDK)/public/extensions \
 	-I$(HL2SDK)/game/server -I$(HL2SDK)/game/shared
 
-CFLAGS = -D_LINUX -DNDEBUG -Dstricmp=strcasecmp -D_stricmp=strcasecmp -D_strnicmp=strncasecmp \
-		 -Dstrnicmp=strncasecmp -D_snprintf=snprintf -D_vsnprintf=vsnprintf -D_alloca=alloca \
-		 -Dstrcmpi=strcasecmp -Wall -Werror -Wno-switch -Wno-unused -Wno-invalid-offsetof -fPIC \
-		 -msse -DSOURCEMOD_BUILD -DHAVE_STDINT_H -Wno-uninitialized -m32
+CFLAGS = -DNDEBUG -Dstricmp=strcasecmp -D_stricmp=strcasecmp -D_strnicmp=strncasecmp \
+	 -Dstrnicmp=strncasecmp -D_snprintf=snprintf -D_vsnprintf=vsnprintf -D_alloca=alloca \
+	 -Dstrcmpi=strcasecmp -Wall -Werror -Wno-switch -Wno-unused -Wno-invalid-offsetof -fPIC \
+	 -msse -DSOURCEMOD_BUILD -DHAVE_STDINT_H -Wno-uninitialized -m32
 CPPFLAGS = -Wno-non-virtual-dtor -fno-exceptions -fno-rtti
 
 ################################################
@@ -61,7 +71,7 @@ ifeq "$(GCC_VERSION)" "4"
 	CPPFLAGS += $(CPP_GCC4_FLAGS)
 endif
 
-BINARY = $(PROJECT).ext.so
+BINARY = $(PROJECT).ext.$(LIB_EXT)
 
 OBJ_LINUX := $(OBJECTS:%.cpp=$(BIN_DIR)/%.o)
 
@@ -70,12 +80,12 @@ $(BIN_DIR)/%.o: %.cpp
 
 all:
 	mkdir -p $(BIN_DIR)/sdk
-	ln -sf $(HL2LIB)/libvstdlib.so libvstdlib.so
-	ln -sf $(HL2LIB)/libtier0.so libtier0.so
+	ln -sf $(HL2LIB)/libvstdlib.$(LIB_EXT) libvstdlib.$(LIB_EXT)
+	ln -sf $(HL2LIB)/libtier0.$(LIB_EXT) libtier0.$(LIB_EXT)
 	$(MAKE) extension
 
 extension: $(OBJ_LINUX)
-	$(CPP) $(INCLUDE) $(CFLAGS) $(CPPFLAGS) $(OBJ_LINUX) $(LINK) -shared -ldl -lm -o$(BIN_DIR)/$(BINARY)
+	$(CPP) $(INCLUDE) $(CFLAGS) $(CPPFLAGS) $(OBJ_LINUX) $(LINK) -shared -ldl -lm -o $(BIN_DIR)/$(BINARY)
 
 debug:	
 	$(MAKE) all DEBUG=true

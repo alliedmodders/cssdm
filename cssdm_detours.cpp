@@ -77,7 +77,7 @@ void InitDropWeaponsDetour()
 	 *
 	 * void OnClientDropWeapons(CBaseEntity *pEntity);
 	 */
-#if defined PLATFORM_LINUX
+#if defined PLATFORM_POSIX
 	IA32_Push_Rm_Disp8_ESP(jit, 4);					//push [esp+4]
 #elif defined PLATFORM_WINDOWS
 	IA32_Push_Reg(jit, REG_ECX);					//push ecx
@@ -85,7 +85,7 @@ void InitDropWeaponsDetour()
 	//call <function>
 	jitoffs_t call = IA32_Call_Imm32(jit, 0);		//call <function>
 	IA32_Write_Jump32_Abs(jit, call, (void *)OnClientDropWeapons);
-#if defined PLATFORM_LINUX
+#if defined PLATFORM_POSIX
 	IA32_Add_Rm_Imm8(jit, REG_ESP, 4, MOD_REG);		//add esp, 4
 #elif defined PLATFORM_WINDOWS
 	IA32_Pop_Reg(jit, REG_ECX);
@@ -126,7 +126,7 @@ void InitCSDropDetour()
 	IA32_Mov_Reg_Rm(jit, REG_EBP, REG_ESP, MOD_REG);
 
 	/* Re-push everything, but setup our next call beforehand. */
-#if defined PLATFORM_LINUX
+#if defined PLATFORM_POSIX
 	IA32_Push_Rm_Disp8(jit, REG_EBP, 12);
 	IA32_Push_Rm_Disp8(jit, REG_EBP, 8);
 	/* Linux pushes four things, it seems */
@@ -146,7 +146,7 @@ void InitCSDropDetour()
 	/* Make the ORIGINAL call */
 	jitoffs_t orig_call = IA32_Call_Imm32(jit, 0);
 
-#if defined PLATFORM_LINUX
+#if defined PLATFORM_POSIX
 	IA32_Add_Rm_Imm8(jit, REG_ESP, 16, MOD_REG);
 #endif
 
@@ -157,7 +157,7 @@ void InitCSDropDetour()
 	IA32_Write_Jump32_Abs(jit, call, (void *)OnClientDroppedWeapon);
 
 	/* Do cleanup */
-#if defined PLATFORM_LINUX
+#if defined PLATFORM_POSIX
 	IA32_Add_Rm_Imm8(jit, REG_ESP, 8, MOD_REG);
 #elif defined PLATFORM_WINDOWS
 	//this probably isn't needed at all!
@@ -169,7 +169,7 @@ void InitCSDropDetour()
 	//pop ebp
 	//ret / retn 12
 	IA32_Pop_Reg(jit, REG_EBP);
-#if defined PLATFORM_LINUX
+#if defined PLATFORM_POSIX
 	IA32_Return(jit);
 #elif defined PLATFORM_WINDOWS
 	IA32_Return_Popstack(jit, 0xC);
