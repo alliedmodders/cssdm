@@ -33,7 +33,7 @@
 			}
 			"TakeDmgPatch1"
 			{
-				"windows"		"942"
+				"windows"		"865"
 				"linux"			"1900"
 				"mac"			"2067"
 			}
