@@ -10,7 +10,7 @@
  * may change at any time.  To view the latest information, see:
  *   http://www.sourcemod.net/license.php
  *
- * Version: $Id$
+ * Version: $Id: cssdm.inc 416 2007-07-25 04:38:40Z dvander $
  */
 
 #if defined _cssdm_included
@@ -18,7 +18,7 @@
 #endif
 #define _cssdm_included
 
-#define CSSDM_VERSION		"2.1.0.446"
+#define CSSDM_VERSION		"2.1.2"
 
 #define CSSDM_MAX_WEAPONS		32
 
