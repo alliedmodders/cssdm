@@ -50,6 +50,7 @@ public:
 	virtual bool QueryRunning(char *error, size_t maxlength);
 	bool QueryInterfaceDrop(SMInterface *pInterface);
 	void NotifyInterfaceDrop(SMInterface *pInterface);
+	const char *GetExtensionVerString();
 public:
 	virtual bool SDK_OnMetamodLoad(ISmmAPI *ismm, char *error, size_t maxlength, bool late);
 	//virtual bool SDK_OnMetamodUnload(char *error, size_t maxlength);
