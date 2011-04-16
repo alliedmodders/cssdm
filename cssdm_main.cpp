@@ -36,6 +36,7 @@
 #include "cssdm_callbacks.h"
 #include "cssdm_weapons.h"
 #include "cssdm_detours.h"
+#include "cssdm_version.h"
 
 SH_DECL_HOOK3_void(IServerGameDLL, ServerActivate, SH_NOATTRIB, 0, edict_t *, int, int);
 SH_DECL_HOOK0_void(IServerGameDLL, LevelShutdown, SH_NOATTRIB, 0)
@@ -264,3 +265,9 @@ void Deathmatch::NotifyInterfaceDrop(SMInterface *pInterface)
 		bintools = NULL;
 	}
 }
+
+const char *Deathmatch::GetExtensionVerString()
+{
+	return CSSDM_FULL_VERSION;
+}
+

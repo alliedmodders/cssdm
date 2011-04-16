@@ -44,12 +44,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "CS:S DM"
             VALUE "FileDescription", "CS:S DM"
-            VALUE "FileVersion", "2.1.2"
+            VALUE "FileVersion", CSSDM_FULL_VERSION
             VALUE "InternalName", "cssdm"
             VALUE "LegalCopyright", "Copyright (c) 2004-2010, AlliedModders LLC and David 'BAILOPAN' Anderson"
             VALUE "OriginalFilename", "cssdm.ext.dll"
             VALUE "ProductName", "CS:S DM"
-            VALUE "ProductVersion", "2.1.2"
+            VALUE "ProductVersion", CSSDM_FULL_VERSION
         END
     END
     BLOCK "VarFileInfo"

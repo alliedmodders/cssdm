@@ -139,7 +139,7 @@ bool DM_IsPlayerAlive(int client)
 
 bool DM_CheckSerial(edict_t *pEdict, int serial)
 {
-	int new_serial = (serial & (1 << NUM_NETWORKED_EHANDLE_SERIAL_NUMBER_BITS) - 1);
+	int new_serial = (serial & ((1 << NUM_NETWORKED_EHANDLE_SERIAL_NUMBER_BITS) - 1));
 	return (pEdict->m_NetworkSerialNumber == new_serial);
 }
 
