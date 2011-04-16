@@ -9,7 +9,7 @@ class CSSDM:
 
 		#Build SDK info
 		self.sdkInfo = { }
-		self.sdkInfo['ep2v'] =  {'sdk': 'HL2SDKOBVALVE',   'ext': '16.ep2v',  'def': '5',
+		self.sdkInfo['ep2v'] =  {'sdk': 'HL2SDKOBVALVE',   'ext': '',  'def': '5',
 		                         'name': 'ORANGEBOXVALVE', 'platform': ['windows', 'linux', 'darwin']}
 
 		if AMBuild.mode == 'config':
@@ -314,7 +314,9 @@ globals = {
 AMBuild.Include(os.path.join('buildbot', 'Versioning'), globals)
 
 FileList = [
-		['AMBuilder'],
+		['ExtensionBuilder'],
+		['PluginBuilder'],
+		['PackageScript']
 	]
 
 for parts in FileList:

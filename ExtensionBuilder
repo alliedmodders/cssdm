@@ -6,7 +6,7 @@ sdk = CSSDM.sdkInfo['ep2v']
 compiler = CSSDM.DefaultHL2Compiler('.', 'ep2v')
 compiler['CXXINCLUDES'].append(os.path.join(AMBuild.sourceFolder, 'sdk'))
 
-name = 'cssdm.ext.' + sdk['ext']
+name = 'cssdm.ext' + sdk['ext']
 extension = AMBuild.AddJob(name)
 binary = Cpp.LibraryBuilder(name, AMBuild, extension, compiler)
 CSSDM.PreSetupHL2Job(extension, binary, 'ep2v')
