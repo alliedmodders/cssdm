@@ -21,6 +21,7 @@ binary.AddSourceFiles('.', [
 	'cssdm_players.cpp',
 	'cssdm_utils.cpp',
 	'cssdm_weapons.cpp',
+	'sdk/smsdk_ext.cpp'
 	])
 CSSDM.PostSetupHL2Job(extension, binary, 'ep2v')
 CSSDM.AutoVersion('.', binary)
