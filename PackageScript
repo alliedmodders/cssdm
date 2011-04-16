@@ -67,34 +67,48 @@ class CopyFile(Command):
 		shutil.copy(self.fromFile, self.toPath)
 
 
-folders = [['addons', 'metamod'],
-				   ['addons', 'stripper'],
-					 ['addons', 'stripper', 'bin'],
-					 ['addons', 'stripper', 'dumps'],
-					 ['addons', 'stripper', 'maps']]
+folders = [['addons', 'cfg'],
+					 ['addons', 'cfg', 'cssdm'],
+					 ['addons', 'cfg', 'cssdm', 'extra'],
+					 ['addons', 'cfg', 'cssdm', 'maps'],
+					 ['addons', 'cfg', 'cssdm', 'spawns'],
+				   ['addons', 'sourcemod'],
+					 ['addons', 'sourcemod', 'extensions'],
+					 ['addons', 'sourcemod', 'gamedata'],
+					 ['addons', 'sourcemod', 'plugins'],
+					 ['addons', 'sourcemod', 'plugins', 'cssdm'],
+					 ['addons', 'sourcemod', 'scripting'],
+					 ['addons', 'sourcemod', 'scripting', 'include'],
+					 ['addons', 'sourcemod', 'translations']]
 
 #Setup
 job.AddCommand(DestroyPath(os.path.join(AMBuild.outputFolder, 'package')))
 job.AddCommand(CreateFolders(folders))
 
-#Copiy Files
-job.AddCommand(CopyFile(os.path.join(AMBuild.sourceFolder, 'de_dust.cfg'),
-                        os.path.join('addons', 'stripper', 'maps')))
-job.AddCommand(CopyFile(os.path.join(AMBuild.sourceFolder, 'global_filters.cfg'),
-                        os.path.join('addons', 'stripper')))
-job.AddCommand(CopyFile(os.path.join(AMBuild.sourceFolder, 'stripper.vdf'),
-                        os.path.join('addons', 'metamod')))
+#Copy Files
+job.AddCommand(CopyFolder(['gamedata'], ['addons', 'sourcemod', 'gamedata']))
+job.AddCommand(CopyFolder(['scripting'], ['addons', 'sourcemod', 'scripting']))
+job.AddCommand(CopyFolder(['scripting', 'include'], ['addons', 'sourcemod', 'scripting', 'include']))
+job.AddCommand(CopyFolder(['translations'], ['addons', 'sourcemod', 'translations']))
+job.AddCommand(CopyFolder(['cfg'], ['addons', 'cfg', 'cssdm']))
+job.AddCommand(CopyFolder(['cfg', 'spawns'], ['addons', 'cfg', 'cssdm', 'spawns']))
+job.AddCommand(CopyFile(os.path.join(AMBuild.sourceFolder, 'license.txt'),
+												os.path.join('addons', 'cfg', 'extra')))
+job.AddCommand(CopyFile(os.path.join(AMBuild.sourceFolder, 'changelog.txt'),
+												os.path.join('addons', 'cfg', 'extra')))
+job.AddCommand(CopyFile(os.path.join(AMBuild.sourceFolder, 'credits.txt'),
+												os.path.join('addons', 'cfg', 'extra')))
 
 bincopies = []
 
 def AddNormalLibrary(name, dest):
-	dest = os.path.join('addons', 'stripper', dest)
+	dest = os.path.join('addons', 'sourcemod', dest)
 	bincopies.append(CopyFile(os.path.join('..', name, name + osutil.SharedLibSuffix()), dest))
 	pdb_list.append(name + '\\' + name + '.pdb')
 
 def AddHL2Library(name, dest):
-	for i in Stripper.sdkInfo:
-		sdk = Stripper.sdkInfo[i]
+	for i in CSSDM.sdkInfo:
+		sdk = CSSDM.sdkInfo[i]
 		if AMBuild.target['platform'] not in sdk['platform']:
 			continue
 		AddNormalLibrary(name + '.' + sdk['ext'], dest)
@@ -102,12 +116,7 @@ def AddHL2Library(name, dest):
 pdb_list = []
 
 # Copy loader binaries
-if AMBuild.target['platform'] == 'linux':
-	AddNormalLibrary('stripper_mm_i486', 'bin')
-else:
-	AddNormalLibrary('stripper_mm', 'bin')
-AddNormalLibrary('stripper.core', 'bin')
-AddHL2Library('stripper', 'bin')
+AddNormalLibrary('cssdm.ext', 'extensions')
 
 job.AddCommandGroup(bincopies)
 
@@ -117,4 +126,18 @@ if AMBuild.target['platform'] == 'windows':
 		pdblog.write(pdb + '\n')
 	pdblog.close()
 
+# Copy plugins
+plugins = [
+		'dm_basics',
+		'dm_bot_quotas',
+		'dm_equipment',
+		'dm_preset_spawns',
+		'dm_spawn_protection'
+]
+
+commands = []
+for plugin in plugins:
+	commands.append(CopyFile(os.path.join('..', 'plugins', plugin + '.smx'),
+													 os.path.join('addons', 'sourcemod', 'plugins', 'cssdm')))
+job.AddCommandGroup(commands)
 
