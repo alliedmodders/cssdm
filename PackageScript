@@ -67,11 +67,11 @@ class CopyFile(Command):
 		shutil.copy(self.fromFile, self.toPath)
 
 
-folders = [['addons', 'cfg'],
-					 ['addons', 'cfg', 'cssdm'],
-					 ['addons', 'cfg', 'cssdm', 'extra'],
-					 ['addons', 'cfg', 'cssdm', 'maps'],
-					 ['addons', 'cfg', 'cssdm', 'spawns'],
+folders = ['cfg'],
+					 ['cfg', 'cssdm'],
+					 ['cfg', 'cssdm', 'extra'],
+					 ['cfg', 'cssdm', 'maps'],
+					 ['cfg', 'cssdm', 'spawns'],
 				   ['addons', 'sourcemod'],
 					 ['addons', 'sourcemod', 'extensions'],
 					 ['addons', 'sourcemod', 'gamedata'],
@@ -90,14 +90,14 @@ job.AddCommand(CopyFolder(['gamedata'], ['addons', 'sourcemod', 'gamedata']))
 job.AddCommand(CopyFolder(['scripting'], ['addons', 'sourcemod', 'scripting']))
 job.AddCommand(CopyFolder(['scripting', 'include'], ['addons', 'sourcemod', 'scripting', 'include']))
 job.AddCommand(CopyFolder(['translations'], ['addons', 'sourcemod', 'translations']))
-job.AddCommand(CopyFolder(['cfg'], ['addons', 'cfg', 'cssdm']))
-job.AddCommand(CopyFolder(['cfg', 'spawns'], ['addons', 'cfg', 'cssdm', 'spawns']))
+job.AddCommand(CopyFolder(['cfg'], ['cfg', 'cssdm']))
+job.AddCommand(CopyFolder(['cfg', 'spawns'], ['cfg', 'cssdm', 'spawns']))
 job.AddCommand(CopyFile(os.path.join(AMBuild.sourceFolder, 'license.txt'),
-												os.path.join('addons', 'cfg', 'extra')))
+												os.path.join('cfg', 'extra')))
 job.AddCommand(CopyFile(os.path.join(AMBuild.sourceFolder, 'changelog.txt'),
-												os.path.join('addons', 'cfg', 'extra')))
+												os.path.join('cfg', 'extra')))
 job.AddCommand(CopyFile(os.path.join(AMBuild.sourceFolder, 'credits.txt'),
-												os.path.join('addons', 'cfg', 'extra')))
+												os.path.join('cfg', 'extra')))
 
 bincopies = []
 
