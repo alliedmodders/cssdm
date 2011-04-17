@@ -34,14 +34,14 @@
 			"TakeDmgPatch1"
 			{
 				"windows"		"865"
-				"linux"			"2151"
-				"mac"			"2067"
+				"linux"			"2152"
+				"mac"			"2017"
 			}
 			"TakeDmgPatch2"
 			{
 				"windows"		"484"
 				"linux"			"681"
-				"mac"			"730"
+				"mac"			"694"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
@@ -92,7 +92,7 @@
 			{
 				"windows"		"63"
 				"linux"			"93"
-				"mac"			"97"
+				"mac"			"91"
 			}
 		}
 		"Signatures"
