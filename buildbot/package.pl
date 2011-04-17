@@ -54,14 +54,14 @@ $filename = 'cssdm-' . $version;
 if ($^O eq "linux")
 {
     $filename .= '.tar.gz';
-    print "tar zcvf $filename addons\n";
-    system("tar zcvf $filename addons");
+    print "tar zcvf $filename addons cfg\n";
+    system("tar zcvf $filename addons cfg");
 }
 else
 {
     $filename .= '.zip';
-    print "zip -r $filename addons\n";
-    system("zip -r $filename addons");
+    print "zip -r $filename addons cfg\n";
+    system("zip -r $filename addons cfg");
 }
 
 my ($major,$minor) = ($version =~ /^(\d+)\.(\d+)/);

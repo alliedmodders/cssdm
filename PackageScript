@@ -93,11 +93,11 @@ job.AddCommand(CopyFolder(['translations'], ['addons', 'sourcemod', 'translation
 job.AddCommand(CopyFolder(['cfg'], ['cfg', 'cssdm']))
 job.AddCommand(CopyFolder(['cfg', 'spawns'], ['cfg', 'cssdm', 'spawns']))
 job.AddCommand(CopyFile(os.path.join(AMBuild.sourceFolder, 'license.txt'),
-												os.path.join('cfg', 'extra')))
+												os.path.join('cfg', 'cssdm', 'extra')))
 job.AddCommand(CopyFile(os.path.join(AMBuild.sourceFolder, 'changelog.txt'),
-												os.path.join('cfg', 'extra')))
+												os.path.join('cfg', 'cssdm', 'extra')))
 job.AddCommand(CopyFile(os.path.join(AMBuild.sourceFolder, 'credits.txt'),
-												os.path.join('cfg', 'extra')))
+												os.path.join('cfg', 'cssdm', 'extra')))
 
 bincopies = []
 
