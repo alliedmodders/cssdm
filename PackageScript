@@ -67,7 +67,7 @@ class CopyFile(Command):
 		shutil.copy(self.fromFile, self.toPath)
 
 
-folders = ['cfg'],
+folders = [['cfg'],
 					 ['cfg', 'cssdm'],
 					 ['cfg', 'cssdm', 'extra'],
 					 ['cfg', 'cssdm', 'maps'],
