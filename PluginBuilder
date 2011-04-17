@@ -1,0 +1,27 @@
+# vim: set ts=2 sw=2 tw=99 noet ft=python: 
+import os
+import os.path
+import ambuild.osutil as osutil
+import ambuild.command as command
+
+files = [
+		'dm_basics.sp',
+		'dm_bot_quotas.sp',
+		'dm_equipment.sp',
+		'dm_preset_spawns.sp',
+		'dm_spawn_protection.sp'
+]
+
+plugins = AMBuild.AddJob('plugins')
+
+spcomp = os.path.join(CSSDM.smBinPath, 'addons', 'sourcemod', 'scripting', 'spcomp')
+includes = os.path.relpath(os.path.join(AMBuild.sourceFolder, 'scripting', 'include'),
+                           os.path.join(AMBuild.outputFolder, 'scripting'))
+
+#Do the normal ones
+for file in files:
+	sp = os.path.join(AMBuild.sourceFolder, 'scripting', file)
+	args = [spcomp, '-i' + includes, sp]
+	plugins.AddCommand(command.DirectCommand(args))
+
+

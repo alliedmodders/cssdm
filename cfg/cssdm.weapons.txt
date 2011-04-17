@@ -1,0 +1,147 @@
+//Do not edit this CS:S DM file!
+"Weapons"
+{
+	"cstrike"
+	{
+		"usp"
+		{
+			"name"		"USP"
+			"type"		"secondary"
+		}
+		"glock"
+		{
+			"name"		"Glock"
+			"type"		"secondary"
+		}
+		"deagle"
+		{
+			"name"		"Deagle"
+			"type"		"secondary"
+		}
+		"p228"
+		{
+			"name"		"P228"
+			"type"		"secondary"
+		}
+		"elite"
+		{
+			"name"		"Elite"
+			"type"		"secondary"
+		}
+		"fiveseven"
+		{
+			"name"		"Five Seven"
+			"type"		"secondary"
+		}
+		"m4a1"
+		{
+			"name"		"M4A1"
+			"type"		"primary"
+		}
+		"ak47"
+		{
+			"name"		"AK47"
+			"type"		"primary"
+		}
+		"aug"
+		{
+			"name"		"Steyr AUG"
+			"type"		"primary"
+		}
+		"sg552"
+		{
+			"name"		"SG552"
+			"type"		"primary"
+		}
+		"galil"
+		{
+			"name"		"Galil"
+			"type"		"primary"
+		}
+		"famas"
+		{
+			"name"		"Famas"
+			"type"		"primary"
+		}
+		"scout"
+		{
+			"name"		"Scout"
+			"type"		"primary"
+		}
+		"sg550"
+		{
+			"name"		"SG550"
+			"type"		"primary"
+		}
+		"m249"
+		{
+			"name"		"M249"
+			"type"		"primary"
+		}
+		"g3sg1"
+		{
+			"name"		"G3SG1"
+			"type"		"primary"
+		}
+		"ump45"
+		{
+			"name"		"UMP 45"
+			"type"		"primary"
+		}
+		"mp5navy"
+		{
+			"name"		"MP5 Navy"
+			"type"		"primary"
+		}
+		"m3"
+		{
+			"name"		"M3"
+			"type"		"primary"
+		}
+		"xm1014"
+		{
+			"name"		"xm1014"
+			"type"		"primary"
+		}
+		"tmp"
+		{
+			"name"		"TMP"
+			"type"		"primary"
+		}
+		"mac10"
+		{
+			"name"		"Mac 10"
+			"type"		"primary"
+		}
+		"p90"
+		{
+			"name"		"P90"
+			"type"		"primary"
+		}
+		"awp"
+		{
+			"name"		"AWP"
+			"type"		"primary"
+		}
+		"smokegrenade"
+		{
+			"name"		"Smode Grenade"
+			"type"		"grenade"
+		}
+		"hegrenade"
+		{
+			"name"		"HE Grenade"
+			"type"		"grenade"
+		}
+		"flashbang"
+		{
+			"name"		"Flashbang"
+			"type"		"grenade"
+		}
+		"c4"
+		{
+			"name"		"C4"
+			"type"		"c4"
+		}
+	}
+}

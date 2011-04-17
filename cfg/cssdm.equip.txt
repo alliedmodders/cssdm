@@ -1,0 +1,128 @@
+"Equipment"
+{
+	"Settings"
+	{
+		// Allow clients to say "guns" to restore their menu.
+		// This is disabled if the menu isn't drawn.
+		//
+		"guns_command"		"yes"
+	}
+
+	//
+	// Enable or disable menus here.
+	// For the primary and secondary gun menus, you can use:
+	//	"no"     - Completely disable the menus
+	//	"yes"    - Enable the menus
+	//	"random" - Pick a random weapon from the menus automatically for players
+	//
+	"Menus"
+	{
+		// Primary gun menu
+		"primary"		"yes"
+		
+		// Secondary gun menu
+		"secondary"		"yes"
+		
+		// Normal CS:S buy menu/commands
+		// If enabled, the main equipment menu will be disabled.
+		"buy"			"no"
+	}
+	
+	//
+	// Automatic things to give on spawn.
+	//
+	"AutoItems"
+	{
+		// Health amount to give (0 to use default from game/other plugin)
+		"health"		"100"
+
+		// Armor amount to give
+		"armor"			"100"
+		
+		// Whether to give a helmet.  If you want to disable armor, you must 
+		// set this to "no" as well as setting armor to 0.
+		"helmet"		"yes"
+		
+		// Number of flashbangs to give
+		"flashbangs"	"0"
+		
+		// Whether to give a smoke grenade
+		"smokegrenade"	"no"
+		
+		// Whether to give an HE grenade
+		"hegrenade"		"no"
+
+		// Whether to give defusekits to CTs
+		"defusekits"	"yes"
+		
+		// Whether to give nightvision
+		"nightvision"	"yes"
+	}
+	
+	//
+	// Items listed here will be automatically given to bots. 
+	// If multiple weapons exist from one category (primary/secondary),
+	// then a random item will be chosen from that category.  If the same
+	// weapon is added more than once, it increases its chances of being 
+	// picked.  No more than 32 weapons can be added to either the secondary
+	// or the primary pool.
+	//
+	"BotItems"
+	{
+		"weapon"		"ak47"
+		"weapon"		"m4a1"
+		"weapon"		"awp"
+		"weapon"		"galil"
+		"weapon"		"aug"
+		"weapon"		"deagle"
+		"health"		"100"
+		"armor"			"100"
+		"helmet"		"yes"
+		"flashbangs"	"0"
+		"smokegrenade"	"no"
+		"hegrenade"		"no"
+		"defusekits"	"yes"
+	}
+	
+	//
+	// If no items exist, the menu will be skipped.
+	// If only one item exists, the menu will be skipped
+	// and players will receive the item automatically.
+	//
+	"SecondaryMenu"
+	{
+		"weapon"	"usp"
+		"weapon"	"glock"
+		"weapon"	"deagle"
+		"weapon"	"p228"
+		"weapon"	"elite"
+		"weapon"	"fiveseven"
+	}
+	
+	//
+	// If no items exist, the menu will be skipped.
+	// If only one item exists, the menu will be skipped
+	// and players will receive the item automatically.
+	//
+	"PrimaryMenu"
+	{
+		"weapon"	"m4a1"
+		"weapon"	"ak47"
+		"weapon"	"awp"
+		"weapon"	"scout"
+		"weapon"	"sg552"
+		"weapon"	"galil"
+		"weapon"	"famas"
+		"weapon"	"sg550"
+		"weapon"	"aug"
+		"weapon"	"m249"
+		"weapon"	"g3sg1"
+		"weapon"	"ump45"
+		"weapon"	"mp5navy"
+		"weapon"	"m3"
+		"weapon"	"xm1014"
+		"weapon"	"tmp"
+		"weapon"	"mac10"
+		"weapon"	"p90"
+	}
+}

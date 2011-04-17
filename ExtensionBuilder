@@ -1,0 +1,29 @@
+# vim: set ts=2 sw=2 tw=99 noet ft=python: 
+import os
+
+sdk = CSSDM.sdkInfo['ep2v']
+
+compiler = CSSDM.DefaultHL2Compiler('.', 'ep2v')
+compiler['CXXINCLUDES'].append(os.path.join(AMBuild.sourceFolder, 'sdk'))
+
+name = 'cssdm.ext' + sdk['ext']
+extension = AMBuild.AddJob(name)
+binary = Cpp.LibraryBuilder(name, AMBuild, extension, compiler)
+CSSDM.PreSetupHL2Job(extension, binary, 'ep2v')
+binary.AddSourceFiles('.', [
+	'cssdm_callbacks.cpp',
+	'cssdm_config.cpp',
+	'cssdm_ctrl.cpp',
+	'cssdm_detours.cpp',
+	'cssdm_events.cpp',
+	'cssdm_ffa.cpp',
+	'cssdm_main.cpp',
+	'cssdm_players.cpp',
+	'cssdm_utils.cpp',
+	'cssdm_weapons.cpp',
+	'sdk/smsdk_ext.cpp'
+	])
+CSSDM.PostSetupHL2Job(extension, binary, 'ep2v')
+CSSDM.AutoVersion('.', binary)
+binary.SendToJob()
+

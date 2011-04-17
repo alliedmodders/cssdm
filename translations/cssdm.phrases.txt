@@ -1,0 +1,110 @@
+﻿"Phrases"
+{
+	"NoRespawn NotInGame"
+	{
+		"en"		"You must be in game to respawn."
+		"de"    	"Du mußt im Spiel sein um zu spawnen"
+		"fr"		"Vous devez etre dans le jeu pour faire un respawn."
+		"tr"		"Yeniden dogmak için oyunda olmalisiniz."
+	}
+
+	"NoRespawn Alive"
+	{
+		"en"		"You must be dead to respawn."
+		"de"    	"Du musst tot sein um zu respawnen"
+		"fr"		"Vous devez etre mort pour pouvoir faire un respawn."
+		"tr"		"Yeniden dogmak için ölü olmalisiniz."
+	}
+
+	"NoRespawn Team"
+	{
+		"en"		"You must be on a team to respawn."
+		"de"    	"Du musst in einem Team sein um spawnen zu können"
+		"fr"		"Vous devez etre dans une Team pour faire un respawn."
+		"tr"		"Yeniden dogmak için bir takimda olmalisiniz."
+	}
+	
+	"NoRespawn Wait"
+	{
+		"#format"	"{1:.1f}"
+		"en"		"You must wait {1} more seconds before respawning."
+		"de"    	"Du musst noch {1} weitere Sekudnen abwarten bis du respawnen kannst"
+		"fr"		"Vous devez attendre {1} secondes avant de reapparaitre."
+		"tr"		"Yeniden dogmak için {1} saniye daha beklemelisiniz."
+	}
+	
+	"GunsMenuDisabled"
+	{
+		"en"		"The guns menu command is disabled."
+		"de"    	"Der Waffen Menü Befehl ist abgeschaltet"
+		"fr"		"La commande guns est inactive."
+		"tr"		"Silahlar menüsü komutu etkin degil."
+	}
+	
+	"GunsMenuNotAvailable"
+	{
+		"en"		"The guns menu is not available."
+		"de"    	"Das Waffenmenü ist nicht verfügbar"
+		"fr"		"La commande guns n'est pas valable."
+		"tr"		"Silahlar menüsü mevcut degil."
+	}
+	
+	"GunsMenuAlreadyEnabled"
+	{
+		"en"		"Your guns menu is already enabled."
+		"de"    	"Dein Waffenmenü ist bereits eingeschaltet"
+		"fr"		"Votre menu est deja actif."
+		"tr"		"Silahlar menünüz zaten etkin."
+	}
+	
+	"GunsMenuReactivated"
+	{
+		"en"		"Your guns menu has been enabled for your next respawn."
+		"de"    	"Deine Waffen wurden für deinen nächsten Respawn freigeschaltet"
+		"fr"		"Votre menu sera actif au prochain respawn."
+		"tr"		"Silahlar menünüz yeniden dogusunuz için etkinlestirildi."
+	}
+	
+	"SayGunsNotify"
+	{
+		"en"		"Say 'guns' in chat to re-enable your menu."
+		"de"    	"Tippe 'guns' in den Chat um dein Menü wieder einzuschalten."
+		"fr"		"Dites 'guns' dans le T'chat pour ouvrir le menu."
+		"tr"		"Menünüzü yeniden etkinlestirmek için 'guns' yazin."
+	}
+	
+	"New weapons"
+	{
+		"en"		"New weapons"
+	}
+	
+	"Same weapons"
+	{
+		"en"		"Same weapons"
+	}
+	
+	"Same weapons every time"
+	{
+		"en"		"Same weapons every time"
+	}
+	
+	"Random weapons"
+	{
+		"en"		"Random weapons"
+	}
+	
+	"Random weapons every time"
+	{
+		"en"		"Random weapons every time"
+	}
+	
+	"Primary weapon"
+	{
+		"en"		"Primary weapon"
+	}
+	
+	"Secondary weapon"
+	{
+		"en"		"Secondary weapon"
+	}
+}

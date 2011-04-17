@@ -1,0 +1,179 @@
+CS:S DM Changelog (Changelog from 0.1 to 0.5 lost.)
+
+2.1.3 (stable) April 17, 2011
+	- Updated for the latest Orange Box engine.
+	- Added automated builds for Windows, Linux, Mac.
+
+2.1.0.1 (stable) September 7, 2009
+	- Updated sourcemod/gamedata/cssdm.games.txt for latest CS:S update.
+	- Added more spawn files posted in the community forums.
+
+2.1.0 (Stable) November 14, 2007
+	- Added the ability to translate equipment menus (translation file must 
+	  be updated if you upgrade).
+	- Added the ability to skip a weapon selection menu via "Exit."
+	- Added an experimental cssdm_remove_drops cvar for specifying whether 
+	  CS:S DM removes weapon drops.
+	- Fixed a bug where if you only selected one gun, you could not opt to 
+	  repeat the selection on the main equipment menu.
+	- Fixed a bug where dm_equipment could perform actions on players/bots 
+	  when cssdm_enable_equipment was 0.
+	- Fixed a bug where an unspecified primary or secondary weapon could be 
+	  given if the cssdm.equip.txt file specified none in the list and the 
+	  player selected "Random."
+	- Fixed a bug where bot_quota would stop working if cssdm_bots_balance 
+	  was set to "0".
+	- Fixed "nightvision" not being in the cssdm.equip.txt config file.
+	- Fixed bots always getting defuse kits.
+	- Fixed a bug where CS:S DM crashed if FFA mode was set on the latest 
+	  CS:S version.
+	- Updated some library code from SourceMod that had received bug fixes 
+	  since the last release.
+
+2.0.0 Final - July 25, 2007
+	- Fixed a bug where infinite ammo was not disabled when DM was not running.
+
+2.0.0 Beta 4 - July 1, 2007
+	- Enabling "buy" in cssdm.equip.txt now disables the equip menu.
+	- Fixed cssdm_bots_balance not working after mapchange.
+	- Fixed an RTE in spawn protection.
+	- Fixed a crashbug on mapchange.
+	- Fixed bug where FFA would not work after one mapchange.
+	- Fixed FFA not working entirely right on Windows.
+
+2.0.0 Beta 1,2,3 - June 24, 2007
+	- Rewrote CS:S DM to be a SourceMod extension.
+	- CS:S DM is now open source, under the GNU General Public License.
+	- CS:S DM's spawning, equipment, and other features have been moved
+	  to SourceMod plugins.
+	- Most configuration options are now cvars; a new per-map config system is
+	  now in place.
+	- CS:S DM can now be translated to different languages.
+	- cssdm_enable/disable, cssdm_ffa_enable/disable are removed in favor of
+	  cssdm_enabled/cssdm_ffa_enabled cvars.
+	- cssdm_password/cssdm_login are removed in favor of SourceMod's admin
+	  system.
+	- Improved CS:S DM's removal of dropped items (including defusekits).
+	- Improved CS:S DM's spawning of late joined players, players joining
+	  a team after spectating, and late joining of bots.
+	- Greatly improved the intelligence of the weapons menu.  It will now
+	  choose not to display if it knows only one or less items can be 
+	  chosen.
+	- Added a "Random Weapons" feature to the weapon menus.
+	- Removed the grenade and armor menus.
+	- Added a new interactive spawn point editor ("cssdm_spawn_menu").
+	- Added a plugin to manage bot_quota correctly.
+	- Removed cssdm_addspawn.
+	- Improved bot support for automatic items.
+	- Fixed a bug where C4 would be removed when CS:S DM was disabled.
+	- The "respawn" command will now properly obey spawn wait times.
+	- Updates are easier to patch; a text file holds all internal offsets.
+
+0.97.1 Beta - February 14, 2007
+	- Fixed FFA mode not working on Windows.
+
+0.97 Beta - December 11, 2006
+	- Added a new menu flag 'x' to disable Cs:S DM menus.
+	- Improved coloring of gun menus.
+	- Fixed a mapchange crash bug related to body_stay_time.
+	- Fixed a mapchange crash bug related to bots.
+	- Fixed a shutdown crash bug that occurred if bots were ingame.
+
+0.96c Beta - November 19, 2006
+	- Fixed CS:S DM menus not working after a November 16th Valve update.
+	- Fixed CS:S DM not loading properly on some FreeBSD servers.
+
+0.96 Beta - October 11, 2006
+	- Added option to use the old spawn protection mode method (protection_type = 1).
+	- Added an option to change the health points players get on respawn (respawn_health).
+	- Fixed player weapons not being removed from the world on disconnect.
+	- Fixed a respawn-as-spectator exploit.
+	- Fixed a debug message that was accidentally spamming the log files.
+
+0.95 Beta - August 26, 2006
+	- Updated CS:S DM for the latest CS:S update (8-24).
+	- Spawn Protection is now rewritten.  Players do not take damage until the protection time is over.  If players press any movement, action, or weapon buttons, the protection time ends instantly.
+	- Added 'strip_weapons' option and an 'auto_weapons' section for tweaking spawn gun control.
+	- Added 'respawn_wait_time' option to change the death respawn interval.
+	- Added 'respawn_wait_method' option.  Servers can now force players to fire +attack to respawn.  This is experimental and may not work as expected due to spectator mode.
+	- Added 'allow_c4' option to toggle whether C4 is stripped from players and deleted on drop.  Also fixed C4 not being removed correctly.
+	- Added 'auto_refill' option which lets players manually reload to refill their ammo.
+	- Added 'flash_num' option to change how many flashbang grenades are given.
+	- Added 'n' flag for auto_items to automatically give nightvision.
+	- Fixed a bug where auto mapchange files could change to the same map indefinitely.
+	- Fixed a bug where internal menu tracking was not cleared after menu selection.
+	- Internally replaced the weapon drop hook with a much faster and more stable method.
+
+0.91 Beta - April 25, 2006
+	- Updated CS:S DM for the latest CS:S update (4-20).
+	- Added dir for map-specific config files.
+	- Added spawn files from forums (credits in credits.txt)
+	- Added option to force map changes for Stripper users.
+	- Added body_stay_time option for timed ragdoll removal.
+	- Fixed FFA not working on Linux.
+	- Fixed requiring a mapchange on late loading.
+
+0.84a Beta - January 19, 2006
+	- Updated CS:S DM for the latest CS:S update.
+
+0.84 Beta - January 14, 2006
+	- Fixed no lag compensation in FFA reducing hit registration.
+	- Fixed spawning before model selection.
+	- Fixed rare crash bug when server quit.
+
+0.82 Beta - January 10, 2006
+	- Fixed a bug where using bots would crash CS:S DM.
+
+0.81 Beta - January 7, 2007
+	- Updated CS:S DM for the latest CS:S update.
+	- Added Free-For-All mode with new option - free_for_all.
+	- Added commands cssdm_ffa_on and cssdm_ffa_off.
+	- Exposed server command cssdm_respawn to respawn a player by index.
+	- Fixed bot weapons.
+	- CS:S DM now requires Metamod:Source 1.2.
+
+0.76 Beta - December 2, 2005
+	- Updated CS:S DM for the 12/1 CS:S update
+	- Fixed spawn protection.
+	- Added bomb removal option.
+	- Added objective removal option.
+	- Added round blocking option.
+	- Added cssdm_reload command for reloading config files.
+	- Added spawn points for de_nuke.
+
+0.72 Beta - October 25, 2005
+	- Added cssdm_enable and cssdm_disable server commands.
+	- Fixed and improved "guns" command.
+	- Fixed bug where unloading CS:S DM caused a crash.
+	- Fixed "scout" mispelling in config file.
+	- Fixed a few register corruption bugs.
+
+0.71 Beta - October 21, 2005
+	- Updated for Metamod:Source 1.1 API
+	- Updated to not use libstdc++
+	- Fixed menu parse bug on newlines
+	- Fixed bug where menus overflowed message buffer
+	- Temporarily removed round-blocking code
+	- Note, the above fixes map changing and weird CT score bugs
+
+0.7 Beta - August 2005
+	- Greatly improved weapon deletion
+	- Added more spawn protection against telefragging
+	- Backported to Windows
+	- Fixed ragdoll deletion
+	- Addeed spawns for CAL maps and base maps
+	- Initial release
+
+0.65 Alpha - August 2005
+	- Added spawn protection
+	- Moved menu to config file
+	- Fixed bugs in bot support
+
+0.6 Alpha - August 2005
+	- Added bot support
+	- Added config file support
+	- Added dynamic spawning
+
+0.5 Alpha - July 2005
+	- Ported to Linux
+	

@@ -1,0 +1,73 @@
+"Counter-Strike Deathmatch" and "Counter-Strike: Source Deathmatch" are
+(C)Copyright 2004-2007 by David "BAILOPAN" Anderson and AlliedModders LLC
+
+"Counter-Strike" and 
+"Counter-Strike Source" are (C) Copyright VALVe Software.
+
+Credits:
+    * David "BAILOPAN" Anderson - Author
+    * Freecode - Testing, Site Design
+    * Testing - NuclearFallout (Nick|NFo)
+    * Testing, Spawn Points - index aka Pwntatoes
+    * Pre-0.91 Testing - Game Havoc ([gh]ferret)
+    * Advice, Help - Damaged Soul, PM OnoTo, fysh
+    * Data Map/SendTable Stuff - Discovered by Libre
+    * SourceMod Development Team
+    * faluco for finding CS:S DM's "divine bug"
+      (didn't CSDM have one of those too...)
+Donations:
+    * kunk (http://www.ggh.greatbasin.net/)
+Translations:
+    * French: Onix.fr
+    * Turkish: Shaman
+    * German: Isias
+
+3rd party spawn points:
+	Kenty:
+		cs_kismayo
+		cs_militia_bymicosv2
+		cs_office_extended
+		cs_retreat
+		de_menace
+		de_losttemple
+	lex_talionis:
+		aim_ag_texture           
+		aim_ag_texture2
+		aim_ag_texture5          
+		aim_ag_texture_r         
+		aim_shotty               
+		ba_ffg2_v1
+		ba_texture_arena2        
+		cs_reflex3               
+		de_industrial_crane_v3   
+		dm_battlecreek_v3
+		fy_barn                 
+		fy_blazin                
+		fy_blizzard_rc1          
+		fy_funtimes
+		fy_iceworld_arena        
+		fy_rocks                 
+		fy_trenches              
+		wired
+	jsterline:
+		cs_militia
+	LyteFly:
+		de_dust2_unlimited
+	Evil_enc:
+		de_socom_ext
+		surf_japan_v10
+		surf_10x_final
+	bug:
+		de_desert_atrocity_v3
+		de_qatar
+		knas_speedcastle2007
+	Dark4eg:
+		de_dust2_finale
+	szidzse:
+		de_losttemple_pro
+		de_russka
+		de_tuscan
+		de_season
+		de_cpl_fire
+		de_cpl_mill
+		de_cpl_strike
