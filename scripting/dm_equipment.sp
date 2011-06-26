@@ -539,6 +539,11 @@ bool:ChooseFromSecondary()
 
 GiveWeapon(client, index)
 {
+	if (!IsPlayerAlive(client))
+	{
+		return;
+	}
+
 	new DmWeaponType:type = DM_GetWeaponType(index);
 	
 	new entity = DM_GetClientWeapon(client, type);
@@ -881,6 +886,11 @@ SetClientHealth(client, health)
 
 GiveGrenades(client, flashnum, bool:he, bool:smoke)
 {
+	if (!IsPlayerAlive(client))
+	{
+		return;
+	}
+
 	if (he)
 	{
 		GivePlayerItem(client, "weapon_hegrenade");
