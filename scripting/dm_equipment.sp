@@ -555,7 +555,7 @@ GiveWeapon(client, index)
 	new String:cls[64];
 	DM_GetWeaponClassname(index, cls, sizeof(cls));
 	
-	return GivePlayerItem(client, cls);
+	GivePlayerItem(client, cls);
 }
 
 GiveBothFromChoices(client)
