@@ -120,7 +120,7 @@ public Event_CheckDepleted(Handle:event, const String:name[], bool:dontBroadcast
 		return;
 	}
 	
-	new entity = GetEntDataEnt(client, g_ActiveWepOffs);
+	new entity = GetEntDataEnt2(client, g_ActiveWepOffs);
 	if (entity < 1)
 	{
 		return;
