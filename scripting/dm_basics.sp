@@ -23,6 +23,7 @@
 
 #pragma semicolon 1
 #include <sourcemod>
+#include <sdktools>
 #include <cssdm>
 
 /* Plugin stuff */
@@ -37,6 +38,7 @@ new g_ActiveWepOffs = -1;
 
 /* Player stuff */
 new Float:g_DeathTimes[MAXPLAYERS+1];
+new bool:g_bHasNoAmmoInClip1[MAXPLAYERS+1] = {false,...};
 
 /** PUBLIC INFO */
 public Plugin:myinfo = 
@@ -129,7 +131,7 @@ public Event_CheckDepleted(Handle:event, const String:name[], bool:dontBroadcast
 	new ammoType = GetEntProp(entity, Prop_Send, "m_iPrimaryAmmoType");
 	
 	/* Give something reasonable -- the game will chop it off */
-	DM_GiveClientAmmo(client, ammoType, 30, false);
+	DM_GiveClientAmmo(client, ammoType, 200, false);
 }
 
 public CvarChange_RestartMapTimer(Handle:cvar, const String:oldvalue[], const String:newvalue[])
@@ -231,6 +233,8 @@ public OnClientPutInServer(client)
 {
 	g_DeathTimes[client] = 0.0;
 	CreateTimer(10.0, Timer_Welcome, GetClientUserId(client));
+	
+	g_bHasNoAmmoInClip1[client] = false;
 }
 
 public Action:DM_OnClientDeath(client)
@@ -287,3 +291,39 @@ public Action:Command_Say(client, args)
 	return Plugin_Continue;
 }
 
+public Action:OnPlayerRunCmd(client, &buttons, &impulse, Float:vel[3], Float:angles[3], &weapon)
+{
+    if(!g_AmmoHooks)
+        return Plugin_Continue;
+    
+    new entity = GetEntDataEnt2(client, g_ActiveWepOffs);
+    if (entity < 1)
+    {
+        g_bHasNoAmmoInClip1[client] = false;
+        return Plugin_Continue;
+    }
+    
+    // He's out of ammo -> reloading
+    new iClip1 = GetEntProp(entity, Prop_Send, "m_iClip1");
+    if(iClip1 == 0)
+    {
+        g_bHasNoAmmoInClip1[client] = true;
+    }
+    // He got ammo in clip1 again but hadn't before -> reloaded.
+    else if(g_bHasNoAmmoInClip1[client])
+    {
+        g_bHasNoAmmoInClip1[client] = false;
+        
+        new ammoType = GetEntProp(entity, Prop_Send, "m_iPrimaryAmmoType");
+        
+        if(ammoType <= 0)
+        {
+            return Plugin_Continue;
+        }
+        
+        // Give some ammo.
+        DM_GiveClientAmmo(client, ammoType, 200, false);
+    }
+    
+    return Plugin_Continue;
+}
