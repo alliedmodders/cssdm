@@ -71,7 +71,8 @@ folders = [['cfg'],
 					 ['cfg', 'cssdm'],
 					 ['cfg', 'cssdm', 'extra'],
 					 ['cfg', 'cssdm', 'maps'],
-					 ['cfg', 'cssdm', 'spawns'],
+					 ['cfg', 'cssdm', 'spawns', 'cstrike'],
+					 ['cfg', 'cssdm', 'spawns', 'csgo'],
 				   ['addons', 'sourcemod'],
 					 ['addons', 'sourcemod', 'extensions'],
 					 ['addons', 'sourcemod', 'gamedata'],
@@ -91,7 +92,8 @@ job.AddCommand(CopyFolder(['scripting'], ['addons', 'sourcemod', 'scripting']))
 job.AddCommand(CopyFolder(['scripting', 'include'], ['addons', 'sourcemod', 'scripting', 'include']))
 job.AddCommand(CopyFolder(['translations'], ['addons', 'sourcemod', 'translations']))
 job.AddCommand(CopyFolder(['cfg'], ['cfg', 'cssdm']))
-job.AddCommand(CopyFolder(['cfg', 'spawns'], ['cfg', 'cssdm', 'spawns']))
+job.AddCommand(CopyFolder(['cfg', 'spawns', 'cstrike'], ['cfg', 'cssdm', 'spawns', 'cstrike']))
+job.AddCommand(CopyFolder(['cfg', 'spawns', 'csgo'], ['cfg', 'cssdm', 'spawns', 'csgo']))
 job.AddCommand(CopyFile(os.path.join(AMBuild.sourceFolder, 'license.txt'),
 												os.path.join('cfg', 'cssdm', 'extra')))
 job.AddCommand(CopyFile(os.path.join(AMBuild.sourceFolder, 'changelog.txt'),

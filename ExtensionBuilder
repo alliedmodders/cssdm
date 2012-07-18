@@ -1,29 +1,36 @@
 # vim: set ts=2 sw=2 tw=99 noet ft=python: 
 import os
 
-sdk = CSSDM.sdkInfo['ep2v']
+for i in CSSDM.sdkInfo:
+	if i != 'ep2v' and i != 'csgo':
+		continue
+	
+	sdk = CSSDM.sdkInfo[i]
+	
+	if AMBuild.target['platform'] not in sdk['platform']:
+		continue
 
-compiler = CSSDM.DefaultHL2Compiler('.', 'ep2v')
-compiler['CXXINCLUDES'].append(os.path.join(AMBuild.sourceFolder, 'sdk'))
+	compiler = CSSDM.DefaultHL2Compiler('.', i)
+	compiler['CXXINCLUDES'].append(os.path.join(AMBuild.sourceFolder, 'sdk'))
 
-name = 'cssdm.ext' + sdk['ext']
-extension = AMBuild.AddJob(name)
-binary = Cpp.LibraryBuilder(name, AMBuild, extension, compiler)
-CSSDM.PreSetupHL2Job(extension, binary, 'ep2v')
-binary.AddSourceFiles('.', [
-	'cssdm_callbacks.cpp',
-	'cssdm_config.cpp',
-	'cssdm_ctrl.cpp',
-	'cssdm_detours.cpp',
-	'cssdm_events.cpp',
-	'cssdm_ffa.cpp',
-	'cssdm_main.cpp',
-	'cssdm_players.cpp',
-	'cssdm_utils.cpp',
-	'cssdm_weapons.cpp',
-	'sdk/smsdk_ext.cpp'
-	])
-CSSDM.PostSetupHL2Job(extension, binary, 'ep2v')
-CSSDM.AutoVersion('.', binary)
-binary.SendToJob()
+	name = 'cssdm.ext' + sdk['ext']
+	extension = AMBuild.AddJob(name)
+	binary = Cpp.LibraryBuilder(name, AMBuild, extension, compiler)
+	CSSDM.PreSetupHL2Job(extension, binary, i)
+	binary.AddSourceFiles('.', [
+		'cssdm_callbacks.cpp',
+		'cssdm_config.cpp',
+		'cssdm_ctrl.cpp',
+		'cssdm_detours.cpp',
+		'cssdm_events.cpp',
+		'cssdm_ffa.cpp',
+		'cssdm_main.cpp',
+		'cssdm_players.cpp',
+		'cssdm_utils.cpp',
+		'cssdm_weapons.cpp',
+		'sdk/smsdk_ext.cpp'
+		])
+	CSSDM.PostSetupHL2Job(extension, binary, i)
+	CSSDM.AutoVersion('.', binary)
+	binary.SendToJob()
 

@@ -199,7 +199,7 @@ static cell_t DMN_GetClientWeapon(IPluginContext *pContext, const cell_t *params
 		return -1;
 	}
 
-	return engine->IndexOfEdict(pEdict);
+	return gamehelpers->IndexOfEdict(pEdict);
 }
 
 static cell_t DMN_DropWeapon(IPluginContext *pContext, const cell_t *params)

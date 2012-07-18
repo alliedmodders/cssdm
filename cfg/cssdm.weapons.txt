@@ -144,4 +144,177 @@
 			"type"		"c4"
 		}
 	}
+	"csgo"
+	{
+		"hkp2000"
+		{
+			"name"		"HKP2000"
+			"type"		"secondary"
+		}
+		"glock"
+		{
+			"name"		"Glock"
+			"type"		"secondary"
+		}
+		"deagle"
+		{
+			"name"		"Deagle"
+			"type"		"secondary"
+		}
+		"p250"
+		{
+			"name"		"P250"
+			"type"		"secondary"
+		}
+		"elite"
+		{
+			"name"		"Elite"
+			"type"		"secondary"
+		}
+		"fiveseven"
+		{
+			"name"		"Five Seven"
+			"type"		"secondary"
+		}
+		"tec9"
+		{
+			"name"		"Tec-9"
+			"type"		"secondary"
+		}
+		"m4a1"
+		{
+			"name"		"M4A1"
+			"type"		"primary"
+		}
+		"ak47"
+		{
+			"name"		"AK47"
+			"type"		"primary"
+		}
+		"aug"
+		{
+			"name"		"Steyr AUG"
+			"type"		"primary"
+		}
+		"sg556"
+		{
+			"name"		"SG556"
+			"type"		"primary"
+		}
+		"galilar"
+		{
+			"name"		"Galil Assault Rifle"
+			"type"		"primary"
+		}
+		"famas"
+		{
+			"name"		"Famas"
+			"type"		"primary"
+		}
+		"ssg08"
+		{
+			"name"		"SSG08"
+			"type"		"primary"
+		}
+		"scar20"
+		{
+			"name"		"SCAR-20"
+			"type"		"primary"
+		}
+		"m249"
+		{
+			"name"		"M249"
+			"type"		"primary"
+		}
+		"g3sg1"
+		{
+			"name"		"G3SG1"
+			"type"		"primary"
+		}
+		"ump45"
+		{
+			"name"		"UMP 45"
+			"type"		"primary"
+		}
+		"mp7"
+		{
+			"name"		"MP7"
+			"type"		"primary"
+		}
+		"nova"
+		{
+			"name"		"Nova Shotgun"
+			"type"		"primary"
+		}
+		"xm1014"
+		{
+			"name"		"xm1014"
+			"type"		"primary"
+		}
+		"mp9"
+		{
+			"name"		"MP9"
+			"type"		"primary"
+		}
+		"mac10"
+		{
+			"name"		"Mac 10"
+			"type"		"primary"
+		}
+		"p90"
+		{
+			"name"		"P90"
+			"type"		"primary"
+		}
+		"awp"
+		{
+			"name"		"AWP"
+			"type"		"primary"
+		}
+		"bizon"
+		{
+			"name"		"Bizon"
+			"type"		"primary"
+		}
+		"sawedoff"
+		{
+			"name"		"Sawedoff Shotgun"
+			"type"		"primary"
+		}
+		"mag7"
+		{
+			"name"		"MAG7"
+			"type"		"primary"
+		}
+		"negev"
+		{
+			"name"		"Negev"
+			"type"		"primary"
+		}
+		"smokegrenade"
+		{
+			"name"		"Smode Grenade"
+			"type"		"grenade"
+		}
+		"hegrenade"
+		{
+			"name"		"HE Grenade"
+			"type"		"grenade"
+		}
+		"flashbang"
+		{
+			"name"		"Flashbang"
+			"type"		"grenade"
+		}
+		"decoy"
+		{
+			"name"		"Decoy Grenade"
+			"type"		"grenade"
+		}
+		"c4"
+		{
+			"name"		"C4"
+			"type"		"c4"
+		}
+	}
 }

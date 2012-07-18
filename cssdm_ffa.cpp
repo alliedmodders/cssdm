@@ -147,6 +147,7 @@ bool DM_Prepare_FFA(char *error, size_t maxlength)
 		return false;
 	}
 
+#if SOURCE_ENGINE == SE_CSGO
 	if (!g_pDmConf->GetOffset("TakeDmgPatch2", &g_takedmg_offset[1])
 		|| !g_takedmg_offset[1])
 	{
@@ -157,6 +158,7 @@ bool DM_Prepare_FFA(char *error, size_t maxlength)
 	{
 		return false;
 	}
+#endif
 
 	/* Load the GameRules pointer */
 	int offset;
@@ -195,7 +197,9 @@ bool DM_Patch_FFA()
 
 	DM_ApplyPatch(g_lagcomp_addr, g_lagcomp_offset, &g_lagcomp_patch, &g_lagcomp_restore);
 	DM_ApplyPatch(g_takedmg_addr, g_takedmg_offset[0], &g_takedmg_patch[0], &g_takedmg_restore[0]);
+#if SOURCE_ENGINE == SE_CSGO
 	DM_ApplyPatch(g_takedmg_addr, g_takedmg_offset[1], &g_takedmg_patch[1], &g_takedmg_restore[1]);
+#endif
 	DM_ApplyPatch(g_domrev_addr, g_domrev_offset, &g_domrev_patch, &g_domrev_restore);
 
 	SH_ADD_MANUALHOOK_STATICFUNC(CGameRules_IPointsForKill, *g_gamerules_addr, OnIPointsForKill, false);
@@ -219,7 +223,9 @@ bool DM_Unpatch_FFA()
 
 	DM_ApplyPatch(g_lagcomp_addr, g_lagcomp_offset, &g_lagcomp_restore, NULL);
 	DM_ApplyPatch(g_takedmg_addr, g_takedmg_offset[0], &g_takedmg_restore[0], NULL);
+#if SOURCE_ENGINE == SE_CSGO
 	DM_ApplyPatch(g_takedmg_addr, g_takedmg_offset[1], &g_takedmg_restore[1], NULL);
+#endif
 	DM_ApplyPatch(g_domrev_addr, g_domrev_offset, &g_domrev_restore, NULL);
 
 	g_FFA_Patched = false;
