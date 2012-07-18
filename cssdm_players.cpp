@@ -83,7 +83,7 @@ void DM_ActivatePlayer(int client)
 		return;
 	}
 
-	player->pEdict = engine->PEntityOfEntIndex(client);
+	player->pEdict = gamehelpers->EdictOfIndex(client);
 	player->pEntity = pEntity;
 	player->pInfo = playerinfomngr->GetPlayerInfo(player->pEdict);
 	player->pBot = botmanager->GetBotController(player->pEdict);

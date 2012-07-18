@@ -54,7 +54,7 @@ void DM_ProtectMemory(void *addr, int length, int prot);
 
 CBaseEntity *DM_GetBaseEntity(int index)
 {
-	edict_t *pEdict = engine->PEntityOfEntIndex(index);
+	edict_t *pEdict = gamehelpers->EdictOfIndex(index);
 	if (!pEdict || pEdict->IsFree())
 	{
 		return NULL;

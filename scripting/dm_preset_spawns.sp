@@ -107,8 +107,11 @@ bool:LoadMapConfig()
 	new String:map[64];
 	GetCurrentMap(map, sizeof(map));
 	
+	new String:game[64];
+	GetGameFolderName(game, sizeof(game));
+	
 	new String:path[255];
-	Format(path, sizeof(path), "cfg/cssdm/spawns/%s.txt", map);
+	Format(path, sizeof(path), "cfg/cssdm/spawns/%s/%s.txt", game, map);
 	
 	g_SpawnCount = 0;
 	
@@ -152,8 +155,11 @@ bool:WriteMapConfig()
 	new String:map[64];
 	GetCurrentMap(map, sizeof(map));
 	
+	new String:game[64];
+	GetGameFolderName(game, sizeof(game));
+	
 	new String:path[255];
-	Format(path, sizeof(path), "cfg/cssdm/spawns/%s.txt", map);
+	Format(path, sizeof(path), "cfg/cssdm/spawns/%s/%s.txt", game, map);
 	
 	new Handle:file = OpenFile(path, "wt");
 	if (file == INVALID_HANDLE)

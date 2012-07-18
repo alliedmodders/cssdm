@@ -57,6 +57,14 @@
 		
 		// Whether to give nightvision
 		"nightvision"	"yes"
+
+		//CS:GO Items
+		
+		//Whether to give a decoy grenade
+		"decoy"		"no"
+		
+		//Whether to give a taser
+		"taser"		"yes"
 	}
 	
 	//
@@ -72,6 +80,7 @@
 		"weapon"		"ak47"
 		"weapon"		"m4a1"
 		"weapon"		"awp"
+		"weapon"		"galilar"
 		"weapon"		"galil"
 		"weapon"		"aug"
 		"weapon"		"deagle"
@@ -82,6 +91,8 @@
 		"smokegrenade"	"no"
 		"hegrenade"		"no"
 		"defusekits"	"yes"
+		"decoy"		"no"
+		"taser"		"yes"
 	}
 	
 	//
@@ -91,12 +102,15 @@
 	//
 	"SecondaryMenu"
 	{
+		"weapon"	"hkp2000"
 		"weapon"	"usp"
 		"weapon"	"glock"
 		"weapon"	"deagle"
+		"weapon"	"p250"
 		"weapon"	"p228"
 		"weapon"	"elite"
 		"weapon"	"fiveseven"
+		"weapon"	"tec9"
 	}
 	
 	//
@@ -109,20 +123,31 @@
 		"weapon"	"m4a1"
 		"weapon"	"ak47"
 		"weapon"	"awp"
+		"weapon"	"ssg08"
 		"weapon"	"scout"
+		"weapon"	"sg556"
 		"weapon"	"sg552"
+		"weapon"	"galilar"
 		"weapon"	"galil"
 		"weapon"	"famas"
+		"weapon"	"scar20"
 		"weapon"	"sg550"
 		"weapon"	"aug"
 		"weapon"	"m249"
 		"weapon"	"g3sg1"
 		"weapon"	"ump45"
+		"weapon"	"mp7"
 		"weapon"	"mp5navy"
+		"weapon"	"nova"
 		"weapon"	"m3"
 		"weapon"	"xm1014"
+		"weapon"	"mp9"
 		"weapon"	"tmp"
 		"weapon"	"mac10"
 		"weapon"	"p90"
+		"weapon"	"bizon"
+		"weapon"	"sawedoff"
+		"weapon"	"mag7"
+		"weapon"	"negev"
 	}
 }

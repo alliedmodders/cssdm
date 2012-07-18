@@ -9,21 +9,22 @@ class CSSDM:
 
 		#Build SDK info
 		self.sdkInfo = { }
-		self.sdkInfo['ep2v'] =  {'sdk': 'HL2SDKOBVALVE',   'ext': '',  'def': '5',
+		self.sdkInfo['ep2v'] =  {'sdk': 'HL2SDKOBVALVE',   'ext': '2.ep2v',  'def': '6',
 		                         'name': 'ORANGEBOXVALVE', 'platform': ['windows', 'linux', 'darwin']}
+		
+		self.sdkInfo['csgo'] =  {'sdk': 'HL2SDKCSGO',     'ext': '2.csgo',  'def': '11',
+		                         'name': 'CSGO',           'platform': ['windows', 'linux']}
 
 		if AMBuild.mode == 'config':
 			#Detect compilers
 			self.compiler.DetectAll(AMBuild)
 
 			#Detect variables
-			envvars = { 'MMSOURCE18': 'mmsource-1.8' }
-			if AMBuild.target['platform'] == 'darwin':
-				envvars['SOURCEMOD'] = 'sourcemod-1.4'
-			else:
-				envvars['SOURCEMOD'] = 'sourcemod-1.3'
+			envvars = { 'MMSOURCE19': 'mmsource-1.9' }
+			envvars['SOURCEMOD'] = 'sourcemod-1.4'
 			envvars['SOURCEMOD-BIN'] = 'sourcemod-bin'
 			envvars['HL2SDKOBVALVE'] = 'hl2sdk-ob-valve'
+			envvars['HL2SDKCSGO'] = 'hl2sdk-csgo'
 
 			#Must have a path for each envvar (file a bug if you don't like this)
 			for i in envvars:
@@ -176,7 +177,7 @@ class CSSDM:
 			self.compiler.AddToListVar('RCINCLUDES', os.path.join(AMBuild.sourceFolder, 'public'))
 			self.compiler.AddToListVar('RCINCLUDES',
 			                           os.path.join(AMBuild.outputFolder, 'includes'))
-		self.mmsPath = AMBuild.cache['MMSOURCE18']
+		self.mmsPath = AMBuild.cache['MMSOURCE19']
 		self.smSourcePath = AMBuild.cache['SOURCEMOD']
 		self.smBinPath = AMBuild.cache['SOURCEMOD-BIN']
 
@@ -214,8 +215,11 @@ class CSSDM:
 			else:
 				staticLibs = os.path.join(sdkPath, 'lib', 'linux')
 			workFolder = os.path.join(AMBuild.outputFolder, job.workFolder)
-			if sdk in ['ep2v', 'l4d', 'l4d2']:
-				for i in ['tier1_i486.a', 'mathlib_i486.a', 'libvstdlib.so', 'libtier0.so']:
+			if sdk in ['ep2v', 'l4d', 'l4d2', 'csgo']:
+				libs = ['tier1_i486.a', 'mathlib_i486.a', 'libvstdlib.so', 'libtier0.so']
+				if sdk == 'csgo':
+					libs.append('interfaces_i486.a')
+				for i in libs:
 					link = os.path.join(workFolder, i)
 					target = os.path.join(staticLibs, i)
 					try:
@@ -233,7 +237,10 @@ class CSSDM:
 		elif AMBuild.target['platform'] == 'darwin':
 			staticLibs = os.path.join(sdkPath, 'lib', 'mac')
 			workFolder = os.path.join(AMBuild.outputFolder, job.workFolder)
-			for i in ['tier1_i486.a', 'mathlib_i486.a', 'libvstdlib.dylib', 'libtier0.dylib']:
+			libs = ['tier1_i486.a', 'mathlib_i486.a', 'libvstdlib.dylib', 'libtier0.dylib']
+			if sdk == 'csgo':
+				libs.append('interfaces_i486.a')
+			for i in libs:
 				link = os.path.join(workFolder, i)
 				target = os.path.join(staticLibs, i)
 				try:
@@ -242,7 +249,7 @@ class CSSDM:
 					job.AddCommand(SymlinkCommand(link, target))
 		elif AMBuild.target['platform'] == 'windows':
 			libs = ['tier0', 'tier1', 'vstdlib', 'mathlib']
-			if sdk == 'swarm':
+			if sdk == 'swarm' or sdk == 'csgo':
 				libs.append('interfaces')
 			for lib in libs:
 				libPath = os.path.join(sdkPath, 'lib', 'public', lib) + '.lib'
@@ -252,6 +259,8 @@ class CSSDM:
 	def PostSetupHL2Job(self, job, builder, sdk):
 		if AMBuild.target['platform'] in ['linux', 'darwin']:
 			builder.AddObjectFiles(['tier1_i486.a', 'mathlib_i486.a'])
+			if sdk == 'csgo':
+				builder.AddObjectFiles(['interfaces_i486.a'])
 
 	def DefaultHL2Compiler(self, path, sdk, noLink = False, oldMms = '-legacy'):
 		compiler = self.DefaultCompiler()
@@ -285,8 +294,11 @@ class CSSDM:
 
 		compiler['CDEFINES'].append('SOURCE_ENGINE=' + info['def'])
 
-		if sdk == 'swarm' and AMBuild.target['platform'] == 'windows':
-			compiler['CDEFINES'].extend(['COMPILER_MSVC', 'COMPILER_MSVC32'])
+		if sdk in ['swarm','csgo']:
+			if AMBuild.target['platform'] == 'windows':
+				compiler['CDEFINES'].extend(['COMPILER_MSVC', 'COMPILER_MSVC32'])
+			else:
+				compiler['CDEFINES'].extend(['COMPILER_GCC', 'POSIX'])
 
 		if sdk == 'ep1':
 			if AMBuild.target['platform'] == 'linux':
@@ -303,7 +315,7 @@ class CSSDM:
 		if not noLink:
 			if AMBuild.target['platform'] == 'linux':
 				compiler['POSTLINKFLAGS'][0:0] = ['-lm']
-				if sdk in ['ep2v', 'l4d', 'l4d2']:
+				if sdk in ['ep2v', 'l4d', 'l4d2', 'csgo']:
 					compiler['POSTLINKFLAGS'][0:0] = ['libtier0.so']
 					compiler['POSTLINKFLAGS'][0:0] = ['libvstdlib.so']
 				else:

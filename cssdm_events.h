@@ -31,6 +31,16 @@
 #include <edict.h>
 #include <igameevents.h>
 
+#if SOURCE_ENGINE == SE_CSGO
+#define DECLARE_EVENT(name) \
+	class cls_event_##name : public IGameEventListener2 \
+	{ \
+	public: \
+		virtual void FireGameEvent(IGameEvent *event); \
+		virtual int	 GetEventDebugID( void ) { return EVENT_DEBUG_ID_INIT; } \
+	}; \
+	extern cls_event_##name g_cls_event_##name;
+#else
 #define DECLARE_EVENT(name) \
 	class cls_event_##name : public IGameEventListener2 \
 	{ \
@@ -38,6 +48,7 @@
 		virtual void FireGameEvent(IGameEvent *event); \
 	}; \
 	extern cls_event_##name g_cls_event_##name;
+#endif
 
 DECLARE_EVENT(player_death);
 DECLARE_EVENT(player_spawn);

@@ -50,7 +50,7 @@ public:
 			pack->Reset();
 			int index = pack->ReadCell();
 			int serial = pack->ReadCell();
-			edict_t *pEdict = engine->PEntityOfEntIndex(index);
+			edict_t *pEdict = gamehelpers->EdictOfIndex(index);
 			if (pEdict && !pEdict->IsFree() && DM_CheckSerial(pEdict, serial))
 			{
 				CBaseEntity *pEntity = DM_GetBaseEntity(index);
@@ -158,7 +158,7 @@ void OnClientCommand_Post(edict_t *edict, const CCommand &args)
 
 	if (strcmp(cmd, "joinclass") == 0)
 	{
-		int client = engine->IndexOfEdict(edict);
+		int client = gamehelpers->IndexOfEdict(edict);
 		dm_player_t *player = DM_GetPlayer(client);
 		if (!player || !player->pEntity)
 		{
@@ -250,7 +250,7 @@ IMPLEMENT_EVENT(player_death)
 			edict_t *pEdict = gameents->BaseEntityToEdict(ragdoll);
 			if (pEdict)
 			{
-				int index = engine->IndexOfEdict(pEdict);
+				int index = gamehelpers->IndexOfEdict(pEdict);
 				IDataPack *pack = g_pSM->CreateDataPack();
 				pack->PackCell(index);
 				pack->PackCell(serial);

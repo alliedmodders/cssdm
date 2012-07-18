@@ -74,15 +74,16 @@ bool DM_ParseWeapons(char *error, size_t maxlength)
 	if (!kv->LoadFromFile(basefilesystem, path))
 	{
 		kv->deleteThis();
-		snprintf(error, maxlength, "Could not load weapons file \"%s\"", error);
+		snprintf(error, maxlength, "Could not load weapons file \"%s\"", path);
 		return false;
 	}
 
-	KeyValues *weapons = kv->FindKey("cstrike", false);
+	const char *game = g_pSM->GetGameFolderName();
+	KeyValues *weapons = kv->FindKey(game, false);
 	if (!weapons)
 	{
 		kv->deleteThis();
-		snprintf(error, maxlength, "Could not find \"cstrike\" section in weapons file");
+		snprintf(error, maxlength, "Could not find \"%s\" section in weapons file", game);
 		return false;
 	}
 

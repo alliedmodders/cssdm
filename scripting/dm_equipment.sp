@@ -44,6 +44,7 @@ new g_PrimaryChoices[MAXPLAYERS+1];					/* Primary weapon selections */
 new g_SecondaryChoices[MAXPLAYERS+1];				/* Secondary weapon selections */
 new bool:g_GunMenuEnabled[MAXPLAYERS+1];			/* Whether the gun menu is enabled */
 new bool:g_GunMenuAvailable[MAXPLAYERS+1];			/* Whether the gun menu is available */
+new bool:g_bIsGo = false;							/* Are we running on CS:GO? */
 
 /** HUMAN CONFIGS */
 new g_PrimaryList[CSSDM_MAX_WEAPONS];
@@ -62,6 +63,9 @@ new bool:g_NightVision = false;
 new bool:g_DefuseKits = true;
 new bool:g_AllowGunCommand = true;
 new g_HealthAmount = 100;
+//CSGO
+new bool:g_Decoy = false;
+new bool:g_Taser = true;
 
 /** BOT CONFIGS */
 new g_BotPrimaryList[CSSDM_MAX_WEAPONS];
@@ -75,6 +79,9 @@ new bool:g_BotSmokes = false;
 new bool:g_BotHEs = false;
 new bool:g_BotDefuseKits = true;
 new g_BotHealthAmount = 100;
+//CSGO
+new bool:g_BotDecoy = false;
+new bool:g_BotTaser = true;
 
 /** PUBLIC INFO */
 public Plugin:myinfo = 
@@ -92,6 +99,13 @@ public Plugin:myinfo =
  
 public OnPluginStart()
 {
+	new String:game[64];
+	GetGameFolderName(game, sizeof(game));
+	if (StrEqual(game, "csgo", false))
+	{
+		g_bIsGo = true;
+	}
+	
 	LoadTranslations("cssdm.phrases");
 	
 	RegConsoleCmd("say", Command_Say);
@@ -198,10 +212,14 @@ public DM_OnClientSpawned(client)
 			GivePlayerItem(client, "item_kevlar");
 			GivePlayerItem(client, "item_kevlar");
 		}
-		GiveGrenades(client, g_Flashes, g_HEs, g_Smokes);
+		GiveGrenades(client, g_Flashes, g_HEs, g_Smokes, g_Decoy);
 		if (g_NightVision)
 		{
 			GiveNightVision(client);
+		}
+		if (g_bIsGo && g_Taser)
+		{
+			GivePlayerItem(client, "weapon_taser");
 		}
 	}
 	else
@@ -229,7 +247,11 @@ public DM_OnClientSpawned(client)
 			GivePlayerItem(client, "item_kevlar");
 			GivePlayerItem(client, "item_kevlar");
 		}
-		GiveGrenades(client, g_BotFlashes, g_BotHEs, g_BotSmokes);
+		if (g_bIsGo && g_BotTaser)
+		{
+			GivePlayerItem(client, "weapon_taser");
+		}
+		GiveGrenades(client, g_BotFlashes, g_BotHEs, g_BotSmokes, g_BotDecoy);
 	}
 	if (!g_AllowBuy && g_SpawnTimers[client] == INVALID_HANDLE)
 	{
@@ -727,6 +749,8 @@ bool:LoadConfigFile(const String:path[])
 		g_NightVision = KvGetYesOrNo(kv, "nightvision", g_NightVision);
 		g_DefuseKits = KvGetYesOrNo(kv, "defusekits", g_DefuseKits);
 		g_HealthAmount = KvGetNum(kv, "health", g_HealthAmount);
+		g_Decoy = KvGetYesOrNo(kv, "decoy", g_Decoy);
+		g_Taser = KvGetYesOrNo(kv, "taser", g_Taser);
 		KvGoBack(kv);
 	}
 	
@@ -770,6 +794,10 @@ bool:LoadConfigFile(const String:path[])
 					g_BotDefuseKits = KvGetYesOrNo(kv, NULL_STRING, true);
 				} else if (strcmp(value, "health") == 0) {
 					g_BotHealthAmount = KvGetNum(kv, NULL_STRING, 100);
+				} else if (strcmp(value, "decoy") == 0) {
+					g_BotDecoy = KvGetYesOrNo(kv, NULL_STRING, false);
+				} else if (strcmp(value, "taser") == 0) {
+					g_BotTaser = KvGetYesOrNo(kv, NULL_STRING, true);
 				}
 			} while (KvGotoNextKey(kv, false));
 			KvGoBack(kv);
@@ -884,7 +912,7 @@ SetClientHealth(client, health)
 	SetEntData(client, g_HealthOffset, health, 4, true);
 }
 
-GiveGrenades(client, flashnum, bool:he, bool:smoke)
+GiveGrenades(client, flashnum, bool:he, bool:smoke, bool:decoy)
 {
 	if (!IsPlayerAlive(client))
 	{
@@ -902,6 +930,10 @@ GiveGrenades(client, flashnum, bool:he, bool:smoke)
 	if (smoke)
 	{
 		GivePlayerItem(client, "weapon_smokegrenade");
+	}
+	if (g_bIsGo && decoy)
+	{
+		GivePlayerItem(client, "weapon_decoy");
 	}
 }
 
