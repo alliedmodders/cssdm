@@ -118,7 +118,8 @@ def AddHL2Library(name, dest):
 pdb_list = []
 
 # Copy loader binaries
-AddNormalLibrary('cssdm.ext', 'extensions')
+AddNormalLibrary('cssdm.ext.ep2v', 'extensions')
+AddNormalLibrary('cssdm.ext.csgo', 'extensions')
 
 job.AddCommandGroup(bincopies)
 
