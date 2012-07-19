@@ -119,7 +119,8 @@ pdb_list = []
 
 # Copy loader binaries
 AddNormalLibrary('cssdm.ext.2.ep2v', 'extensions')
-AddNormalLibrary('cssdm.ext.2.csgo', 'extensions')
+if AMBuild.target['platform'] != 'darwin':
+	AddNormalLibrary('cssdm.ext.2.csgo', 'extensions')
 
 job.AddCommandGroup(bincopies)
 
