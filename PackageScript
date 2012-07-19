@@ -105,7 +105,7 @@ bincopies = []
 
 def AddNormalLibrary(name, dest):
 	dest = os.path.join('addons', 'sourcemod', dest)
-	bincopies.append(CopyFile(os.path.join('..', name, name + osutil.SharedLibSuffix()), dest))
+	bincopies.append(CopyFile(os.path.join(name, name + osutil.SharedLibSuffix()), dest))
 	pdb_list.append(name + '\\' + name + '.pdb')
 
 def AddHL2Library(name, dest):
