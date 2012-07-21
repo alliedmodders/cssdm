@@ -9,10 +9,10 @@ class CSSDM:
 
 		#Build SDK info
 		self.sdkInfo = { }
-		self.sdkInfo['ep2v'] =  {'sdk': 'HL2SDKOBVALVE',   'ext': '.2.ep2v',  'def': '6',
+		self.sdkInfo['ep2v'] =  {'sdk': 'HL2SDKOBVALVE',   'ext': '2.ep2v',  'def': '6',
 		                         'name': 'ORANGEBOXVALVE', 'platform': ['windows', 'linux', 'darwin']}
 		
-		self.sdkInfo['csgo'] =  {'sdk': 'HL2SDKCSGO',     'ext': '.2.csgo',  'def': '11',
+		self.sdkInfo['csgo'] =  {'sdk': 'HL2SDKCSGO',     'ext': '2.csgo',  'def': '11',
 		                         'name': 'CSGO',           'platform': ['windows', 'linux']}
 
 		if AMBuild.mode == 'config':

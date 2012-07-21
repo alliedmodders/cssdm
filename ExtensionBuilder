@@ -13,7 +13,7 @@ for i in CSSDM.sdkInfo:
 	compiler = CSSDM.DefaultHL2Compiler('.', i)
 	compiler['CXXINCLUDES'].append(os.path.join(AMBuild.sourceFolder, 'sdk'))
 
-	name = 'cssdm.ext' + sdk['ext']
+	name = 'cssdm.ext.' + sdk['ext']
 	extension = AMBuild.AddJob(name)
 	binary = Cpp.LibraryBuilder(name, AMBuild, extension, compiler)
 	CSSDM.PreSetupHL2Job(extension, binary, i)
