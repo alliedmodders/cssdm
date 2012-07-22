@@ -354,10 +354,25 @@ bool InitializeUtils(char *error, size_t maxlength)
 	g_CallWrappers.push_back(g_pGiveAmmo);
 
 	/** PROPERTIES */
-	SendProp *prop;
-	GET_PROPERTY("CCSPlayer", "m_hRagdoll", g_RagdollOffset);
-	GET_PROPERTY("CCSPlayer", "m_lifeState", g_LifeStateOffset);
-	GET_PROPERTY("CCSPlayer", "m_bHasDefuser", g_DefuserOffset);
+	sm_sendprop_info_t prop;
+	if(!gamehelpers->FindSendPropInfo("CCSPlayer", "m_hRagdoll", &prop))
+	{
+		snprintf(error, maxlength, "Failed to get prop info for m_hRagdoll");
+		return false;
+	}
+	g_RagdollOffset = prop.actual_offset;
+	if(!gamehelpers->FindSendPropInfo("CCSPlayer", "m_lifeState", &prop))
+	{
+		snprintf(error, maxlength, "Failed to get prop info for m_lifeState");
+		return false;
+	}
+	g_LifeStateOffset = prop.actual_offset;
+	if(!gamehelpers->FindSendPropInfo("CCSPlayer", "m_bHasDefuser", &prop))
+	{
+		snprintf(error, maxlength, "Failed to get prop info for m_bHasDefuser");
+		return false;
+	}
+	g_DefuserOffset = prop.actual_offset;
 
 	return true;
 }

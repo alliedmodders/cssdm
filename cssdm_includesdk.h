@@ -32,8 +32,9 @@
 #define RESET_DEBUG
 #undef _DEBUG
 #endif
-#include "cbase.h"
-#include "baseentity.h"
+//#include "cbase.h"
+//#include "baseentity.h"
+class CBasePlayer;
 #if defined RESET_DEBUG
 #define _DEBUG
 #endif
