@@ -345,7 +345,7 @@ IMPLEMENT_EVENT(player_spawn)
 	player->is_spawned = true;
 
 	/* If we were waiting to respawn, cancel the timer */
-	if (player->respawn_timer)
+	if (player->respawn_timer && !player->pBot)
 	{
 		timersys->KillTimer(player->respawn_timer);
 		player->respawn_timer = NULL;
