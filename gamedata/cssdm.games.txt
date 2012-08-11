@@ -14,7 +14,6 @@
 			
 			"TakeDmgPatch2_Windows"		"\xEB"
 			"TakeDmgPatch2_Linux"		"\x90\x90\x90\x90\x90\x90"
-
 			
 			"CalcDomRevPatch_Windows"	"\x90\x90\x90\x90\x90\x90"
 			"CalcDomRevPatch_Linux"		"\x90\x90"
@@ -35,7 +34,7 @@
 			"TakeDmgPatch2"
 			{
 				"windows"		"356"
-				"linux"			"3089"
+				"linux"			"3132"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
@@ -78,7 +77,7 @@
 			"CalcDomRevPatch"
 			{
 				"windows"		"92"
-				"linux"			"131"
+				"linux"			"128"
 			}
 		}
 		"Signatures"
@@ -239,7 +238,7 @@
 			"RoundRespawn"
 			{
 				"library"	"server"
-				"windows"	"\x55\x8B\xEC\x51\x89\x2A\x2A\x8B\x2A\x2A\x8B\x10\x8B"
+				"windows"	"\x55\x8B\xEC\x83\xEC\x2A\x56\x8B\xF1\x8B\x0D\x2A\x2A\x2A\x2A\x57\xE8\x2A\x2A\x2A\x2A\x84\xC0\x75"
 				"linux"		"@_ZN9CCSPlayer12RoundRespawnEv"
 				"mac"		"@_ZN9CCSPlayer12RoundRespawnEv"
 			}
