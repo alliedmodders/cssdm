@@ -158,7 +158,7 @@
 			/* Patch offsets for FFA */
 			"LagCompPatch"
 			{
-				"windows"		"41"
+				"windows"		"22"
 				"linux"			"47"
 				"mac"			"32"
 			}
@@ -252,7 +252,7 @@
 			"WantsLagComp"
 			{
 				"library"		"server"
-				"windows"		"\x53\x8B\xDC\x83\xEC\x2A\x83\xE4\x2A\x83\xC4\x2A\x55\x8B\x2A\x2A\x89\x2A\x2A\x2A\x8B\xEC\xA1\x2A\x2A\x2A\x2A\x83\xEC\x2A\x83\x2A\x2A\x00\x56\x8B\x2A\x2A\x57"
+				"windows"		"\x55\x8B\xEC\xA1\x2A\x2A\x2A\x2A\x83\xEC\x10\x83\x78\x30\x00\x56\x8B\x75\x08\x57"
 				"linux"			"@_ZNK11CBasePlayer28WantsLagCompensationOnEntityEPKS_PK8CUserCmdPK7CBitVecILi2048EE"
 				"mac"			"@_ZNK11CBasePlayer28WantsLagCompensationOnEntityEPKS_PK8CUserCmdPK7CBitVecILi2048EE"
 			}
