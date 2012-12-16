@@ -29,8 +29,8 @@ if ($^O eq "linux") {
 	#	print $result;
 	#}
 	
-	$ENV{'SOURCEMOD14'} = '/home/builds/common/sourcemod-1.4';
-	$ENV{'SOURCEMOD-CENTRAL'} = '/home/build/common/sourcemod-central';
+	#$ENV{'SOURCEMOD14'} = '/home/builds/common/sourcemod-1.4';
+	$ENV{'SOURCEMOD14'} = '/home/build/common/sourcemod-central';
 	$ENV{'MMSOURCE19'} = '/home/builds/common/mmsource-1.9';
 	
 	$ENV{'HL2SDK'} = '/home/builds/common/hl2sdk';
@@ -49,8 +49,8 @@ if ($^O eq "linux") {
 	#	print $result;
 	#}
 	
-	$ENV{'SOURCEMOD14'} = '/Users/builds/slaves/common/sourcemod-1.4';
-	$ENV{'SOURCEMOD-CENTRAL'} = '/Users/builds/slaves/common/sourcemod-central';
+	#$ENV{'SOURCEMOD14'} = '/Users/builds/slaves/common/sourcemod-1.4';
+	$ENV{'SOURCEMOD14'} = '/Users/builds/slaves/common/sourcemod-central';
 	$ENV{'MMSOURCE18'} = '/Users/builds/slaves/common/mmsource-1.8';
 	$ENV{'MMSOURCE19'} = '/Users/builds/slaves/common/mmsource-central';
 	
