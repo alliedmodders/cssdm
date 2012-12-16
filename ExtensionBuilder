@@ -2,7 +2,7 @@
 import os
 
 for i in CSSDM.sdkInfo:
-	if i != 'ep2v' and i != 'csgo':
+	if i != 'css' and i != 'csgo':
 		continue
 	
 	sdk = CSSDM.sdkInfo[i]
