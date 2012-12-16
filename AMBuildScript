@@ -9,8 +9,8 @@ class CSSDM:
 
 		#Build SDK info
 		self.sdkInfo = { }
-		self.sdkInfo['ep2v'] =  {'sdk': 'HL2SDKOBVALVE',   'ext': '2.ep2v',  'def': '6',
-		                         'name': 'ORANGEBOXVALVE', 'platform': ['windows', 'linux', 'darwin']}
+		self.sdkInfo['css'] =  {'sdk': 'HL2SDKCSS',   'ext': '2.css',  'def': '6',
+		                         'name': 'CSS', 'platform': ['windows', 'linux', 'darwin']}
 		
 		self.sdkInfo['csgo'] =  {'sdk': 'HL2SDKCSGO',     'ext': '2.csgo',  'def': '11',
 		                         'name': 'CSGO',           'platform': ['windows', 'linux']}
@@ -23,7 +23,8 @@ class CSSDM:
 			envvars = { 'MMSOURCE19': 'mmsource-1.9' }
 			envvars['SOURCEMOD14'] = 'sourcemod-1.4'
 			envvars['SOURCEMOD-BIN'] = 'sourcemod-bin'
-			envvars['HL2SDKOBVALVE'] = 'hl2sdk-ob-valve'
+			#envvars['HL2SDKOBVALVE'] = 'hl2sdk-ob-valve'
+			envvars['HL2SDKCSS'] = 'hl2sdk-css'
 			if AMBuild.target['platform'] != 'darwin':
 				envvars['HL2SDKCSGO'] = 'hl2sdk-csgo'
 
@@ -216,7 +217,7 @@ class CSSDM:
 			else:
 				staticLibs = os.path.join(sdkPath, 'lib', 'linux')
 			workFolder = os.path.join(AMBuild.outputFolder, job.workFolder)
-			if sdk in ['ep2v', 'l4d', 'l4d2', 'csgo']:
+			if sdk in ['ep2v', 'l4d', 'l4d2', 'csgo', 'css']:
 				libs = ['tier1_i486.a', 'mathlib_i486.a', 'libvstdlib.so', 'libtier0.so']
 				if sdk == 'csgo':
 					libs.append('interfaces_i486.a')
@@ -316,7 +317,7 @@ class CSSDM:
 		if not noLink:
 			if AMBuild.target['platform'] == 'linux':
 				compiler['POSTLINKFLAGS'][0:0] = ['-lm']
-				if sdk in ['ep2v', 'l4d', 'l4d2', 'csgo']:
+				if sdk in ['ep2v', 'l4d', 'l4d2', 'csgo', 'css']:
 					compiler['POSTLINKFLAGS'][0:0] = ['libtier0.so']
 					compiler['POSTLINKFLAGS'][0:0] = ['libvstdlib.so']
 				else:
