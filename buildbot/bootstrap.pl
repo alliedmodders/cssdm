@@ -38,6 +38,7 @@ if ($^O eq "linux") {
 	$ENV{'HL2SDKL4D'} = '/home/builds/common/hl2sdk-l4d';
 	$ENV{'HL2SDKL4D2'} = '/home/builds/common/hl2sdk-l4d2';
 	$ENV{'HL2SDKCSGO'} = '/home/builds/common/hl2sdk-csgo';
+	$ENV{'HL2SDKCSS'} = '/home/builds/common/hl2sdk-css';
 } elsif ($^O eq "darwin") {
 	#my @sdks = ('sourcemod-1.3', 'mmsource-1.8', 'hl2sdk-ob-valve');
 	#my ($sdk);
@@ -52,6 +53,7 @@ if ($^O eq "linux") {
 	$ENV{'MMSOURCE19'} = '/Users/builds/slaves/common/mmsource-central';
 	
 	$ENV{'HL2SDKOBVALVE'} = '/Users/builds/slaves/common/hl2sdk-ob-valve';
+	$ENV{'HL2SDKCSS'} = '/Users/builds/slaves/common/hl2sdk-css';
 } else {
 	#JUST IN CASE
 	#$ENV{'MMSOURCE19'} = "C:\\Scripts\\common\\mmsource-1.9";
