@@ -35,6 +35,19 @@ using namespace SourceHook;
 KTrie<dm_weapon_t *> g_WeaponLookup;
 CVector<dm_weapon_t *> g_Weapons;
 
+char *DM_StringToLower(const char *str)
+{
+	size_t length = strlen(str);
+	char *ptr = new char[length+1];
+
+	for(size_t i = 0; i < length; i++)
+	{
+		ptr[i] = tolower(str[i]);
+	}
+
+	return ptr;
+}
+
 dm_weapon_t *DM_FindWeapon(const char *name)
 {
 	dm_weapon_t **pWp;
@@ -93,11 +106,12 @@ bool DM_ParseWeapons(char *error, size_t maxlength)
 
 		/* Deal with section name */
 		char name[64];
-		snprintf(name, sizeof(name), "weapon_%s", weapons->GetName());
+		char *pName = DM_StringToLower(weapons->GetName());
+		snprintf(name, sizeof(name), "weapon_%s", pName);
 		wp->classname = DM_CopyString(name);
 
 		/* Deal with other strings */
-		wp->display = DM_CopyString(weapons->GetString("name", weapons->GetName()));
+		wp->display = DM_CopyString(weapons->GetString("name", pName));
 
 		const char *type = weapons->GetString("type", "");
 		wp->type = WeaponType_Invalid;
@@ -115,7 +129,7 @@ bool DM_ParseWeapons(char *error, size_t maxlength)
 		if (wp->type != WeaponType_Invalid)
 		{
 			wp->id = (int)g_Weapons.size();
-			g_WeaponLookup.insert(weapons->GetName(), wp);
+			g_WeaponLookup.insert(pName, wp);
 			g_Weapons.push_back(wp);
 		}
 	}
