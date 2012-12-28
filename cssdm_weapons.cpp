@@ -42,8 +42,12 @@ char *DM_StringToLower(const char *str)
 
 	for(size_t i = 0; i < length; i++)
 	{
-		ptr[i] = tolower(str[i]);
+		if (str[i] >= 'A' && str[i] <= 'Z')
+			ptr[i] = tolower(str[i]);
+		else
+			ptr[i] = str[i];
 	}
+	ptr[length] = '\0';
 
 	return ptr;
 }
