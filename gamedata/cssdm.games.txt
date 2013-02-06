@@ -159,19 +159,19 @@
 			"LagCompPatch"
 			{
 				"windows"		"22"
-				"linux"			"47"
+				"linux"			"31"
 				"mac"			"32"
 			}
 			"TakeDmgPatch1"
 			{
 				"windows"		"906"
-				"linux"			"428"
+				"linux"			"505"
 				"mac"			"746"
 			}
 			"TakeDmgPatch2"
 			{
 				"windows"		"906"
-				"linux"			"428"
+				"linux"			"505"
 				"mac"			"746"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
@@ -222,7 +222,7 @@
 			"CalcDomRevPatch"
 			{
 				"windows"		"65"
-				"linux"			"112"
+				"linux"			"96"
 				"mac"			"86"
 			}
 		}
