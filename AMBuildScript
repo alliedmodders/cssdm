@@ -22,7 +22,7 @@ class CSSDM:
 			#Detect variables
 			envvars = { 'MMSOURCE19': 'mmsource-1.9' }
 			envvars['SOURCEMOD14'] = 'sourcemod-1.4'
-			#envvars['SOURCEMOD-BIN'] = 'sourcemod-bin'
+			envvars['SOURCEMOD-BIN'] = 'sourcemod-bin'
 			#envvars['HL2SDKOBVALVE'] = 'hl2sdk-ob-valve'
 			envvars['HL2SDKCSS'] = 'hl2sdk-css'
 			if AMBuild.target['platform'] != 'darwin':
@@ -181,7 +181,7 @@ class CSSDM:
 			                           os.path.join(AMBuild.outputFolder, 'includes'))
 		self.mmsPath = AMBuild.cache['MMSOURCE19']
 		self.smSourcePath = AMBuild.cache['SOURCEMOD14']
-		#self.smBinPath = AMBuild.cache['SOURCEMOD-BIN']
+		self.smBinPath = AMBuild.cache['SOURCEMOD-BIN']
 
 	def DefaultCompiler(self):
 		compiler = self.compiler.Clone()
