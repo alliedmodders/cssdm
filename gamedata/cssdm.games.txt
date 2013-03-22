@@ -50,18 +50,18 @@
 			}
 			"Weapon_GetSlot"
 			{
-				"windows"		"283"
-				"linux"			"284"
+				"windows"		"284"
+				"linux"			"285"
 			}
 			"RemoveAllItems"
 			{
-				"windows"		"372"
-				"linux"			"373"
+				"windows"		"373"
+				"linux"			"374"
 			}
 			"GiveAmmo"
 			{
-				"windows"		"269"
-				"linux"			"270"
+				"windows"		"270"
+				"linux"			"271"
 			}
 			/* Next _two_ are detour byte "save" counts */
 			"DropWeaponsPatch"
