@@ -251,7 +251,7 @@ void DM_ApplyPatch(void *address, int offset, const dmpatch_t *patch, dmpatch_t 
 {
 	unsigned char *addr = (unsigned char *)address + offset;
 
-	DM_ProtectMemory(addr, 20, PAGE_EXECUTE_READWRITE);
+	SourceHook::SetMemAccess(addr, 20, SH_MEM_READ|SH_MEM_WRITE|SH_MEM_EXEC);
 
 	if (restore)
 	{
