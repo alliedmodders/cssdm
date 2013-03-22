@@ -31,13 +31,6 @@
 #include <sh_list.h>
 #include <sh_memory.h>
 
-#if defined PLATFORM_POSIX
-#include <sys/mman.h>
-#define	PAGE_SIZE	4096
-#define ALIGN(ar) ((long)ar & ~(PAGE_SIZE-1))
-#define	PAGE_EXECUTE_READWRITE	PROT_READ|PROT_WRITE|PROT_EXEC
-#endif
-
 using namespace SourceHook;
 
 List<ICallWrapper *> g_CallWrappers;
@@ -277,19 +270,7 @@ void DM_ApplyPatch(void *address, int offset, const dmpatch_t *patch, dmpatch_t 
 
 void DM_SetMemPatchable(void *address, size_t size)
 {
-	//DM_ProtectMemory(address, (int)size, PAGE_EXECUTE_READWRITE);
 	SourceHook::SetMemAccess(address, (int)size, SH_MEM_READ|SH_MEM_WRITE|SH_MEM_EXEC);
-}
-
-void DM_ProtectMemory(void *addr, int length, int prot)
-{
-#if defined PLATFORM_POSIX
-	void *addr2 = (void *)ALIGN(addr);
-	mprotect(addr2, sysconf(_SC_PAGESIZE), prot);
-#elif defined PLATFORM_WINDOWS
-	DWORD old_prot;
-	VirtualProtect(addr, length, prot, &old_prot);
-#endif
 }
 
 #define GET_PROPERTY(cls, name, var) \
