@@ -184,9 +184,9 @@
 			/* Virtual indexes */
 			"IPointsForKill"
 			{
-				"windows"		"78"
-				"linux"			"79"
-				"mac"			"79"
+				"windows"		"79"
+				"linux"			"80"
+				"mac"			"80"
 			}
 			"Weapon_GetSlot"
 			{
