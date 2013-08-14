@@ -29,7 +29,7 @@
 			"TakeDmgPatch1"
 			{
 				"windows"		"211"
-				"linux"			"653"
+				"linux"			"701"
 			}
 			"TakeDmgPatch2"
 			{
