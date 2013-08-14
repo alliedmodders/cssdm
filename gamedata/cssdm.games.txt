@@ -29,12 +29,12 @@
 			"TakeDmgPatch1"
 			{
 				"windows"		"211"
-				"linux"			"723"
+				"linux"			"653"
 			}
 			"TakeDmgPatch2"
 			{
-				"windows"		"362"
-				"linux"			"5558"
+				"windows"		"250"
+				"linux"			"5592"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
@@ -50,18 +50,18 @@
 			}
 			"Weapon_GetSlot"
 			{
-				"windows"		"284"
-				"linux"			"285"
+				"windows"		"286"
+				"linux"			"287"
 			}
 			"RemoveAllItems"
 			{
-				"windows"		"373"
-				"linux"			"374"
+				"windows"		"378"
+				"linux"			"379"
 			}
 			"GiveAmmo"
 			{
-				"windows"		"270"
-				"linux"			"271"
+				"windows"		"272"
+				"linux"			"273"
 			}
 			/* Next _two_ are detour byte "save" counts */
 			"DropWeaponsPatch"
