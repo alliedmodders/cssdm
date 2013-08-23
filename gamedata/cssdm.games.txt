@@ -34,7 +34,7 @@
 			"TakeDmgPatch2"
 			{
 				"windows"		"250"
-				"linux"			"5592"
+				"linux"			"5586"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
