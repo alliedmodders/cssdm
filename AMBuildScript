@@ -312,6 +312,7 @@ class CSSDM:
 				staticLibs = os.path.join(sdkPath, 'linux_sdk')
 		else:
 			if AMBuild.target['platform'] == 'linux':
+				compiler['CDEFINES'].extend(['COMPILER_GCC', 'POSIX'])
 				staticLibs = os.path.join(sdkPath, 'lib', 'linux')
 			elif AMBuild.target['platform'] == 'darwin':
 				staticLibs = os.path.join(sdkPath, 'lib', 'mac')
