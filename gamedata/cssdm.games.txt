@@ -34,7 +34,7 @@
 			"TakeDmgPatch2"
 			{
 				"windows"		"251"
-				"linux"			"5803"
+				"linux"			"5783"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
@@ -55,8 +55,8 @@
 			}
 			"RemoveAllItems"
 			{
-				"windows"		"378"
-				"linux"			"379"
+				"windows"		"379"
+				"linux"			"380"
 			}
 			"GiveAmmo"
 			{
