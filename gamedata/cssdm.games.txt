@@ -34,7 +34,7 @@
 			"TakeDmgPatch2"
 			{
 				"windows"		"251"
-				"linux"			"5783"
+				"linux"			"5773"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
@@ -115,7 +115,7 @@
 			"CSWeaponDrop"
 			{
 				"library"		"server"
-				"windows"		"\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x53\x56\x8B\x75\x08\x57\x6A\x00\x68\x2A\x2A\x2A\x2A\x68"
+				"windows"		"\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x53\x56\x57\x8B\x7D\x08\x6A\x00\x68"
 				"linux"			"@_ZN9CCSPlayer12CSWeaponDropEP17CBaseCombatWeaponbb"
 			}
 			"DropWeapons"
