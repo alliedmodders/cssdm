@@ -34,7 +34,7 @@
 			"TakeDmgPatch2"
 			{
 				"windows"		"251"
-				"linux"			"5773"
+				"linux"			"5005"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
@@ -77,7 +77,7 @@
 			"CalcDomRevPatch"
 			{
 				"windows"		"92"
-				"linux"			"130"
+				"linux"			"128"
 			}
 		}
 		"Signatures"
