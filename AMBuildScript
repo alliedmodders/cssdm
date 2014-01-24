@@ -69,7 +69,6 @@ class CSSDM:
 				self.compiler.AddToListVar('CFLAGS', '-Wno-invalid-offsetof')
 				self.compiler.AddToListVar('CFLAGS', '-Wno-unused')
 				self.compiler.AddToListVar('CFLAGS', '-Wno-switch')
-				self.compiler.AddToListVar('CFLAGS', '-Wno-delete-non-virtual-dtor')
 				self.compiler.AddToListVar('CFLAGS', '-msse')
 				self.compiler.AddToListVar('CFLAGS', '-m32')
 				self.compiler.AddToListVar('POSTLINKFLAGS', '-m32')
