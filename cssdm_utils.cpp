@@ -35,7 +35,6 @@ using namespace SourceHook;
 
 List<ICallWrapper *> g_CallWrappers;
 ICallWrapper *g_pRoundRespawn = NULL;
-ICallWrapper *g_pRemoveEntity = NULL;
 ICallWrapper *g_pWeaponGetSlot = NULL;
 ICallWrapper *g_pDropWeapon = NULL;
 ICallWrapper *g_pRemoveAllItems = NULL;
@@ -109,9 +108,44 @@ void DM_RespawnPlayer(int client)
 	g_pRoundRespawn->Execute(&pEntity, NULL);
 }
 
+class variant_t
+{
+public:
+	union
+	{
+		bool bVal;
+		string_t iszVal;
+		int iVal;
+		float flVal;
+		float vecVal[3];
+		color32 rgbaVal;
+	};
+	CBaseHandle eVal; // this can't be in the union because it has a constructor.
+	fieldtype_t fieldType;
+};
+
+struct inputdata_t
+{
+	CBaseEntity *pActivator;		// The entity that initially caused this chain of output events.
+	CBaseEntity *pCaller;			// The entity that fired this particular output.
+	variant_t value;				// The data parameter for this output.
+	int nOutputID;					// The unique ID of the output that was fired.
+};
+
 void DM_RemoveEntity(CBaseEntity *pEntity)
 {
-	g_pRemoveEntity->Execute(&pEntity, NULL);
+	datamap_t *pMap = gamehelpers->GetDataMap(pEntity);
+
+	if(!pMap)
+		return;
+
+	typedescription_t *pDesc = gamehelpers->FindInDataMap(pMap, "InputKill");
+
+	if(!pDesc)
+		return;
+
+	inputdata_t data;
+	(pEntity->*pDesc->inputFunc)(data);
 }
 
 bool DM_IsPlayerAlive(int client)
@@ -290,14 +324,6 @@ bool InitializeUtils(char *error, size_t maxlength)
 	g_pDmConf->GetMemSig("RoundRespawn", &addr);
 	g_pRoundRespawn = bintools->CreateCall(addr, CallConv_ThisCall, NULL, NULL, 0);
 	g_CallWrappers.push_back(g_pRoundRespawn);
-
-	/** UTIL_REMOVE */
-	g_pDmConf->GetMemSig("UTIL_Remove", &addr);
-	pass[0].flags = PASSFLAG_BYVAL;
-	pass[0].size = sizeof(CBaseEntity *);
-	pass[0].type = PassType_Basic;
-	g_pRemoveEntity = bintools->CreateCall(addr, CallConv_Cdecl, NULL, pass, 1);
-	g_CallWrappers.push_back(g_pRemoveEntity);
 	
 	/** WEAPON_GETSLOT */
 	g_pDmConf->GetOffset("Weapon_GetSlot", &offset);
