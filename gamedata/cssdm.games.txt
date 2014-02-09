@@ -23,18 +23,18 @@
 			/* Patch offsets for FFA */
 			"LagCompPatch"
 			{
-				"windows"		"62"
+				"windows"		"57"
 				"linux"			"53"
 			}
 			"TakeDmgPatch1"
 			{
-				"windows"		"212"
-				"linux"			"699"
+				"windows"		"379"
+				"linux"			"1047"
 			}
 			"TakeDmgPatch2"
 			{
-				"windows"		"251"
-				"linux"			"5005"
+				"windows"		"3287"
+				"linux"			"5329"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
@@ -76,7 +76,7 @@
 			}
 			"CalcDomRevPatch"
 			{
-				"windows"		"92"
+				"windows"		"86"
 				"linux"			"128"
 			}
 		}
@@ -103,7 +103,7 @@
 			"WantsLagComp"
 			{
 				"library"		"server"
-				"windows"		"\x55\x8B\xEC\x83\xEC\x10\x56\x57\x8B\xF9\x8B\x0D\x2A\x2A\x2A\x2A\x81\xF9\x75"
+				"windows"		"\x55\x8B\xEC\x83\xEC\x10\x56\x57\x8B\xF9\x8B\x0D\x2A\x2A\x2A\x2A\x81\xF9\x2A\x2A\x2A\x2A\x75"
 				"linux"			"@_ZNK11CBasePlayer28WantsLagCompensationOnEntityEPK11CBaseEntityPK8CUserCmdPK7CBitVecILi2048EE"
 			}
 			"CGameRules"
@@ -127,7 +127,7 @@
 			"CalcDominationAndRevenge"
 			{
 				"library"		"server"
-				"windows"		"\x55\x8B\xEC\x83\xE4\xF8\x81\xEC\x7C\x01\x00\x00\x53\x56\x8B\x75\x0C\x8B\xD9\x57\x8B"
+				"windows"		"\x55\x8B\xEC\xA1\x2A\x2A\x2A\x2A\xB9\x2A\x2A\x2A\x2A\xFF\x50\x34\x85\xC0"
 				"linux"			"@_ZN12CCSGameStats24CalcDominationAndRevengeEP9CCSPlayerS1_Pi"
 			}
 		}
