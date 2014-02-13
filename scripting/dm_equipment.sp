@@ -32,9 +32,6 @@
 
 /** Plugin Stuff */
 new Handle:cssdm_enable_equipment;					/** cssdm_enable_equipment cvar */
-new g_ArmorOffset = -1;								/* m_ArmorValue offset */
-new g_NVOffset = -1;								/* m_bHasNightVision offset */
-new g_HealthOffset = -1;							/* m_iHealth offset */
 new Handle:g_SpawnTimers[MAXPLAYERS+1];				/* Post-spawn timers */
 new Handle:g_hPrimaryMenu = INVALID_HANDLE;			/* Priamry menu Handle */
 new Handle:g_hSecondaryMenu = INVALID_HANDLE;		/* Secondary menu Handle */
@@ -113,10 +110,6 @@ public OnPluginStart()
 	
 	cssdm_enable_equipment = CreateConVar("cssdm_enable_equipment", "1", "Sets whether the equipment plugin is enabled");
 	HookConVarChange(cssdm_enable_equipment, OnEquipmentEnableChange);
-	
-	g_ArmorOffset = FindSendPropOffs("CCSPlayer", "m_ArmorValue");
-	g_NVOffset = FindSendPropOffs("CCSPlayer", "m_bHasNightVision");
-	g_HealthOffset = FindSendPropOffs("CCSPlayer", "m_iHealth");
 	
 	g_hEquipMenu = CreateMenu(Menu_EquipHandler, MenuAction_DrawItem|MenuAction_DisplayItem);
 	SetMenuTitle(g_hEquipMenu, "Weapon Options:");
@@ -199,8 +192,8 @@ public DM_OnClientSpawned(client)
 	{
 		if (g_ArmorAmount > 0)
 		{
-			GivePlayerItem(client, "item_assaultsuit");
-			GivePlayerItem(client, "item_assaultsuit");
+			GivePlayerItem(client, "item_kevlar");
+			GivePlayerItem(client, "item_kevlar");
 			SetClientArmor(client, g_ArmorAmount);
 		}
 		if (g_HealthAmount > 0)
@@ -209,8 +202,13 @@ public DM_OnClientSpawned(client)
 		}
 		if (g_Helmets)
 		{
-			GivePlayerItem(client, "item_kevlar");
-			GivePlayerItem(client, "item_kevlar");
+			if (g_ArmorAmount > 0)
+			{
+				GivePlayerItem(client, "item_assaultsuit");
+				GivePlayerItem(client, "item_assaultsuit");
+				SetClientArmor(client, g_ArmorAmount);
+			}
+			GiveHelmet(client);
 		}
 		GiveGrenades(client, g_Flashes, g_HEs, g_Smokes, g_Decoy);
 		if (g_NightVision)
@@ -231,8 +229,8 @@ public DM_OnClientSpawned(client)
 		}
 		if (g_BotArmor > 0)
 		{
-			GivePlayerItem(client, "item_assaultsuit");
-			GivePlayerItem(client, "item_assaultsuit");
+			GivePlayerItem(client, "item_kevlar");
+			GivePlayerItem(client, "item_kevlar");
 			SetClientArmor(client, g_BotArmor);
 		} else {
 			/* Make sure bot didn't buy armor */
@@ -244,8 +242,13 @@ public DM_OnClientSpawned(client)
 		}
 		if (g_BotHelmets)
 		{
-			GivePlayerItem(client, "item_kevlar");
-			GivePlayerItem(client, "item_kevlar");
+			if (g_BotArmor > 0)
+			{
+				GivePlayerItem(client, "item_assaultsuit");
+				GivePlayerItem(client, "item_assaultsuit");
+				SetClientArmor(client, g_BotArmor);
+			}
+			GiveHelmet(client);
 		}
 		if (g_bIsGo && g_BotTaser)
 		{
@@ -894,22 +897,12 @@ bool:LoadConfigFile(const String:path[])
 
 SetClientArmor(client, armor)
 {
-	if (g_ArmorOffset == -1)
-	{
-		return;
-	}
-	
-	SetEntData(client, g_ArmorOffset, armor, 4, true);
+	SetEntProp(client, Prop_Send, "m_ArmorValue", armor);
 }
 
 SetClientHealth(client, health)
 {
-	if (g_HealthOffset == -1)
-	{
-		return;
-	}
-	
-	SetEntData(client, g_HealthOffset, health, 4, true);
+	SetEntProp(client, Prop_Send, "m_iHealth", health);
 }
 
 GiveGrenades(client, flashnum, bool:he, bool:smoke, bool:decoy)
@@ -939,11 +932,9 @@ GiveGrenades(client, flashnum, bool:he, bool:smoke, bool:decoy)
 
 GiveNightVision(client)
 {
-	if (g_NVOffset == -1)
-	{
-		return;
-	}
-	
-	SetEntData(client, g_NVOffset, true, 1, true);
+	SetEntProp(client, Prop_Send, "m_bHasNightVision", true);
 }
-
+GiveHelmet(client)
+{
+	SetEntProp(client, Prop_Send, "m_bHasHelmet", true);
+}
