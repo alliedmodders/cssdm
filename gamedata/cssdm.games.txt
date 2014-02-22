@@ -10,7 +10,7 @@
 			"LagCompPatch_Linux"		"\x90\x90\x90\x90\x90\x90"
 			
 			"TakeDmgPatch1_Windows"		"\xEB"
-			"TakeDmgPatch1_Linux"		"\x90\x90\x90\x90\x90\x90"
+			"TakeDmgPatch1_Linux"		"\xEB"
 			
 			"TakeDmgPatch2_Windows"		"\xEB"
 			"TakeDmgPatch2_Linux"		"\x90\x90\x90\x90\x90\x90"
@@ -29,12 +29,12 @@
 			"TakeDmgPatch1"
 			{
 				"windows"		"379"
-				"linux"			"1047"
+				"linux"			"999"
 			}
 			"TakeDmgPatch2"
 			{
-				"windows"		"3287"
-				"linux"			"5327"
+				"windows"		"3309"
+				"linux"			"5925"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
@@ -71,7 +71,7 @@
 			}
 			"CSWeaponDropPatch"
 			{
-				"windows"		"9"
+				"windows"		"6"
 				"linux"			"6"
 			}
 			"CalcDomRevPatch"
