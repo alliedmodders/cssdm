@@ -29,6 +29,8 @@ for i in CSSDM.sdkInfo:
 		'cssdm_utils.cpp',
 		'cssdm_weapons.cpp',
 		'sdk/smsdk_ext.cpp'
+		'CDetour/detours.cpp'
+		'asm/asm.c'
 		])
 	CSSDM.PostSetupHL2Job(extension, binary, i)
 	CSSDM.AutoVersion('.', binary)

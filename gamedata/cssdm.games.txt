@@ -33,8 +33,8 @@
 			}
 			"TakeDmgPatch2"
 			{
-				"windows"		"3309"
-				"linux"			"5829"
+				"windows"		"3272"
+				"linux"			"5778"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
@@ -112,16 +112,17 @@
 				"windows"		"\x55\x8B\xEC\x83\xE4\xF8\x81\xEC\x2A\x2A\x2A\x2A\x53\x56\x57\x8B\xD9\x68\x2A\x2A\x2A\x2A\x89\x2A\x2A\x2A\xE8\x2A\x2A\x2A\x2A\xA1"
 				"linux"			"@g_pGameRules"
 			}
+			//ValveBiped.Bip01_R_Hand
 			"CSWeaponDrop"
 			{
 				"library"		"server"
-				"windows"		"\x2A\x2A\x2A\x2A\x2A\x2A\x81\xEC\x2A\x2A\x2A\x2A\x56\x8B\x75\x2A\x57\x6A\x00\x68"
-				"linux"			"@_ZN9CCSPlayer12CSWeaponDropEP17CBaseCombatWeaponbb"
+				"windows"		"\x2A\x2A\x2A\x2A\x2A\x2A\x81\xEC\x2A\x2A\x2A\x2A\x53\x8B\x5D\x08\x56\x57\x6A\x00\x68"
+				"linux"			"@_ZN9CCSPlayer12CSWeaponDropEP17CBaseCombatWeapon6Vectorb"
 			}
 			"DropWeapons"
 			{
 				"library"		"server"
-				"windows"		"\x55\x8B\xEC\x83\xE4\xF8\x83\xEC\x2A\x56\x8B\xF1\x57\x6A\x00\x68\x2A\x2A\x2A\x2A\x8B\x06\x8B\x80"
+				"windows"		"\x55\x8B\xEC\x83\xE4\xF8\x83\xEC\x2A\x53\x56\x8B\xF1\x57\x6A\x00\x68\x2A\x2A\x2A\x2A\x8B\x06"		
 				"linux"			"@_ZN9CCSPlayer11DropWeaponsEbb"
 			}
 			"CalcDominationAndRevenge"
