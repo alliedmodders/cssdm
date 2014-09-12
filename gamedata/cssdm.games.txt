@@ -10,7 +10,7 @@
 			"LagCompPatch_Linux"		"\x90\x90\x90\x90\x90\x90"
 			
 			"TakeDmgPatch1_Windows"		"\xEB"
-			"TakeDmgPatch1_Linux"		"\xEB"
+			"TakeDmgPatch1_Linux"		"\x90\x90\x90\x90\x90\x90"
 			
 			"TakeDmgPatch2_Windows"		"\xEB"
 			"TakeDmgPatch2_Linux"		"\x90\x90\x90\x90\x90\x90"
@@ -24,17 +24,17 @@
 			"LagCompPatch"
 			{
 				"windows"		"57"
-				"linux"			"53"
+				"linux"			"47"
 			}
 			"TakeDmgPatch1"
 			{
 				"windows"		"379"
-				"linux"			"999"
+				"linux"			"1011"
 			}
 			"TakeDmgPatch2"
 			{
 				"windows"		"3272"
-				"linux"			"5775"
+				"linux"			"5729"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
@@ -77,7 +77,7 @@
 			"CalcDomRevPatch"
 			{
 				"windows"		"86"
-				"linux"			"128"
+				"linux"			"111"
 			}
 		}
 		"Signatures"
