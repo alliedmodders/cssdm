@@ -226,6 +226,7 @@ class CSSDM:
 					
 				if sdk == 'csgo':
 					libs.append('interfaces_i486.a')
+					builder['POSTLINKFLAGS'].append('-lstdc++')
 					
 				for i in libs:
 					link = os.path.join(workFolder, i)
