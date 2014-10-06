@@ -28,13 +28,13 @@
 			}
 			"TakeDmgPatch1"
 			{
-				"windows"		"379"
-				"linux"			"1016"
+				"windows"		"373"
+				"linux"			"967"
 			}
 			"TakeDmgPatch2"
 			{
-				"windows"		"3272"
-				"linux"			"5805"
+				"windows"		"3845"
+				"linux"			"5937"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
