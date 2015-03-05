@@ -93,15 +93,15 @@ void InitDropWeaponsDetour()
 #if defined PLATFORM_POSIX
 	IA32_Push_Rm_Disp8_ESP(jit, 4);					//push [esp+4]
 #elif defined PLATFORM_WINDOWS
-	IA32_Push_Reg(jit, REG_ECX);					//push ecx
+	IA32_Push_Reg(jit, kREG_ECX);					//push ecx
 #endif
 	//call <function>
 	jitoffs_t call = IA32_Call_Imm32(jit, 0);		//call <function>
 	IA32_Write_Jump32_Abs(jit, call, (void *)OnClientDropWeapons);
 #if defined PLATFORM_POSIX
-	IA32_Add_Rm_Imm8(jit, REG_ESP, 4, MOD_REG);		//add esp, 4
+	IA32_Add_Rm_Imm8(jit, kREG_ESP, 4, MOD_REG);		//add esp, 4
 #elif defined PLATFORM_WINDOWS
-	IA32_Pop_Reg(jit, REG_ECX);
+	IA32_Pop_Reg(jit, kREG_ECX);
 #endif
 	/* Patch old bytes in */
 	for (size_t i=0; i<drpwpns_restore.bytes; i++)
