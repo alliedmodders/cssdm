@@ -36,6 +36,7 @@
 #include <smsdk_ext.h>
 #include <IBinTools.h>
 
+ICvar *icvar = NULL;
 /**
  * @brief Sample implementation of the SDK Extension.
  * Note: Uncomment one of the pre-defined virtual functions in order to use it.
