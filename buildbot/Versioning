@@ -21,10 +21,10 @@ def GetVersion():
 	
 def PerformReversioning():
 	rev = GetVersion()
-	print rev;
+	print(rev);
 	args = ['git', 'rev-list', '--count', 'HEAD', AMBuild.sourceFolder]
 	cset = command.RunDirectCommand(AMBuild, args)
-	print cset;
+	print(cset);
 	
 	cacheFile = os.path.join(AMBuild.outputFolder, '.ambuild', 'hgcache')
 	cache = Cache(cacheFile)
