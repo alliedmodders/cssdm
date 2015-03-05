@@ -54,6 +54,7 @@ IServerGameEnts *gameents = NULL;
 IServerGameClients *gameclients = NULL;
 ISourcePawnEngine *spengine = NULL;
 IBotManager *botmanager = NULL;
+ICvar *icvar = NULL;
 char g_GlobError[255] = {0};
 bool g_IsLoadedOkay = false;
 bool g_Startup = false;
