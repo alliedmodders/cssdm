@@ -29,15 +29,10 @@
 #include "cssdm_utils.h"
 #include "cssdm_events.h"
 #include <sm_platform.h>
-#include <jit/jit_helpers.h>
-#include <jit/x86/x86_macros.h>
 #include "CDetour/detours.h"
 
-dmpatch_t drpwpns_restore;
-void *drpwpns_address = NULL;
-void *drpwpns_callback = NULL;
-
 CDetour *csdrop_callback = NULL;
+CDetour *drpwpns_callback = NULL;
 
 #if SOURCE_ENGINE == SE_CSGO
 DETOUR_DECL_MEMBER3(DetourCSWeaponDrop, void, CBaseEntity *, weapon, Vector, vec, bool, unknown)
@@ -68,49 +63,19 @@ void DoGatePatch(unsigned char *target, void *callback, dmpatch_t *restore)
 	*(void **)(&target[2]) = callback;
 }
 
+DETOUR_DECL_MEMBER2(DetourDrpWpns, void, bool, unknown1, bool, unknown2)
+{
+		DETOUR_MEMBER_CALL(DetourDrpWpns)(unknown1, unknown2);
+		OnClientDropWeapons(reinterpret_cast<CBaseEntity *>(this));
+}
+
 void InitDropWeaponsDetour()
 {
-	int offset;
-	g_pDmConf->GetMemSig("DropWeapons", &drpwpns_address);
-	g_pDmConf->GetOffset("DropWeaponsPatch", &offset);
-	drpwpns_restore.bytes = offset;
-
-	/* Patch the gate */
-	DoGatePatch((unsigned char *)drpwpns_address, &drpwpns_callback, &drpwpns_restore);
-
-	/* Create the callback */
-	drpwpns_callback = spengine->ExecAlloc(100);
-	JitWriter wr;
-	JitWriter *jit = &wr;
-	wr.outbase = (jitcode_t)drpwpns_callback;
-	wr.outptr = wr.outbase;
-
-	/* Luckily for this we have no parameters!
-	 * The prototype we are pushing is:
-	 *
-	 * void OnClientDropWeapons(CBaseEntity *pEntity);
-	 */
-#if defined PLATFORM_POSIX
-	IA32_Push_Rm_Disp8_ESP(jit, 4);					//push [esp+4]
-#elif defined PLATFORM_WINDOWS
-	IA32_Push_Reg(jit, kREG_ECX);					//push ecx
-#endif
-	//call <function>
-	jitoffs_t call = IA32_Call_Imm32(jit, 0);		//call <function>
-	IA32_Write_Jump32_Abs(jit, call, (void *)OnClientDropWeapons);
-#if defined PLATFORM_POSIX
-	IA32_Add_Rm_Imm8(jit, kREG_ESP, 4, MOD_REG);		//add esp, 4
-#elif defined PLATFORM_WINDOWS
-	IA32_Pop_Reg(jit, kREG_ECX);
-#endif
-	/* Patch old bytes in */
-	for (size_t i=0; i<drpwpns_restore.bytes; i++)
+	drpwpns_callback = DETOUR_CREATE_MEMBER(DetourDrpWpns, "DropWeapons");
+	if(drpwpns_callback)
 	{
-		jit->write_ubyte(drpwpns_restore.patch[i]);
+		drpwpns_callback->EnableDetour();
 	}
-	/* Finally, do a jump back to the original */
-	call = IA32_Jump_Imm32(jit, 0);
-	IA32_Write_Jump32_Abs(jit, call, (unsigned char *)drpwpns_address + drpwpns_restore.bytes);
 }
 
 void InitCSDropDetour()
@@ -134,10 +99,7 @@ void DM_ShutdownDetours()
 {
 	if (drpwpns_callback)
 	{
-		/* Remove the patch */
-		DM_ApplyPatch(drpwpns_address, 0, &drpwpns_restore, NULL);
-		/* Free the gate */
-		spengine->ExecFree(drpwpns_callback);
+		drpwpns_callback->Destroy();
 		drpwpns_callback = NULL;
 	}
 	if (csdrop_callback)
