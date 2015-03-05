@@ -20,8 +20,8 @@ class CSSDM:
 			self.compiler.DetectAll(AMBuild)
 
 			#Detect variables
-			envvars = { 'MMSOURCE19': 'mmsource-1.9' }
-			envvars['SOURCEMOD14'] = 'sourcemod-1.4'
+			envvars = {'MMSOURCE110': 'mmsource-1.10' }
+			envvars['SOURCEMOD17'] = 'sourcemod-1.7'
 			envvars['SOURCEMOD-BIN'] = 'sourcemod-bin'
 			#envvars['HL2SDKOBVALVE'] = 'hl2sdk-ob-valve'
 			envvars['HL2SDKCSS'] = 'hl2sdk-css'
@@ -180,9 +180,9 @@ class CSSDM:
 			self.compiler.AddToListVar('RCINCLUDES', os.path.join(AMBuild.sourceFolder, 'public'))
 			self.compiler.AddToListVar('RCINCLUDES',
 			                           os.path.join(AMBuild.outputFolder, 'includes'))
-		self.mmsPath = AMBuild.cache['MMSOURCE19']
-		self.smSourcePath = AMBuild.cache['SOURCEMOD14']
 		self.smBinPath = AMBuild.cache['SOURCEMOD-BIN']
+		self.mmsPath = AMBuild.cache['MMSOURCE110']
+		self.smSourcePath = AMBuild.cache['SOURCEMOD17']
 
 	def DefaultCompiler(self):
 		compiler = self.compiler.Clone()
