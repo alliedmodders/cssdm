@@ -55,8 +55,8 @@
 			}
 			"RemoveAllItems"
 			{
-				"windows"		"381"
-				"linux"			"382"
+				"windows"		"382"
+				"linux"			"383"
 			}
 			"GiveAmmo"
 			{
