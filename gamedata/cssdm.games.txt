@@ -185,27 +185,27 @@
 			/* Virtual indexes */
 			"IPointsForKill"
 			{
-				"windows"		"79"
-				"linux"			"80"
-				"mac"			"80"
+				"windows"		"80"
+				"linux"			"81"
+				"mac"			"81"
 			}
 			"Weapon_GetSlot"
 			{
-				"windows"		"267"
-				"linux"			"268"
-				"mac"			"268"
+				"windows"		"268"
+				"linux"			"269"
+				"mac"			"269"
 			}
 			"RemoveAllItems"
 			{
-				"windows"		"341"
-				"linux"			"342"
-				"mac"			"342"
+				"windows"		"342"
+				"linux"			"343"
+				"mac"			"343"
 			}
 			"GiveAmmo"
 			{
-				"windows"		"251"
-				"linux"			"252"
-				"mac"			"252"
+				"windows"		"252"
+				"linux"			"253"
+				"mac"			"253"
 			}
 			/* Next _two_ are detour byte "save" counts */
 			"DropWeaponsPatch"
