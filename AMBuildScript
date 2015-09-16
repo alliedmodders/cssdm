@@ -304,10 +304,9 @@ class CSSDM:
 
 		compiler['CDEFINES'].append('SOURCE_ENGINE=' + info['def'])
 		
-		if AMBuild.target['platform'] == 'linux' or AMBuild.target['platform'] == 'darwin':
-			if sdk == 'css':
-				self.compiler.AddToListVar('CDEFINES', 'NO_MALLOC_OVERRIDE')
-				self.compiler.AddToListVar('CDEFINES', 'NO_HOOK_MALLOC')
+		if sdk == 'css':
+			if AMBuild.target['platform'] == 'linux' or AMBuild.target['platform'] == 'darwin':
+				compiler['CDEFINES'].extend(['NO_MALLOC_OVERRIDE', 'NO_HOOK_MALLOC'])
 					
 		if sdk in ['swarm','csgo']:
 			if AMBuild.target['platform'] == 'windows':
