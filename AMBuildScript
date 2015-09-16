@@ -137,6 +137,11 @@ class CSSDM:
 					self.compiler.AddToListVar('CFLAGS', '/RTC1')
 
 			#Platform-specifics
+			if AMBuild.target['platform'] == 'linux' or AMBuild.target['platform'] == 'darwin':
+				if sdk == 'css':
+					self.compiler.AddToListVar('CDEFINES', 'NO_MALLOC_OVERRIDE')
+					self.compiler.AddToListVar('CDEFINES', 'NO_HOOK_MALLOC')
+					
 			if AMBuild.target['platform'] == 'linux':
 				self.compiler.AddToListVar('CDEFINES', '_LINUX')
 				if self.vendor == 'gcc':
