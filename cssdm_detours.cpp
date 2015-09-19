@@ -65,8 +65,8 @@ void DoGatePatch(unsigned char *target, void *callback, dmpatch_t *restore)
 
 DETOUR_DECL_MEMBER2(DetourDrpWpns, void, bool, unknown1, bool, unknown2)
 {
-		DETOUR_MEMBER_CALL(DetourDrpWpns)(unknown1, unknown2);
-		OnClientDropWeapons(reinterpret_cast<CBaseEntity *>(this));
+	OnClientDropWeapons(reinterpret_cast<CBaseEntity *>(this));
+	DETOUR_MEMBER_CALL(DetourDrpWpns)(unknown1, unknown2);
 }
 
 void InitDropWeaponsDetour()
