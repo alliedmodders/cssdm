@@ -33,8 +33,8 @@
 			}
 			"TakeDmgPatch2"
 			{
-				"windows"		"4069"
-				"linux"			"6509"
+				"windows"		"4149"
+				"linux"			"6573"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
@@ -128,7 +128,7 @@
 			"CalcDominationAndRevenge"
 			{
 				"library"		"server"
-				"windows"		"\x55\x8B\xEC\xA1\x2A\x2A\x2A\x2A\xB9\x2A\x2A\x2A\x2A\xFF\x50\x34\x85\xC0"
+				"windows"		"\x55\x8B\xEC\xA1\x2A\x2A\x2A\x2A\xB9\x2A\x2A\x2A\x2A\xFF\x50\x34\x85\xC0\x0F\x85\x2A\x2A\x2A\x2A\x8B\x0D"
 				"linux"			"@_ZN12CCSGameStats24CalcDominationAndRevengeEP9CCSPlayerS1_Pi"
 			}
 		}
