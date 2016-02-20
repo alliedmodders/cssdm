@@ -28,12 +28,12 @@
 			}
 			"TakeDmgPatch1"
 			{
-				"windows"		"373"
+				"windows"		"599"
 				"linux"			"1013"
 			}
 			"TakeDmgPatch2"
 			{
-				"windows"		"4149"
+				"windows"		"5415"
 				"linux"			"6573"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
@@ -97,7 +97,7 @@
 			"OnTakeDamage"
 			{
 				"library"		"server"
-				"windows"		"\x55\x8B\xEC\x83\xE4\xF0\x81\xEC\x2A\x2A\x00\x00\x56\x57\x8B\xF9\x89\x2A\x2A\x2A\x80\xBF\x2A\x2A\x2A\x2A\x00"
+				"windows"		"\x55\x8B\xEC\x83\xE4\xF0\x81\xEC\x2A\x2A\x00\x00\x56\x8B\x35\x2A\x2A\x2A\x2A\x4E\x57\x8B\xF9\x89\x2A\x2A\x2A\x78"
 				"linux"			"@_ZN9CCSPlayer12OnTakeDamageERK15CTakeDamageInfo"
 			}
 			"WantsLagComp"
