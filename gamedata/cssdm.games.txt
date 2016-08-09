@@ -23,7 +23,7 @@
 			/* Patch offsets for FFA */
 			"LagCompPatch"
 			{
-				"windows"		"57"
+				"windows"		"62"
 				"linux"			"47"
 			}
 			"TakeDmgPatch1"
@@ -33,8 +33,8 @@
 			}
 			"TakeDmgPatch2"
 			{
-				"windows"		"5160"
-				"linux"			"7229"
+				"windows"		"5272"
+				"linux"			"7209"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
