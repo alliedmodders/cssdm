@@ -162,7 +162,7 @@ bool DM_Prepare_FFA(char *error, size_t maxlength)
 
 	/* Load the GameRules pointer */
 	int offset;
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || SOURCE_ENGINE == SE_CSGO
 	if (!g_pDmConf->GetOffset("g_pGameRules", &offset)
 		|| !offset)
 	{
