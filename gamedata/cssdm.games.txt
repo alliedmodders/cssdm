@@ -28,12 +28,12 @@
 			}
 			"TakeDmgPatch1"
 			{
-				"windows"		"607"
+				"windows"		"604"
 				"linux"			"1122"
 			}
 			"TakeDmgPatch2"
 			{
-				"windows"		"5077"
+				"windows"		"5001"
 				"linux"			"5718"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
@@ -109,7 +109,7 @@
 			"CGameRules"
 			{
 				"library"		"server"
-				"windows"		"\x55\x8B\xEC\x83\xE4\xF8\x81\xEC\x2A\x2A\x2A\x2A\x53\x56\x57\x8B\xD9\x68\x2A\x2A\x2A\x2A\x89\x2A\x2A\x2A\xE8\x2A\x2A\x2A\x2A\xA1"
+				"windows"		"\x56\x68\x2A\x2A\x2A\x2A\x8B\xF1\xE8\x2A\x2A\x2A\x2A\xA1"
 				"linux"			"\x55\x89\xE5\x83\xEC\x28\x89\x5D\xF4\x8B\x5D\x08\x89\x75\xF8\x89\x7D\xFC\xC7\x44\x24\x04\x2A\x2A\x2A\x2A\x89\x1C\x24"
 			}
 			//ValveBiped.Bip01_R_Hand
