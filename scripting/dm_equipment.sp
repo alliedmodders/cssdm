@@ -161,6 +161,7 @@ public Action:DM_OnClientDeath(client)
 		KillTimer(g_SpawnTimers[client]);
 		g_SpawnTimers[client] = INVALID_HANDLE;
 	}
+	
 	g_GunMenuAvailable[client] = true;
 }
 
@@ -183,6 +184,8 @@ public OnClientDisconnect(client)
 
 public DM_OnClientSpawned(client)
 {
+	g_GunMenuAvailable[client] = true;
+	
 	if (!ShouldRun())
 	{
 		return;
