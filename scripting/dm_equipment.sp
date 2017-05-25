@@ -32,11 +32,13 @@
 
 /** Plugin Stuff */
 new Handle:cssdm_enable_equipment;					/** cssdm_enable_equipment cvar */
+new Handle:cssdm_addictional_menu_cmds;					/** cssdm_addictional_menu_cmds cvar */
 new Handle:g_SpawnTimers[MAXPLAYERS+1];				/* Post-spawn timers */
 new Handle:g_hPrimaryMenu = INVALID_HANDLE;			/* Priamry menu Handle */
 new Handle:g_hSecondaryMenu = INVALID_HANDLE;		/* Secondary menu Handle */
 new Handle:g_hEquipMenu = INVALID_HANDLE;			/* Main equipment menu */
 new bool:g_IsEnabled = false;						/* Whether the plugin should work */
+new bool:g_IsAddictionalMenuCmdsEnabled = false;		/* Should the menu open for additional commands */
 new g_PrimaryChoices[MAXPLAYERS+1];					/* Primary weapon selections */
 new g_SecondaryChoices[MAXPLAYERS+1];				/* Secondary weapon selections */
 new bool:g_GunMenuEnabled[MAXPLAYERS+1];			/* Whether the gun menu is enabled */
@@ -96,20 +98,16 @@ public Plugin:myinfo =
  
 public OnPluginStart()
 {
-	new String:game[64];
-	GetGameFolderName(game, sizeof(game));
-	if (StrEqual(game, "csgo", false))
-	{
-		g_bIsGo = true;
-	}
+	g_bIsGo = GetEngineVersion() == Engine_CSGO;
 	
 	LoadTranslations("cssdm.phrases");
 	
-	RegConsoleCmd("say", Command_Say);
-	RegConsoleCmd("say_team", Command_Say);
-	
 	cssdm_enable_equipment = CreateConVar("cssdm_enable_equipment", "1", "Sets whether the equipment plugin is enabled");
 	HookConVarChange(cssdm_enable_equipment, OnEquipmentEnableChange);
+	
+	cssdm_addictional_menu_cmds = CreateConVar("cssdm_addictional_menu_cmds", "0", "Opens menu on autobuy, rebuy, etc. cmds");
+	HookConVarChange(cssdm_addictional_menu_cmds, OnEquipmentAddictionalMenuCmdsChange);
+	
 	
 	g_hEquipMenu = CreateMenu(Menu_EquipHandler, MenuAction_DrawItem|MenuAction_DisplayItem);
 	SetMenuTitle(g_hEquipMenu, "Weapon Options:");
@@ -124,6 +122,11 @@ public OnPluginStart()
 public OnEquipmentEnableChange(Handle:convar, const String:oldValue[], const String:newValue[])
 {
 	g_IsEnabled = StringToInt(newValue) ? true : false;
+}
+
+public OnEquipmentAddictionalMenuCmdsChange(Handle:convar, const String:oldValue[], const String:newValue[])
+{
+	g_IsAddictionalMenuCmdsEnabled = StringToInt(newValue) ? true : false;
 }
 
 public OnConfigsExecuted()
@@ -146,7 +149,7 @@ public OnConfigsExecuted()
 	decl String:map[64];
 	decl String:path[255];
 	GetCurrentMap(map, sizeof(map));
-	Format(path, sizeof(path), "cfg/cssdm/maps/%s.equip.txt", map);
+	FormatEx(path, sizeof(path), "cfg/cssdm/maps/%s.equip.txt", map);
 	
 	if (FileExists(path))
 	{
@@ -354,17 +357,14 @@ public Action:PlayerPostSpawn(Handle:timer, any:client)
 	return Plugin_Stop;
 }
 
-public Action:Command_Say(client, args)
+public Action:OnClientSayCommand(client, const String:command[], const String:sArgs[])
 {
 	if (!ShouldRun())
 	{
 		return Plugin_Continue;
 	}
 	
-	new String:text[192];
-	GetCmdArg(1, text, sizeof(text));
-	
-	if (strcmp(text, "guns") == 0)
+	if (strcmp(sArgs, "guns") == 0)
 	{
 		if (!g_AllowGunCommand)
 		{
@@ -414,6 +414,10 @@ public Action:OnClientCommand(client, args)
 		|| StrEqual(cmd, "buyequip")
 		|| StrEqual(cmd, "buymenu"))
 	{
+		if(g_IsAddictionalMenuCmdsEnabled) 
+		{
+			OnClientSayCommand(client, "", "guns");
+		}
 		return Plugin_Handled;
 	}
 	
@@ -505,7 +509,7 @@ public Menu_PrimaryHandler(Handle:menu, MenuAction:action, param1, param2)
 		new Handle:hPanel = Handle:param2;
 		decl String:title[128];
 		
-		Format(title, sizeof(title), "%T:", "Primary weapon", param1);
+		FormatEx(title, sizeof(title), "%T:", "Primary weapon", param1);
 		
 		SetPanelTitle(hPanel, title);
 	}
