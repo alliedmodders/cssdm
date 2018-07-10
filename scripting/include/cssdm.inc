@@ -20,7 +20,7 @@
 
 #define CSSDM_VERSION		"2.1.6-dev"
 
-#define CSSDM_MAX_WEAPONS		32
+#define CSSDM_MAX_WEAPONS		64
 
 #define CSSDM_TEAM_T			2
 #define CSSDM_TEAM_CT			3
@@ -207,18 +207,17 @@ native DM_IsClientAlive(client);
 native DM_GiveClientAmmo(client, type, count, bool:noSound=false);
 
 /**
- * Do not edit below this line!
+ * Returns if FFA is enabled and running
+ *
+ * @return				True if FFA is enabled otherwise false
  */
-public Extension:__ext_cssdm = 
+native DM_IsFFAEnabled();
+
+public SharedPlugin:__pl_cssdm = 
 {
-	name = "CS:S DM",
-	file = "cssdm.ext",
-#if defined AUTOLOAD_EXTENSIONS
-	autoload = 1,
-#else
-	autoload = 0,
-#endif
-#if defined REQUIRE_EXTENSIONS
+	name = "dm_extension_compat",
+	file = "dm_extension_compat.smx",
+#if defined REQUIRE_PLUGIN
 	required = 1,
 #else
 	required = 0,

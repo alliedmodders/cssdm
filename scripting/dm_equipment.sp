@@ -307,12 +307,12 @@ public Action:PlayerPostSpawn(Handle:timer, any:client)
 		}
 		if (g_BotDefuseKits && GetClientTeam(client) == CSSDM_TEAM_CT)
 		{
-			GivePlayerItem(client, "item_defuser");
+			SetEntProp(client, Prop_Send, "m_bHasDefuser", 1);
 		}
 	} else {
 		if (g_DefuseKits && GetClientTeam(client) == CSSDM_TEAM_CT)
 		{
-			GivePlayerItem(client, "item_defuser");
+			SetEntProp(client, Prop_Send, "m_bHasDefuser", 1);
 		}
 		
 		new numGiven = 0;
