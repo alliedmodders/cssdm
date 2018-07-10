@@ -29,12 +29,12 @@
 			"TakeDmgPatch1"
 			{
 				"windows"		"607"
-				"linux"			"5390"
+				"linux"			"5934"
 			}
 			"TakeDmgPatch2"
 			{
-				"windows"		"5001"
-				"linux"			"6553"
+				"windows"		"4994"
+				"linux"			"6776"
 			}
 			/* Offset into gamerules constructor - bogo value linux/mac */
 			"g_pGameRules"
@@ -97,7 +97,7 @@
 			"OnTakeDamage"
 			{
 				"library"		"server"
-				"windows"		"\x55\x8B\xEC\x83\xE4\xF0\x81\xEC\x2A\x2A\x00\x00\x56\x57\xFF\x75\x2A\x8B\xF1\x8D\x2A\x2A\x2A\x89\x2A\x2A\x2A\xE8"
+				"windows"		"\x55\x8B\xEC\x83\xE4\xF0\x81\xEC\x28\x02\x00\x00\x56\x57"
 				"linux"			"\x55\x89\xE5\x57\x56\x53\x81\xEC\x2A\x2A\x00\x00\x8B\x45\x0C\x8B\x75\x08\x8B\x10"
 			}
 			"WantsLagComp"
