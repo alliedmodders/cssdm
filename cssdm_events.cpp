@@ -34,6 +34,8 @@
 #include "cssdm_detours.h"
 #include <sh_list.h>
 
+// TODO : Fix passing clients around in timers
+
 using namespace SourceHook;
 
 bool g_InRoundRestart = false;
@@ -46,10 +48,10 @@ public:
 	{
 		if (g_IsRunning)
 		{
-			IDataPack *pack = (IDataPack *)pData;
-			pack->Reset();
-			int index = pack->ReadCell();
-			int serial = pack->ReadCell();
+			DMData *data = (DMData *)pData;
+			int index = data->index;
+			int serial = data->serial;
+
 			edict_t *pEdict = gamehelpers->EdictOfIndex(index);
 			if (pEdict && !pEdict->IsFree() && DM_CheckSerial(pEdict, serial))
 			{
@@ -67,7 +69,7 @@ public:
 
 	void OnTimerEnd(ITimer *pTimer, void *pData)
 	{
-		g_pSM->FreeDataPack((IDataPack *)pData);
+		delete (DMData *)pData;
 	}
 } s_RagdollRemover;
 
@@ -82,9 +84,8 @@ public:
 		}
 
 		/* Read pack data */
-		IDataPack *pack = (IDataPack *)pData;
-		pack->Reset();
-		int client = pack->ReadCell();
+		DMData *data = (DMData *)pData;
+		int client = data->index;
 
 		dm_player_t *player = DM_GetPlayer(client);
 
@@ -108,9 +109,8 @@ public:
 
 	void OnTimerEnd(ITimer *pTimer, void *pData)
 	{
-		IDataPack *pack = (IDataPack *)pData;
-		pack->Reset();
-		int client = pack->ReadCell();
+		DMData *data = (DMData *)pData;
+		int client = data->index;
 
 		dm_player_t *player = DM_GetPlayer(client);
 		if (player->respawn_timer == pTimer)
@@ -118,7 +118,7 @@ public:
 			player->respawn_timer = NULL;
 		}
 
-		g_pSM->FreeDataPack((IDataPack *)pData);
+		delete (DMData *)pData;
 	}
 } s_PlayerSpawner;
 
@@ -141,10 +141,9 @@ void DM_SchedRespawn(int client)
 		timersys->KillTimer(player->respawn_timer);
 	}
 
-	IDataPack *pack = g_pSM->CreateDataPack();
-	pack->PackCell(client);
+	DMData *data = new DMData(client);
 
-	player->respawn_timer = timersys->CreateTimer(&s_PlayerSpawner, DM_GetRespawnWait(), pack, 0);
+	player->respawn_timer = timersys->CreateTimer(&s_PlayerSpawner, DM_GetRespawnWait(), data, 0);
 }
 
 void OnClientCommand_Post(edict_t *edict, const CCommand &args)
@@ -251,10 +250,9 @@ IMPLEMENT_EVENT(player_death)
 			if (pEdict)
 			{
 				int index = gamehelpers->IndexOfEdict(pEdict);
-				IDataPack *pack = g_pSM->CreateDataPack();
-				pack->PackCell(index);
-				pack->PackCell(serial);
-				ITimer *timer = timersys->CreateTimer(&s_RagdollRemover, ragdollTime, pack, 0);
+				DMData *data = new DMData(index, serial);
+
+				ITimer *timer = timersys->CreateTimer(&s_RagdollRemover, ragdollTime, data, 0);
 				g_RagdollTimers.push_back(timer);
 			}
 		}

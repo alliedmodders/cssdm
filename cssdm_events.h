@@ -65,4 +65,18 @@ void OnClientCommand_Post(edict_t *edict, const CCommand &args);
 void OnClientDropWeapons(CBaseEntity *pEntity);
 void OnClientDroppedWeapon(CBaseEntity *pEntity, CBaseEntity *pWeapon);
 
+class DMData
+{
+public:
+	DMData(int iIndex, int iSerial = 0)
+	{
+		this->index = iIndex;
+		this->serial = iSerial;
+	}
+
+public:
+	int index;
+	int serial;
+};
+
 #endif //_INCLUDE_CSSDM_EVENTS_H_
