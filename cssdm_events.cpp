@@ -229,7 +229,7 @@ IMPLEMENT_EVENT(player_death)
 	}
 
 	dm_player_t *player = DM_GetPlayer(client);
-	if (!player)
+	if (!player || !player->pEntity)
 	{
 		return;
 	}
