@@ -89,7 +89,8 @@
 		"tr"		"Menünüzü yeniden etkinlestirmek için 'guns' yazin."
 		"ru"		"Напишите 'guns' в чат, чтобы включить меню."
 		"ua"		"Напишіть 'guns' в чат, щоб ввімкнути меню."
-	{
+	}
+	
 	"New weapons"
 	{
 		"en"		"New weapons"
