@@ -6,6 +6,8 @@
 		"de"    	"Du mußt im Spiel sein um zu spawnen"
 		"fr"		"Vous devez etre dans le jeu pour faire un respawn."
 		"tr"		"Yeniden dogmak için oyunda olmalisiniz."
+		"ru"		"Вы должны быть в игре, чтобы возродиться."
+		"ua"		"Ви повинні бути в грі для відродження."
 	}
 
 	"NoRespawn Alive"
@@ -14,6 +16,8 @@
 		"de"    	"Du musst tot sein um zu respawnen"
 		"fr"		"Vous devez etre mort pour pouvoir faire un respawn."
 		"tr"		"Yeniden dogmak için ölü olmalisiniz."
+		"ru"		"Вы должны быть мертвы, чтобы возродиться."
+		"ua"		"Ви повинні бути мертвими для відродження."
 	}
 
 	"NoRespawn Team"
@@ -22,6 +26,8 @@
 		"de"    	"Du musst in einem Team sein um spawnen zu können"
 		"fr"		"Vous devez etre dans une Team pour faire un respawn."
 		"tr"		"Yeniden dogmak için bir takimda olmalisiniz."
+		"ru"		"Вы должны быть в команде, чтобы возродиться."
+		"ua"		"Ви повинні бути в команді для відродження."
 	}
 	
 	"NoRespawn Wait"
@@ -31,6 +37,8 @@
 		"de"    	"Du musst noch {1} weitere Sekudnen abwarten bis du respawnen kannst"
 		"fr"		"Vous devez attendre {1} secondes avant de reapparaitre."
 		"tr"		"Yeniden dogmak için {1} saniye daha beklemelisiniz."
+		"ru"		"Подождите {1} секунд, прежде чем возродиться."
+		"ua"		"Зачекайте {1} секунд перш ніж відродитися."
 	}
 	
 	"GunsMenuDisabled"
@@ -39,6 +47,8 @@
 		"de"    	"Der Waffen Menü Befehl ist abgeschaltet"
 		"fr"		"La commande guns est inactive."
 		"tr"		"Silahlar menüsü komutu etkin degil."
+		"ru"		"Меню оружия отключено."
+		"ua"		"Меню зброї вимкнено."
 	}
 	
 	"GunsMenuNotAvailable"
@@ -47,6 +57,8 @@
 		"de"    	"Das Waffenmenü ist nicht verfügbar"
 		"fr"		"La commande guns n'est pas valable."
 		"tr"		"Silahlar menüsü mevcut degil."
+		"ru"		"Меню оружия недоступно."
+		"ua"		"Меню зброї недоступне."
 	}
 	
 	"GunsMenuAlreadyEnabled"
@@ -55,6 +67,8 @@
 		"de"    	"Dein Waffenmenü ist bereits eingeschaltet"
 		"fr"		"Votre menu est deja actif."
 		"tr"		"Silahlar menünüz zaten etkin."
+		"ru"		"Меню оружия уже включено."
+		"ua"		"Меню зброї вже ввімкнено."
 	}
 	
 	"GunsMenuReactivated"
@@ -63,6 +77,8 @@
 		"de"    	"Deine Waffen wurden für deinen nächsten Respawn freigeschaltet"
 		"fr"		"Votre menu sera actif au prochain respawn."
 		"tr"		"Silahlar menünüz yeniden dogusunuz için etkinlestirildi."
+		"ru"		"Меню оружия будет включено при следующем возрождении."
+		"ua"		"Меню зброї буде ввімкнено при наступному відродженні."
 	}
 	
 	"SayGunsNotify"
@@ -71,40 +87,56 @@
 		"de"    	"Tippe 'guns' in den Chat um dein Menü wieder einzuschalten."
 		"fr"		"Dites 'guns' dans le T'chat pour ouvrir le menu."
 		"tr"		"Menünüzü yeniden etkinlestirmek için 'guns' yazin."
+		"ru"		"Напишите 'guns' в чат, чтобы включить меню."
+		"ua"		"Напишіть 'guns' в чат, щоб ввімкнути меню."
 	}
 	
 	"New weapons"
 	{
 		"en"		"New weapons"
+		"ru"		"Новое оружие"
+		"ua"		"Нова зброя"
 	}
 	
 	"Same weapons"
 	{
 		"en"		"Same weapons"
+		"ru"		"То же оружие"
+		"ua"		"Одна і та ж зброя"
 	}
 	
 	"Same weapons every time"
 	{
 		"en"		"Same weapons every time"
+		"ru"		"То же оружие постоянно"
+		"ua"		"Одна і та ж зброя щоразу"
 	}
 	
 	"Random weapons"
 	{
 		"en"		"Random weapons"
+		"ru"		"Случайное оружие"
+		"ua"		"Випадкова зброя"
 	}
 	
 	"Random weapons every time"
 	{
 		"en"		"Random weapons every time"
+		"ru"		"Случайное оружие постоянно"
+		"ua"		"Випадкова зброя щоразу"
 	}
 	
 	"Primary weapon"
 	{
 		"en"		"Primary weapon"
+		"ru"		"Основное оружие"
+		"ua"		"Первинна зброя"
 	}
 	
 	"Secondary weapon"
 	{
 		"en"		"Secondary weapon"
+		"ru"		"Вторичное оружие"
+		"ua"		"Вторинна зброя"
 	}
 }
