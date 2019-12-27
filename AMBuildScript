@@ -21,7 +21,7 @@ class CSSDM:
 
 			#Detect variables
 			envvars = {'MMSOURCE110': 'mmsource-1.10' }
-			envvars['SOURCEMOD17'] = 'sourcemod-1.7'
+			envvars['SOURCEMOD110'] = 'sourcemod-1.10'
 			envvars['SOURCEMOD-BIN'] = 'sourcemod-bin'
 			#envvars['HL2SDKOBVALVE'] = 'hl2sdk-ob-valve'
 			envvars['HL2SDKCSS'] = 'hl2sdk-css'
@@ -78,6 +78,7 @@ class CSSDM:
 				self.compiler.AddToListVar('CXXFLAGS', '-fno-threadsafe-statics')
 				self.compiler.AddToListVar('CXXFLAGS', '-Wno-non-virtual-dtor')
 				self.compiler.AddToListVar('CXXFLAGS', '-Wno-overloaded-virtual')
+				self.compiler.AddToListVar('CXXFLAGS', '-Wno-deprecated-register')
 				if (self.vendor == 'gcc' and cxx.majorVersion >= 4 and cxx.minorVersion >= 7) or \
 						(self.vendor == 'clang' and cxx.majorVersion >= 3):
 					self.compiler.AddToListVar('CXXFLAGS', '-Wno-delete-non-virtual-dtor')
@@ -182,7 +183,7 @@ class CSSDM:
 			                           os.path.join(AMBuild.outputFolder, 'includes'))
 		self.smBinPath = AMBuild.cache['SOURCEMOD-BIN']
 		self.mmsPath = AMBuild.cache['MMSOURCE110']
-		self.smSourcePath = AMBuild.cache['SOURCEMOD17']
+		self.smSourcePath = AMBuild.cache['SOURCEMOD110']
 
 	def DefaultCompiler(self):
 		compiler = self.compiler.Clone()
@@ -283,7 +284,9 @@ class CSSDM:
 		compiler['CXXINCLUDES'].append(os.path.join(self.mmsPath, mms, 'sourcehook'))
 		compiler['CXXINCLUDES'].append(os.path.join(self.smSourcePath, 'public'))
 		compiler['CXXINCLUDES'].append(os.path.join(self.smSourcePath, 'public/extensions'))
-		compiler['CXXINCLUDES'].append(os.path.join(self.smSourcePath, 'public/sourcepawn'))
+		compiler['CXXINCLUDES'].append(os.path.join(self.smSourcePath, 'sourcepawn/include'))
+		compiler['CXXINCLUDES'].append(os.path.join(self.smSourcePath, 'public/amtl'))
+		compiler['CXXINCLUDES'].append(os.path.join(self.smSourcePath, 'public/amtl/amtl'))
 
 		info = self.sdkInfo
 		compiler['CDEFINES'].extend(['SE_' + info[i]['name'] + '=' + info[i]['def'] for i in info])
