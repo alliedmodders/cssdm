@@ -23,7 +23,7 @@ my $reconf = 0;
 if ($^O eq "linux") {
 	$ENV{'SOURCEMOD110'} = '/home/builds/common/sourcemod-1.10';
 } elsif ($^O eq "darwin") {
-	$ENV{'SOURCEMOD17'} = '/Users/builds/slaves/common/sourcemod-1.7';
+	$ENV{'SOURCEMOD110'} = '/Users/builds/slaves/common/sourcemod-1.10';
 } else {
 	#JUST IN CASE
 	$ENV{'SOURCEMOD110'} = 'D:\\scripts\\common\\sourcemod-1.10';
