@@ -117,6 +117,7 @@ class CSSDM:
 				self.compiler.AddToListVar('POSTLINKFLAGS', 'uuid.lib')
 				self.compiler.AddToListVar('POSTLINKFLAGS', 'odbc32.lib')
 				self.compiler.AddToListVar('POSTLINKFLAGS', 'odbccp32.lib')
+				self.compiler.AddToListVar('POSTLINKFLAGS', 'legacy_stdio_definitions.lib')
 
 			#Optimization
 			if AMBuild.options.opt == '1':
