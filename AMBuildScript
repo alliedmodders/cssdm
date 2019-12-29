@@ -150,7 +150,8 @@ class CSSDM:
 				self.compiler.AddToListVar('POSTLINKFLAGS', '-mmacosx-version-min=10.5')
 				self.compiler.AddToListVar('POSTLINKFLAGS', ['-arch', 'i386'])
 				self.compiler.AddToListVar('POSTLINKFLAGS', '-lstdc++')
-
+				self.compiler.AddToListVar('CXXFLAGS',
+                                        '-Wno-implicit-exception-spec-mismatch')
 				# For OS X dylib versioning
 				import re
 				productFile = open(os.path.join(AMBuild.sourceFolder, 'product.version'), 'r')
