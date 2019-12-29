@@ -26,7 +26,7 @@ if ($^O eq "linux") {
 	$ENV{'SOURCEMOD17'} = '/Users/builds/slaves/common/sourcemod-1.7';
 } else {
 	#JUST IN CASE
-	$ENV{'SOURCEMOD110'} = 'C:\\scripts\\common\\sourcemod-1.10';
+	$ENV{'SOURCEMOD110'} = 'D:\\scripts\\common\\sourcemod-1.10';
 	#$ENV{'MMSOURCE19'} = "C:\\Scripts\\common\\mmsource-1.9";
 	#$ENV{'HL2SDKCSGO'} = "C:\\Scripts\\common\\hl2sdk-csgo";
 }
