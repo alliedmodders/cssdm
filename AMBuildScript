@@ -79,6 +79,7 @@ class CSSDM:
 				self.compiler.AddToListVar('CXXFLAGS', '-Wno-non-virtual-dtor')
 				self.compiler.AddToListVar('CXXFLAGS', '-Wno-overloaded-virtual')
 				self.compiler.AddToListVar('CXXFLAGS', '-Wno-deprecated-register')
+				self.compiler.AddToListVar('CXXFLAGS', '-std=c++11')
 				if (self.vendor == 'gcc' and cxx.majorVersion >= 4 and cxx.minorVersion >= 7) or \
 						(self.vendor == 'clang' and cxx.majorVersion >= 3):
 					self.compiler.AddToListVar('CXXFLAGS', '-Wno-delete-non-virtual-dtor')
@@ -116,6 +117,7 @@ class CSSDM:
 				self.compiler.AddToListVar('POSTLINKFLAGS', 'uuid.lib')
 				self.compiler.AddToListVar('POSTLINKFLAGS', 'odbc32.lib')
 				self.compiler.AddToListVar('POSTLINKFLAGS', 'odbccp32.lib')
+				self.compiler.AddToListVar('POSTLINKFLAGS', 'legacy_stdio_definitions.lib')
 
 			#Optimization
 			if AMBuild.options.opt == '1':
@@ -148,7 +150,8 @@ class CSSDM:
 				self.compiler.AddToListVar('POSTLINKFLAGS', '-mmacosx-version-min=10.5')
 				self.compiler.AddToListVar('POSTLINKFLAGS', ['-arch', 'i386'])
 				self.compiler.AddToListVar('POSTLINKFLAGS', '-lstdc++')
-
+				self.compiler.AddToListVar('CXXFLAGS',
+                                        '-Wno-implicit-exception-spec-mismatch')
 				# For OS X dylib versioning
 				import re
 				productFile = open(os.path.join(AMBuild.sourceFolder, 'product.version'), 'r')
