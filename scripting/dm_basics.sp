@@ -54,9 +54,6 @@ public OnPluginStart()
 {
 	LoadTranslations("cssdm.phrases");
 	
-	RegConsoleCmd("say", Command_Say);
-	RegConsoleCmd("say_team", Command_Say);
-	
 	cssdm_respawn_command = CreateConVar("cssdm_respawn_command", "1", "Sets whether clients can manually respawn");
 	cssdm_force_mapchanges = CreateConVar("cssdm_force_mapchanges", "0", "Sets whether CS:S DM should force mapchanges");
 	cssdm_mapchange_file = CreateConVar("cssdm_mapchange_file", "mapcycle.txt", "Sets the mapchange file for CS:S DM");
@@ -127,11 +124,9 @@ public Event_CheckDepleted(Handle:event, const String:name[], bool:dontBroadcast
 	{
 		return;
 	}
-	
-	new ammoType = GetEntProp(entity, Prop_Send, "m_iPrimaryAmmoType");
-	
+		
 	/* Give something reasonable -- the game will chop it off */
-	DM_GiveClientAmmo(client, ammoType, 200, false);
+	DM_GiveClientAmmo(client, GetEntProp(entity, Prop_Send, "m_iPrimaryAmmoType"), 200, false);
 }
 
 public CvarChange_RestartMapTimer(Handle:cvar, const String:oldvalue[], const String:newvalue[])
@@ -150,8 +145,7 @@ RestartMapTimer()
 	if (GetConVarInt(cssdm_force_mapchanges))
 	{
 		/* Find how much time is left in the map */
-		new Float:seconds = (GetConVarInt(mp_timelimit) * 60.0) - GetGameTime();
-		g_ChangeMapTimer = CreateTimer(seconds, Timer_ChangeMap);
+		g_ChangeMapTimer = CreateTimer((GetConVarInt(mp_timelimit) * 60.0) - GetGameTime(), Timer_ChangeMap);
 	}
 }
 
@@ -243,17 +237,15 @@ public Action:DM_OnClientDeath(client)
 	return Plugin_Continue;
 }
 
-public Action:Command_Say(client, args)
+public Action:OnClientSayCommand(client, const String:command[], const String:sArgs[])
 {
 	if (!DM_IsRunning() || !GetConVarInt(cssdm_respawn_command))
 	{
 		return Plugin_Continue;
 	}
 	
-	decl String:command[32];
-	GetCmdArg(1, command, sizeof(command));
 	
-	if (strcmp(command, "respawn") == 0)
+	if (strcmp(sArgs, "respawn") == 0)
 	{
 		if (!IsClientInGame(client))
 		{

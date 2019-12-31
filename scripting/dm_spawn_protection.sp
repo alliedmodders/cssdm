@@ -37,13 +37,11 @@ new Handle:g_ProtTimeVar;
 new g_NormColor[4] = {255, 255, 255, 255};
 new g_TColor[4] = {255, 0, 0, 128};
 new g_CTColor[4] = {0, 0, 255, 128};
-new g_HealthOffset;
 new g_RenderModeOffset;
 new g_RenderClrOffset;
 
 /* Player stuff */
 new Handle:g_PlayerTimers[MAXPLAYERS+1];
-new g_PlayerHealth[MAXPLAYERS+1];
 
 /** PUBLIC INFO */
 public Plugin:myinfo = 
@@ -65,7 +63,6 @@ public OnPluginStart()
 	HookConVarChange(g_CTColorVar, OnColorChange);
 	HookConVarChange(g_TColorVar, OnColorChange);
 	
-	g_HealthOffset = FindSendPropOffs("CCSPlayer", "m_iHealth");
 	g_RenderModeOffset = FindSendPropOffs("CCSPlayer", "m_nRenderMode");
 	g_RenderClrOffset = FindSendPropOffs("CCSPlayer", "m_clrRender");
 }
@@ -113,7 +110,7 @@ public Action:StopProtection(Handle:timer, any:client)
 {
 	g_PlayerTimers[client] = INVALID_HANDLE;
 	
-	SetEntData(client, g_HealthOffset, g_PlayerHealth[client]);
+	SetGodMode(client, false);
 	UTIL_Render(client, g_NormColor);
 	
 	return Plugin_Stop;
@@ -130,17 +127,21 @@ public DM_OnClientPostSpawned(client)
 	
 	g_PlayerTimers[client] = CreateTimer(GetConVarFloat(g_ProtTimeVar), StopProtection, client);
 	
-	/* Start protection */
-	g_PlayerHealth[client] = GetEntData(client, g_HealthOffset);
-	SetEntData(client, g_HealthOffset, 1012);	/* This overflows to show "500" */
+	SetGodMode(client, true);
 	
-	new team = GetClientTeam(client);
-	if (team == CSSDM_TEAM_T)
+	switch(GetClientTeam(client))
 	{
-		UTIL_Render(client, g_TColor);
-	} else if (team == CSSDM_TEAM_CT) {
-		UTIL_Render(client, g_CTColor);
+		case CSSDM_TEAM_T:
+		{
+			UTIL_Render(client, g_TColor);
+		}
+		
+		case CSSDM_TEAM_CT:
+		{
+			UTIL_Render(client, g_CTColor);
+		}
 	}
+
 }
 
 UTIL_Render(client, const color[4])
@@ -150,4 +151,9 @@ UTIL_Render(client, const color[4])
 	SetEntData(client, g_RenderModeOffset, mode, 1);
 	SetEntDataArray(client, g_RenderClrOffset, color, 4, 1);
 	ChangeEdictState(client);
+}
+
+SetGodMode(client, bool:godmode)
+{
+	SetEntProp(client, Prop_Data, "m_takedamage", godmode ? 2 : 0, 1);
 }
