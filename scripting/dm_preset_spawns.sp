@@ -118,8 +118,8 @@ bool:LoadMapConfig()
 	new Handle:file = OpenFile(path, "rt");
 	if (file == INVALID_HANDLE)
 	{
-		LogError("Could not find spawn point file \"%s\"", path);
-		LogError("Defaulting to map-based spawns!");
+		LogMessage("Could not find spawn point file \"%s\"", path);
+		LogMessage("Defaulting to map-based spawns!");
 		return false;
 	}
 	
