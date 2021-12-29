@@ -145,7 +145,7 @@
 			"LagCompPatch_Mac"		"\x90\x90\x90\x90\x90\x90"
 			
 			"TakeDmgPatch1_Windows"		"\xEB"
-			"TakeDmgPatch1_Linux"		"\x90\x90\x90\x90\x90\x90"
+			"TakeDmgPatch1_Linux"		"\x84"
 			"TakeDmgPatch1_Mac"		"\x90\x90\x90\x90\x90\x90"
 			
 			"TakeDmgPatch2_Windows"		"\xEB"
@@ -168,7 +168,7 @@
 			"TakeDmgPatch1"
 			{
 				"windows"		"828"
-				"linux"			"564"
+				"linux"			"760"
 				"mac"			"746"
 			}
 			"TakeDmgPatch2"
