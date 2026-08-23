@@ -1,7 +1,7 @@
 /**
  * vim: set ts=4 :
  * ===============================================================
- * CS:S DM, Copyright (C) 2004-2007 AlliedModders LLC. 
+ * CS:S DM, Copyright (C) 2004-2007 AlliedModders LLC.
  * By David "BAILOPAN" Anderson
  * All rights reserved.
  * ===============================================================
@@ -10,20 +10,21 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; see the file COPYING; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02110-1301 USA
- * 
+ *
  * Version: $Id$
  */
 
+#include <cstring>
 #include "cssdm_headers.h"
 #include "cssdm_config.h"
 #include "cssdm_ctrl.h"
@@ -38,6 +39,33 @@ extern bool g_IsLoadedOkay;
 bool g_IsRunning = false;
 bool g_IsMapStarted = false;
 bool g_HasConfigRan = false;
+
+#if SOURCE_ENGINE == SE_CSGO
+// CHalfLife2::GetMapDisplayName in SM
+void GetMapDisplayName(const char* mapName, char* mapDisplay, size_t maxLen)
+{
+#if WIN32
+	strcpy_s(mapDisplay, maxLen, mapName);
+#else
+	strlcpy(mapDisplay, mapName, maxLen);
+#endif
+
+	char* pos;
+	if ((pos = strrchr(mapDisplay, '/')) != NULL || (pos = strrchr(mapDisplay, '\\')) != NULL)
+	{
+#if WIN32
+		strcpy_s(mapDisplay, maxLen, &pos[1]);
+#else
+		strlcpy(mapDisplay, &pos[1], maxLen);
+#endif
+	}
+
+	if ((pos = strstr(mapDisplay, ".ugc")) != NULL)
+	{
+		pos[0] = '\0';
+	}
+}
+#endif
 
 void DM_StartEverything()
 {
@@ -69,9 +97,15 @@ void OnLevelInitialized()
 	engine->ServerCommand("exec cssdm/cssdm.cfg\n");
 
 	char map_cmd[128];
+#if SOURCE_ENGINE == SE_CSGO
+	char mapDisplay[128];
+	GetMapDisplayName(STRING(gpGlobals->mapname), mapDisplay, sizeof(mapDisplay));
+	snprintf(map_cmd, sizeof(map_cmd), "exec cssdm/maps/%s.cssdm.cfg\n", mapDisplay);
+#else
 	snprintf(map_cmd, sizeof(map_cmd), "exec cssdm/maps/%s.cssdm.cfg\n", STRING(gpGlobals->mapname));
+#endif
 	engine->ServerCommand(map_cmd);
-	
+
 	engine->ServerCommand("cssdm internal 1\n");
 }
 

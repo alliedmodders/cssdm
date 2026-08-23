@@ -144,10 +144,11 @@ public void OnConfigsExecuted()
 	}
 
 	/** See if there is a map version */
-	char map[64];
+	char map[64], mapDisplay[64];
 	char path[PLATFORM_MAX_PATH];
 	GetCurrentMap(map, sizeof(map));
-	Format(path, sizeof(path), "cfg/cssdm/maps/%s.equip.txt", map);
+	GetMapDisplayName(map, mapDisplay, sizeof(mapDisplay));
+	Format(path, sizeof(path), "cfg/cssdm/maps/%s.equip.txt", mapDisplay);
 
 	if (FileExists(path))
 	{

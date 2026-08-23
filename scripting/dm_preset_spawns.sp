@@ -107,11 +107,14 @@ bool LoadMapConfig()
 	char map[64];
 	GetCurrentMap(map, sizeof(map));
 
+	char mapDisplay[64];
+	GetMapDisplayName(map, mapDisplay, sizeof(mapDisplay));
+
 	char game[64];
 	GetGameFolderName(game, sizeof(game));
 
 	char path[PLATFORM_MAX_PATH];
-	Format(path, sizeof(path), "cfg/cssdm/spawns/%s/%s.txt", game, map);
+	Format(path, sizeof(path), "cfg/cssdm/spawns/%s/%s.txt", game, mapDisplay);
 
 	g_SpawnCount = 0;
 
@@ -155,11 +158,14 @@ bool WriteMapConfig()
 	char map[64];
 	GetCurrentMap(map, sizeof(map));
 
+	char mapDisplay[64];
+	GetMapDisplayName(map, mapDisplay, sizeof(mapDisplay));
+
 	char game[64];
 	GetGameFolderName(game, sizeof(game));
 
 	char path[PLATFORM_MAX_PATH];
-	Format(path, sizeof(path), "cfg/cssdm/spawns/%s/%s.txt", game, map);
+	Format(path, sizeof(path), "cfg/cssdm/spawns/%s/%s.txt", game, mapDisplay);
 
 	File file = OpenFile(path, "wt");
 	if (file == null)
