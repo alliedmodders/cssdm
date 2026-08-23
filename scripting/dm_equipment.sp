@@ -23,6 +23,7 @@
 
 #pragma semicolon 1
 #include <sourcemod>
+#include <clientprefs>
 #include <sdktools>
 #include <cssdm>
 
@@ -32,6 +33,7 @@
 
 /** Plugin Stuff */
 ConVar cssdm_enable_equipment;					/** cssdm_enable_equipment cvar */
+ConVar cssdm_equipment_persistent;
 Handle g_SpawnTimers[MAXPLAYERS+1];				/* Post-spawn timers */
 Menu g_hPrimaryMenu = null;			/* Priamry menu Handle */
 Menu g_hSecondaryMenu = null;		/* Secondary menu Handle */
@@ -80,6 +82,10 @@ int g_BotHealthAmount = 100;
 bool g_BotDecoy = false;
 bool g_BotTaser = true;
 
+Cookie g_EquipOption;
+Cookie g_PrimaryWeaponPref;
+Cookie g_SecondaryWeaponPref;
+
 /** PUBLIC INFO */
 public Plugin myinfo =
 {
@@ -88,6 +94,15 @@ public Plugin myinfo =
 	description = "Adds gun menu/equipment to CS:S DM",
 	version = CSSDM_VERSION,
 	url = "http://www.bailopan.net/cssdm/"
+};
+
+enum WeaponOption
+{
+	NEW_WEAPON = 0,
+	SAME_WEAPON,
+	SAME_WEAPON_NO_MENU,
+	RANDOM_WEAPON,
+	RANDOM_WEAPON_NO_MENU
 };
 
 /******************
@@ -111,6 +126,11 @@ public void OnPluginStart()
 
 	cssdm_enable_equipment = CreateConVar("cssdm_enable_equipment", "1", "Sets whether the equipment plugin is enabled");
 	cssdm_enable_equipment.AddChangeHook(OnEquipmentEnableChange);
+	cssdm_equipment_persistent = CreateConVar("cssdm_equipment_persistent", "0", "Sets whether equipment is saved persistently");
+
+	g_EquipOption = new Cookie("CSSDM Equip Option", "Sets how equipment is given to clients", CookieAccess_Private);
+	g_PrimaryWeaponPref = new Cookie("CSSDM Primary Weapon", "Primary weapon for clients", CookieAccess_Private);
+	g_SecondaryWeaponPref = new Cookie("CSSDM Secondary Weapon", "Secondary weapon for clients", CookieAccess_Private);
 
 	g_hEquipMenu = new Menu(Menu_EquipHandler, MenuAction_DrawItem|MenuAction_DisplayItem);
 	g_hEquipMenu.SetTitle("Weapon Options:");
@@ -155,6 +175,37 @@ public void OnConfigsExecuted()
 	}
 }
 
+public void OnClientCookiesCached(int client)
+{
+	if (!cssdm_equipment_persistent.BoolValue || IsFakeClient(client))
+	{
+		return;
+	}
+	WeaponOption equipOption = view_as<WeaponOption>(g_EquipOption.GetInt(client));
+	switch (equipOption)
+	{
+		case SAME_WEAPON_NO_MENU, RANDOM_WEAPON_NO_MENU:
+		{
+			g_GunMenuEnabled[client] = false;
+		}
+		default:
+		{
+			g_GunMenuEnabled[client] = true;
+		}
+	}
+	g_GunMenuAvailable[client] = true;
+	if (equipOption == RANDOM_WEAPON || equipOption == RANDOM_WEAPON_NO_MENU)
+	{
+		g_PrimaryChoices[client] = g_PrimaryCount;
+		g_SecondaryChoices[client] = g_SecondaryCount;
+	}
+	else
+	{
+		g_PrimaryChoices[client] = g_PrimaryWeaponPref.GetInt(client, -1);
+		g_SecondaryChoices[client] = g_SecondaryWeaponPref.GetInt(client, -1);
+	}
+}
+
 public Action DM_OnClientDeath(int client)
 {
 	if (g_SpawnTimers[client] != INVALID_HANDLE)
@@ -168,10 +219,12 @@ public Action DM_OnClientDeath(int client)
 
 public void OnClientPutInServer(int client)
 {
-	g_GunMenuEnabled[client] = true;
-	g_GunMenuAvailable[client] = true;
-	g_PrimaryChoices[client] = -1;
-	g_SecondaryChoices[client] = -1;
+	if (IsFakeClient(client) || !cssdm_equipment_persistent.BoolValue || !AreClientCookiesCached(client)) {
+		g_GunMenuEnabled[client] = true;
+		g_GunMenuAvailable[client] = true;
+		g_PrimaryChoices[client] = -1;
+		g_SecondaryChoices[client] = -1;
+	}
 }
 
 public void OnClientDisconnect(int client)
@@ -441,7 +494,8 @@ public int Menu_EquipHandler(Menu menu, MenuAction action, int param1, int param
 	}
 	else if (action == MenuAction_Select)
 	{
-		if (param2 == 0)
+		WeaponOption value = view_as<WeaponOption>(param2);
+		if (value == NEW_WEAPON)
 		{
 			if (ChooseFromSecondary())
 			{
@@ -449,16 +503,16 @@ public int Menu_EquipHandler(Menu menu, MenuAction action, int param1, int param
 			} else if (ChooseFromPrimary()) {
 				g_hPrimaryMenu.Display(param1, MENU_TIME_FOREVER);
 			}
-		} else if (param2 == 1) {
+		} else if (value == SAME_WEAPON) {
 			GiveBothFromChoices(param1);
-		} else if (param2 == 2) {
+		} else if (value == SAME_WEAPON_NO_MENU) {
 			GiveBothFromChoices(param1);
 			g_GunMenuEnabled[param1] = false;
 			PrintToChat(param1, "[CSSDM] %t", "SayGunsNotify");
-		} else if (param2 == 3) {
+		} else if (value == RANDOM_WEAPON) {
 			GivePrimary(param1, g_PrimaryCount);
 			GiveSecondary(param1, g_SecondaryCount);
-		} else if (param2 == 4) {
+		} else if (value == RANDOM_WEAPON_NO_MENU) {
 			GivePrimary(param1, g_PrimaryCount);
 			GiveSecondary(param1, g_SecondaryCount);
 			GiveBothFromChoices(param1);
@@ -466,18 +520,18 @@ public int Menu_EquipHandler(Menu menu, MenuAction action, int param1, int param
 			PrintToChat(param1, "[CSSDM] %t", "SayGunsNotify");
 		}
 		g_GunMenuAvailable[param1] = false;
+		if (!IsFakeClient(param1))
+		{
+			g_EquipOption.SetInt(param1, view_as<int>(value));
+		}
 	}
 	else if (action == MenuAction_DisplayItem)
 	{
 		int style;
 		char info[12], lang_phrase[32];
 
-		if (menu.GetItem(param2, info, sizeof(info), style, lang_phrase, sizeof(lang_phrase)))
-		{
-			return 0;
-		}
-
-		char t_phrase[64];
+		menu.GetItem(param2, info, sizeof(info), style, lang_phrase, sizeof(lang_phrase));
+		char t_phrase[128];
 		Format(t_phrase, sizeof(t_phrase), "%T", lang_phrase, param1);
 
 		return RedrawMenuItem(t_phrase);
@@ -507,6 +561,10 @@ public int Menu_PrimaryHandler(Menu menu, MenuAction action, int param1, int par
 	else if (action == MenuAction_Select)
 	{
 		GivePrimary(param1, param2);
+		if (!IsFakeClient(param1))
+		{
+			g_PrimaryWeaponPref.SetInt(param1, param2);
+		}
 	}
 	else if (action == MenuAction_Display)
 	{
@@ -542,6 +600,10 @@ public int Menu_SecondaryHandler(Menu menu, MenuAction action, int param1, int p
 	else if (action == MenuAction_Select)
 	{
 		GiveSecondary(param1, param2);
+		if (!IsFakeClient(param1))
+		{
+			g_SecondaryWeaponPref.SetInt(param1, param2);
+		}
 		if (ChooseFromPrimary())
 		{
 			g_hPrimaryMenu.Display(param1, MENU_TIME_FOREVER);
