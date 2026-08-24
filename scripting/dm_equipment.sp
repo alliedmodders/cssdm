@@ -187,6 +187,7 @@ public void OnClientCookiesCached(int client)
 		case SAME_WEAPON_NO_MENU, RANDOM_WEAPON_NO_MENU:
 		{
 			g_GunMenuEnabled[client] = false;
+			CreateTimer(10.0, Timer_PrintEnableMenuHint, GetClientUserId(client));
 		}
 		default:
 		{
@@ -204,6 +205,18 @@ public void OnClientCookiesCached(int client)
 		g_PrimaryChoices[client] = g_PrimaryWeaponPref.GetInt(client, -1);
 		g_SecondaryChoices[client] = g_SecondaryWeaponPref.GetInt(client, -1);
 	}
+}
+
+public Action Timer_PrintEnableMenuHint(Handle timer, int userid)
+{
+	int client = GetClientOfUserId(userid);
+	if (!client || !IsClientInGame(client))
+	{
+		return Plugin_Stop;
+	}
+
+	PrintToChat(client, "[CSSDM] %t", "SayGunsNotify");
+	return Plugin_Stop;
 }
 
 public Action DM_OnClientDeath(int client)
