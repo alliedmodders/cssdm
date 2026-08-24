@@ -32,6 +32,7 @@ for sdk_target in Extension.sdk_targets:
 		continue
 
 	binary = Extension.HL2ExtConfig(project, builder, cxx, projectName + '.ext.' + sdk['extension'], sdk)
+	Extension.auto_version(binary)
 	Extension.add_cdetour(binary)
 
 Extension.extensions += builder.Add(project)

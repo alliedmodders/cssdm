@@ -360,6 +360,22 @@ class ExtensionConfig(object):
 				os.path.join(self.sm_root, 'public', 'amtl', 'compat', 'stdcxx.cpp'),
 			]
 
+	def auto_version(self, binary):
+		if not self.use_auto_versioning():
+			return
+		binary.compiler.defines += [
+			'CSSDM_GENERATED_BUILD'
+		]
+		if binary.compiler.target.platform == 'windows':
+			binary.sources += ['version.rc']
+			binary.compiler.rcdefines += [
+				'BINARY_NAME="{0}"'.format(binary.outputFile),
+				'RC_COMPILE'
+			]
+
+		binary.compiler.cxxincludes += [os.path.join(builder.buildPath, 'includes')]
+		binary.compiler.sourcedeps += self.generated_headers
+
 	def ConfigureForHL2(self, context, binary, sdk):
 		compiler = binary.compiler
 		SetArchFlags(compiler)
@@ -430,6 +446,11 @@ Extension = ExtensionConfig()
 Extension.detectSDKs()
 Extension.find_spcomp()
 Extension.configure()
+
+Extension.generated_headers = builder.Build(
+	'buildbot/Versioning',
+	{ 'CSSDM': Extension }
+)
 
 # This will clone the list and each cxx object as we recurse, preventing child
 # scripts from messing up global state.
