@@ -146,7 +146,7 @@
 			{
 				"windows"		"46"
 				"windows64"		"76"
-				"linux"			"25"
+				"linux"			"520"
 				"linux64"		"558"
 			}
 			"TakeDmgPatch1"
@@ -174,24 +174,24 @@
 			}
 			"Weapon_GetSlot"
 			{
-				"windows"		"274"
-				"windows64"		"274"
-				"linux"			"275"
-				"linux64"		"275"
+				"windows"		"275"
+				"windows64"		"275"
+				"linux"			"276"
+				"linux64"		"276"
 			}
 			"RemoveAllItems"
 			{
-				"windows"		"348"
-				"windows64"		"348"
-				"linux"			"349"
-				"linux64"		"349"
+				"windows"		"349"
+				"windows64"		"349"
+				"linux"			"350"
+				"linux64"		"350"
 			}
 			"GiveAmmo"
 			{
-				"windows"		"258"
-				"windows64"		"258"
-				"linux"			"259"
-				"linux64"		"259"
+				"windows"		"259"
+				"windows64"		"259"
+				"linux"			"260"
+				"linux64"		"260"
 			}
 			"GoToIntermission"
 			{
@@ -231,7 +231,7 @@
 			{
 				"library"		"server"
 				"windows"		"\x55\x8B\xEC\x83\xEC\x10\xA1\x2A\x2A\x2A\x2A\x56"
-				"windows64"		"\x48\x89\x6C\x24\x10\x48\x89\x74\x24\x18\x48\x89\x7C\x24\x20\x41\x56\x48\x83\xEC\x50\x48\x8B\x05\x4C\x4B\x51\x00"
+				"windows64"		"\x48\x89\x6C\x24\x10\x48\x89\x74\x24\x18\x48\x89\x7C\x24\x20\x41\x56\x48\x83\xEC\x50\x48\x8B\x05\xFC\x69\x51\x00"
 				"linux"			"@_ZNK11CBasePlayer28WantsLagCompensationOnEntityEPKS_PK8CUserCmdPK7CBitVecILi2048EE"
 				"linux64"		"@_ZNK11CBasePlayer28WantsLagCompensationOnEntityEPKS_PK8CUserCmdPK7CBitVecILi2048EE"
 			}
@@ -239,14 +239,14 @@
 			{
 				"library"		"server"
 				"windows"		"\x55\x8B\xEC\x8B\x0D\x2A\x2A\x2A\x2A\x85\xC9\x74\x2A\x8B\x01\x6A\x01"
-				"windows64"		"\x48\x89\x5C\x24\x08\x57\x48\x83\xEC\x30\x48\x8B\xF9\x48\x8B\x0D\x94\x05\x59\x00"
+				"windows64"		"\x48\x89\x5C\x24\x08\x57\x48\x83\xEC\x30\x48\x8B\xF9\x48\x8B\x0D\x54\x24\x59\x00"
 				"linux"			"@g_pGameRules"
 				"linux64"		"@g_pGameRules"
 			}
 			"CSWeaponDrop"
 			{
 				"library"		"server"
-				"windows"		"\x55\x8B\xEC\x81\xEC\x80\x01\x00\x00\x89\x4D\xFC"
+				"windows"		"\x55\x8B\xEC\x81\xEC\x88\x01\x00\x00\x89\x4D\xFC"
 				"windows64"		"\x44\x88\x4C\x24\x20\x44\x88\x44\x24\x18\x48\x89\x54\x24\x10\x48\x89\x4C\x24\x08\x56"
 				"linux"			"@_ZN9CCSPlayer12CSWeaponDropEP17CBaseCombatWeaponbb"
 				"linux64"		"@_ZN9CCSPlayer12CSWeaponDropEP17CBaseCombatWeaponbb"
@@ -263,7 +263,7 @@
 			{
 				"library"		"server"
 				"windows"		"\x55\x8B\xEC\x51\xA1\x2A\x2A\x2A\x2A\x89\x4D\xFC"
-				"windows64"		"\x48\x89\x6C\x24\x18\x57\x41\x56\x41\x57\x48\x83\xEC\x30\x48\x8B\x05\xB3\xC0\x4B\x00"
+				"windows64"		"\x48\x89\x6C\x24\x18\x57\x41\x56\x41\x57\x48\x83\xEC\x30\x48\x8B\x05\x93\xDD\x4B\x00"
 				"linux"			"@_ZN12CCSGameStats24CalcDominationAndRevengeEP9CCSPlayerS1_Pi"
 				"linux64"		"@_ZN12CCSGameStats24CalcDominationAndRevengeEP9CCSPlayerS1_Pi"
 			}
