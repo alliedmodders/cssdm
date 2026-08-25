@@ -232,6 +232,11 @@ public Action DM_OnClientDeath(int client)
 
 public Action Command_Say(int client, int args)
 {
+	if (client <= 0 || IsFakeClient(client))
+	{
+		return Plugin_Continue;
+	}
+
 	if (!DM_IsRunning() || !cssdm_respawn_command.BoolValue)
 	{
 		return Plugin_Continue;
