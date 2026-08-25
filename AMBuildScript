@@ -360,6 +360,22 @@ class ExtensionConfig(object):
 				os.path.join(self.sm_root, 'public', 'amtl', 'compat', 'stdcxx.cpp'),
 			]
 
+	@staticmethod
+	def binary_output_name(binary, binary_type):
+		target = binary.compiler.target
+		if binary_type == 'program':
+			name_fn = binary.compiler.vendor.nameForExecutable
+		elif binary_type == 'library':
+			name_fn = binary.compiler.vendor.nameForSharedLibrary
+		else:
+			raise Exception('Unsupported binary type: {}'.format(binary_type))
+
+		try:
+			return name_fn(binary.name_, target)
+		except TypeError:
+			# Older AMBuild versions did not require the target argument.
+			return name_fn(binary.name_)
+
 	def auto_version(self, binary):
 		if not self.use_auto_versioning():
 			return
@@ -369,7 +385,7 @@ class ExtensionConfig(object):
 		if binary.compiler.target.platform == 'windows':
 			binary.sources += ['version.rc']
 			binary.compiler.rcdefines += [
-				'BINARY_NAME="{0}"'.format(binary.outputFile),
+				'BINARY_NAME="{0}"'.format(ExtensionConfig.binary_output_name(binary, 'library')),
 				'RC_COMPILE'
 			]
 
