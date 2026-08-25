@@ -424,7 +424,7 @@ public Action PlayerPostSpawn(Handle timer, int client)
 
 public Action Command_Say(int client, int args)
 {
-	if (client <= 0)
+	if (client <= 0 || IsFakeClient(client))
 	{
 		return Plugin_Continue;
 	}
