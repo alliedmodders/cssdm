@@ -424,6 +424,11 @@ public Action PlayerPostSpawn(Handle timer, int client)
 
 public Action Command_Say(int client, int args)
 {
+	if (client <= 0)
+	{
+		return Plugin_Continue;
+	}
+
 	if (!ShouldRun())
 	{
 		return Plugin_Continue;
