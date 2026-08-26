@@ -121,9 +121,6 @@ public void OnPluginStart()
 	LoadTranslations("cssdm.phrases");
 	LoadTranslations("cssdm_weapons.phrases");
 
-	RegConsoleCmd("say", Command_Say);
-	RegConsoleCmd("say_team", Command_Say);
-
 	cssdm_enable_equipment = CreateConVar("cssdm_enable_equipment", "1", "Sets whether the equipment plugin is enabled");
 	cssdm_enable_equipment.AddChangeHook(OnEquipmentEnableChange);
 	cssdm_equipment_persistent = CreateConVar("cssdm_equipment_persistent", "0", "Sets whether equipment is saved persistently");
@@ -422,7 +419,7 @@ public Action PlayerPostSpawn(Handle timer, int client)
 	return Plugin_Stop;
 }
 
-public Action Command_Say(int client, int args)
+public Action OnClientSayCommand(int client, const char[] command, const char[] sArgs)
 {
 	if (client <= 0 || IsFakeClient(client))
 	{
@@ -434,10 +431,7 @@ public Action Command_Say(int client, int args)
 		return Plugin_Continue;
 	}
 
-	char text[192];
-	GetCmdArg(1, text, sizeof(text));
-
-	if (StrEqual(text, "guns"))
+	if (StrEqual(sArgs, "guns"))
 	{
 		if (!g_AllowGunCommand)
 		{

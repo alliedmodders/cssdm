@@ -56,9 +56,6 @@ public void OnPluginStart()
 {
 	LoadTranslations("cssdm.phrases");
 
-	RegConsoleCmd("say", Command_Say);
-	RegConsoleCmd("say_team", Command_Say);
-
 	cssdm_respawn_command = CreateConVar("cssdm_respawn_command", "1", "Sets whether clients can manually respawn");
 	cssdm_force_mapchanges = CreateConVar("cssdm_force_mapchanges", "0", "Sets whether CS:S DM should force mapchanges");
 	cssdm_refill_ammo = CreateConVar("cssdm_refill_ammo", "1", "Sets whether CS:S DM automatically refills ammo");
@@ -230,7 +227,7 @@ public Action DM_OnClientDeath(int client)
 	return Plugin_Continue;
 }
 
-public Action Command_Say(int client, int args)
+public Action OnClientSayCommand(int client, const char[] command, const char[] sArgs)
 {
 	if (client <= 0 || IsFakeClient(client))
 	{
@@ -242,10 +239,7 @@ public Action Command_Say(int client, int args)
 		return Plugin_Continue;
 	}
 
-	char command[32];
-	GetCmdArg(1, command, sizeof(command));
-
-	if (StrEqual(command, "respawn"))
+	if (StrEqual(sArgs, "respawn"))
 	{
 		if (!IsClientInGame(client))
 		{
