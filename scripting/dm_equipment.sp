@@ -431,7 +431,7 @@ public Action OnClientSayCommand(int client, const char[] command, const char[] 
 		return Plugin_Continue;
 	}
 
-	if (StrEqual(sArgs, "guns"))
+	if (StrEqual(sArgs, "guns", false))
 	{
 		if (!g_AllowGunCommand)
 		{

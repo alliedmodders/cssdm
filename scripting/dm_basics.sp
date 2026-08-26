@@ -239,7 +239,7 @@ public Action OnClientSayCommand(int client, const char[] command, const char[] 
 		return Plugin_Continue;
 	}
 
-	if (StrEqual(sArgs, "respawn"))
+	if (StrEqual(sArgs, "respawn", false))
 	{
 		if (!IsClientInGame(client))
 		{
