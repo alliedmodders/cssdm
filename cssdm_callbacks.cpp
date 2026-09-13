@@ -103,7 +103,7 @@ static cell_t DMN_GetWeaponID(IPluginContext *pContext, const cell_t *params)
 
 	pContext->LocalToString(params[1], &str);
 	auto weapon = DM_FindWeapon(str);
-	if (!weapon.has_value())
+	if (weapon == nullptr)
 	{
 		return -1;
 	}
@@ -115,7 +115,7 @@ static cell_t DMN_GetWeaponType(IPluginContext *pContext, const cell_t *params)
 {
 	auto weapon = DM_GetWeapon(params[1]);
 
-	if (!weapon.has_value())
+	if (weapon == nullptr)
 	{
 		return pContext->ThrowNativeError("Invalid CS:S DM weapon id (%d)", params[1]);
 	}
@@ -127,7 +127,7 @@ static cell_t DMN_GetWeaponClassname(IPluginContext *pContext, const cell_t *par
 {
 	auto weapon = DM_GetWeapon(params[1]);
 
-	if (!weapon.has_value())
+	if (weapon == nullptr)
 	{
 		return pContext->ThrowNativeError("Invalid CS:S DM weapon id (%d)", params[1]);
 	}
@@ -141,7 +141,7 @@ static cell_t DMN_GetWeaponName(IPluginContext *pContext, const cell_t *params)
 {
 	auto weapon = DM_GetWeapon(params[1]);
 
-	if (!weapon.has_value())
+	if (weapon == nullptr)
 	{
 		return pContext->ThrowNativeError("Invalid CS:S DM weapon id (%d)", params[1]);
 	}

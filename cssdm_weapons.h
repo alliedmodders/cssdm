@@ -28,7 +28,6 @@
 #define _INCLUDE_CSSDM_WEAPONS_H_
 
 #include <cstdint>
-#include <optional>
 #include <string>
 
 enum class WeaponType : std::int8_t
@@ -49,8 +48,8 @@ struct dm_weapon_t
 };
 
 /* External API */
-std::optional<dm_weapon_t> DM_FindWeapon(std::string_view name);
-std::optional<dm_weapon_t> DM_GetWeapon(unsigned int index);
+dm_weapon_t* DM_FindWeapon(std::string_view name);
+dm_weapon_t* DM_GetWeapon(unsigned int index);
 
 /* Internal API */
 bool DM_ParseWeapons(char *error, size_t maxlength);
