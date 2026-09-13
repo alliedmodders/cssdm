@@ -24,6 +24,8 @@
  * Version: $Id$
  */
 
+#include <list>
+
 #include "cssdm_events.h"
 #include "cssdm_players.h"
 #include "cssdm_utils.h"
@@ -31,14 +33,11 @@
 #include "cssdm_headers.h"
 #include "cssdm_callbacks.h"
 #include "cssdm_weapons.h"
-#include <sh_list.h>
 
 // TODO : Fix passing clients around in timers
 
-using namespace SourceHook;
-
 bool g_InRoundRestart = false;
-List<ITimer *> g_RagdollTimers;
+std::list<ITimer *> g_RagdollTimers;
 
 class RagdollRemoval : public ITimedEvent
 {
@@ -123,7 +122,7 @@ public:
 
 void DM_ClearRagdollTimers()
 {
-	List<ITimer *>::iterator iter = g_RagdollTimers.begin();
+	auto iter = g_RagdollTimers.begin();
 	while (iter != g_RagdollTimers.end())
 	{
 		timersys->KillTimer((*iter));
