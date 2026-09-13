@@ -103,36 +103,36 @@ static cell_t DMN_GetWeaponID(IPluginContext *pContext, const cell_t *params)
 
 	pContext->LocalToString(params[1], &str);
 	auto weapon = DM_FindWeapon(str);
-	if (!weapon.has_value())
+	if (weapon == nullptr)
 	{
 		return -1;
 	}
 
-	return weapon.value().get().id;
+	return weapon->id;
 }
 
 static cell_t DMN_GetWeaponType(IPluginContext *pContext, const cell_t *params)
 {
 	auto weapon = DM_GetWeapon(params[1]);
 
-	if (!weapon.has_value())
+	if (weapon == nullptr)
 	{
 		return pContext->ThrowNativeError("Invalid CS:S DM weapon id (%d)", params[1]);
 	}
 
-	return static_cast<cell_t>(weapon.value().get().type);
+	return static_cast<cell_t>(weapon->type);
 }
 
 static cell_t DMN_GetWeaponClassname(IPluginContext *pContext, const cell_t *params)
 {
 	auto weapon = DM_GetWeapon(params[1]);
 
-	if (!weapon.has_value())
+	if (weapon == nullptr)
 	{
 		return pContext->ThrowNativeError("Invalid CS:S DM weapon id (%d)", params[1]);
 	}
 
-	pContext->StringToLocal(params[2], params[3], weapon.value().get().classname.c_str());
+	pContext->StringToLocal(params[2], params[3], weapon->classname.c_str());
 
 	return 1;
 }
@@ -141,12 +141,12 @@ static cell_t DMN_GetWeaponName(IPluginContext *pContext, const cell_t *params)
 {
 	auto weapon = DM_GetWeapon(params[1]);
 
-	if (!weapon.has_value())
+	if (weapon == nullptr)
 	{
 		return pContext->ThrowNativeError("Invalid CS:S DM weapon id (%d)", params[1]);
 	}
 
-	pContext->StringToLocal(params[2], params[3], weapon.value().get().display.c_str());
+	pContext->StringToLocal(params[2], params[3], weapon->display.c_str());
 
 	return 1;
 }

@@ -42,24 +42,24 @@ std::string DM_StringToLower(std::string string)
 	return string;
 }
 
-std::optional<std::reference_wrapper<dm_weapon_t>> DM_FindWeapon(std::string_view name)
+dm_weapon_t* DM_FindWeapon(std::string_view name)
 {
 	if (!g_WeaponLookup.contains(name.data()))
 	{
-		return std::nullopt;
+		return nullptr;
 	}
 
-	return g_WeaponLookup[std::string(name)];
+	return &g_WeaponLookup[std::string(name)];
 }
 
-std::optional<std::reference_wrapper<dm_weapon_t>> DM_GetWeapon(unsigned int index)
+dm_weapon_t* DM_GetWeapon(unsigned int index)
 {
 	if (index >= g_Weapons.size())
 	{
-		return std::nullopt;
+		return nullptr;
 	}
 
-	return g_Weapons[index];
+	return &g_Weapons[index];
 }
 
 bool DM_ParseWeapons(char *error, size_t maxlength)
