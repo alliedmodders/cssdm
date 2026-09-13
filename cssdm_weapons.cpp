@@ -27,7 +27,6 @@
 #include <algorithm>
 #include <unordered_map>
 #include <vector>
-#include <string.h>
 #include "cssdm_weapons.h"
 #include "cssdm_headers.h"
 
@@ -43,7 +42,7 @@ std::string DM_StringToLower(std::string string)
 	return string;
 }
 
-std::optional<dm_weapon_t> DM_FindWeapon(std::string_view name)
+std::optional<std::reference_wrapper<dm_weapon_t>> DM_FindWeapon(std::string_view name)
 {
 	if (!g_WeaponLookup.contains(name.data()))
 	{
@@ -53,7 +52,7 @@ std::optional<dm_weapon_t> DM_FindWeapon(std::string_view name)
 	return g_WeaponLookup[std::string(name)];
 }
 
-std::optional<dm_weapon_t> DM_GetWeapon(unsigned int index)
+std::optional<std::reference_wrapper<dm_weapon_t>> DM_GetWeapon(unsigned int index)
 {
 	if (index >= g_Weapons.size())
 	{

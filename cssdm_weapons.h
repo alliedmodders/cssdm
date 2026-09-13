@@ -30,6 +30,7 @@
 #include <cstdint>
 #include <optional>
 #include <string>
+#include <utility>
 
 enum class WeaponType : std::int8_t
 {
@@ -49,8 +50,8 @@ struct dm_weapon_t
 };
 
 /* External API */
-std::optional<dm_weapon_t> DM_FindWeapon(std::string_view name);
-std::optional<dm_weapon_t> DM_GetWeapon(unsigned int index);
+std::optional<std::reference_wrapper<dm_weapon_t>> DM_FindWeapon(std::string_view name);
+std::optional<std::reference_wrapper<dm_weapon_t>> DM_GetWeapon(unsigned int index);
 
 /* Internal API */
 bool DM_ParseWeapons(char *error, size_t maxlength);
