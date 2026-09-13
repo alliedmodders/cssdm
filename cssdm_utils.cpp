@@ -225,7 +225,7 @@ void DM_ApplyPatch(void *address, int offset, const dmpatch_t *patch, dmpatch_t 
 {
 	unsigned char *addr = (unsigned char *)address + offset;
 
-	DM_SetMemPatchable(addr, 20);
+	DM_SetMemPatchable(addr, patch->bytes);
 
 	if (restore)
 	{
