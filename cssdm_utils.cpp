@@ -30,7 +30,11 @@
 #include "cssdm_players.h"
 #include "cssdm_utils.h"
 #include "cssdm_includesdk.h"
+#if METAMOD_PLAPI_VERSION < 18
 #include <sh_memory.h>
+#else
+#include <khook/memory.hpp>
+#endif
 
 std::list<ICallWrapper *> g_CallWrappers;
 ICallWrapper *g_pRoundRespawn = NULL;
@@ -240,7 +244,11 @@ void DM_ApplyPatch(void *address, int offset, const dmpatch_t *patch, dmpatch_t 
 
 void DM_SetMemPatchable(void *address, size_t size)
 {
+#if METAMOD_PLAPI_VERSION < 18
 	SourceHook::SetMemAccess(address, size, SH_MEM_READ|SH_MEM_WRITE|SH_MEM_EXEC);
+#else
+	KHook::Memory::SetAccess(address, size, KHook::Memory::Flags::READ | KHook::Memory::Flags::WRITE | KHook::Memory::EXECUTE);
+#endif
 }
 
 #define GET_PROPERTY(cls, name, var) \
