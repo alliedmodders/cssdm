@@ -36,8 +36,17 @@
 #include "cssdm_weapons.h"
 #include "cssdm_version.h"
 
+#if METAMOD_PLAPI_VERSION < 18
 SH_DECL_HOOK0_void(IServerGameDLL, DLLShutdown, SH_NOATTRIB, false);
 SH_DECL_HOOK2_void(IServerGameClients, ClientCommand, SH_NOATTRIB, false, edict_t *, const CCommand &);
+#else
+KHook::Return<void> OnDLLShutdown(IServerGameDLL *server);
+KHook::Return<void> OnClientCommand_Post(IServerGameClients *gameClients, edict_t *edict, const CCommand &args);
+
+KHook::Virtual<IServerGameDLL, void> Hook_DLLShutdown(&IServerGameDLL::DLLShutdown, nullptr, OnDLLShutdown);
+KHook::Virtual<IServerGameClients, void, edict_t *, const CCommand &> Hook_ClientCommand(
+	&IServerGameClients::ClientCommand, nullptr, OnClientCommand_Post);
+#endif
 
 Deathmatch g_DM;
 IGameEventManager2 *gameevents = NULL;
@@ -122,10 +131,18 @@ bool Deathmatch::SDK_OnMetamodLoad(ISmmAPI *ismm, char *error, size_t maxlen, bo
 	return true;
 }
 
+#if METAMOD_PLAPI_VERSION < 18
 void OnDLLShutdown()
+#else
+KHook::Return<void> OnDLLShutdown(IServerGameDLL *server)
+#endif
 {
 	g_IsInGlobalShutdown = true;
+#if METAMOD_PLAPI_VERSION < 18
 	RETURN_META(MRES_IGNORED);
+#else
+	return { KHook::Action::Ignore };
+#endif
 }
 
 bool Startup(char *error, size_t maxlength)
@@ -141,8 +158,13 @@ bool Startup(char *error, size_t maxlength)
 
 	g_Startup = true;
 
+#if METAMOD_PLAPI_VERSION < 18
 	SH_ADD_HOOK_STATICFUNC(IServerGameDLL, DLLShutdown, gamedll, OnDLLShutdown, false);
 	SH_ADD_HOOK_STATICFUNC(IServerGameClients, ClientCommand, gameclients, OnClientCommand_Post, true);
+#else
+	Hook_DLLShutdown.Add(gamedll);
+	Hook_ClientCommand.Add(gameclients);
+#endif
 
 	DM_InitCallbacks();
 
@@ -184,8 +206,13 @@ void Shutdown()
 	ShutdownUtils();
 
 	/* Unhook everything from SourceHook */
+#if METAMOD_PLAPI_VERSION < 18
 	SH_REMOVE_HOOK_STATICFUNC(IServerGameClients, ClientCommand, gameclients, OnClientCommand_Post, true);
 	SH_REMOVE_HOOK_STATICFUNC(IServerGameDLL, DLLShutdown, gamedll, OnDLLShutdown, false);
+#else
+	Hook_ClientCommand.Remove(gameclients);
+	Hook_DLLShutdown.Remove(gamedll);
+#endif
 }
 
 void Deathmatch::SDK_OnAllLoaded()
