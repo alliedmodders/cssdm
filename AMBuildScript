@@ -462,7 +462,7 @@ class ExtensionConfig(object):
 		match = re.match(r'([0-9]+).([0-9]+).([0-9]+).*', version)
 		if match:
 			return match.groups()
-		raise Exception("Could parse product.version from Metamod:Source")
+		raise Exception("Could not parse product.version from Metamod:Source")
 
 Extension = ExtensionConfig()
 Extension.detectSDKs()
