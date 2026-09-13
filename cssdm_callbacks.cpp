@@ -1,7 +1,7 @@
 /**
  * vim: set ts=4 :
  * ===============================================================
- * CS:S DM, Copyright (C) 2004-2007 AlliedModders LLC. 
+ * CS:S DM, Copyright (C) 2004-2007 AlliedModders LLC.
  * By David "BAILOPAN" Anderson
  * All rights reserved.
  * ===============================================================
@@ -10,17 +10,17 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; see the file COPYING; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02110-1301 USA
- * 
+ *
  * Version: $Id$
  */
 
@@ -100,10 +100,10 @@ static cell_t DMN_GetSpawnMethod(IPluginContext *pContext, const cell_t *params)
 static cell_t DMN_GetWeaponID(IPluginContext *pContext, const cell_t *params)
 {
 	char *str;
-	dm_weapon_t *weapon;
-	
+
 	pContext->LocalToString(params[1], &str);
-	if ((weapon = DM_FindWeapon(str)) == NULL)
+	auto weapon = DM_FindWeapon(str);
+	if (!weapon.has_value())
 	{
 		return -1;
 	}
@@ -113,40 +113,40 @@ static cell_t DMN_GetWeaponID(IPluginContext *pContext, const cell_t *params)
 
 static cell_t DMN_GetWeaponType(IPluginContext *pContext, const cell_t *params)
 {
-	dm_weapon_t *weapon;
+	auto weapon = DM_GetWeapon(params[1]);
 
-	if ((weapon = DM_GetWeapon(params[1])) == NULL)
+	if (!weapon.has_value())
 	{
 		return pContext->ThrowNativeError("Invalid CS:S DM weapon id (%d)", params[1]);
 	}
 
-	return (cell_t)weapon->type;
+	return static_cast<cell_t>(weapon->type);
 }
 
 static cell_t DMN_GetWeaponClassname(IPluginContext *pContext, const cell_t *params)
 {
-	dm_weapon_t *weapon;
+	auto weapon = DM_GetWeapon(params[1]);
 
-	if ((weapon = DM_GetWeapon(params[1])) == NULL)
+	if (!weapon.has_value())
 	{
 		return pContext->ThrowNativeError("Invalid CS:S DM weapon id (%d)", params[1]);
 	}
 
-	pContext->StringToLocal(params[2], params[3], weapon->classname);
+	pContext->StringToLocal(params[2], params[3], weapon->classname.c_str());
 
 	return 1;
 }
 
 static cell_t DMN_GetWeaponName(IPluginContext *pContext, const cell_t *params)
 {
-	dm_weapon_t *weapon;
+	auto weapon = DM_GetWeapon(params[1]);
 
-	if ((weapon = DM_GetWeapon(params[1])) == NULL)
+	if (!weapon.has_value())
 	{
 		return pContext->ThrowNativeError("Invalid CS:S DM weapon id (%d)", params[1]);
 	}
 
-	pContext->StringToLocal(params[2], params[3], weapon->display);
+	pContext->StringToLocal(params[2], params[3], weapon->display.c_str());
 
 	return 1;
 }
@@ -221,7 +221,7 @@ static cell_t DMN_IsClientAlive(IPluginContext *pContext, const cell_t *params)
 	return DM_IsPlayerAlive(params[1]) ? 1 : 0;
 }
 
-sp_nativeinfo_t g_BaseNatives[] = 
+sp_nativeinfo_t g_BaseNatives[] =
 {
 	{"DM_GetSpawnMethod",		DMN_GetSpawnMethod},
 	{"DM_GetWeaponID",			DMN_GetWeaponID},

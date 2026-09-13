@@ -24,16 +24,15 @@
  * Version: $Id$
  */
 
+#include <list>
+
 #include "cssdm_headers.h"
 #include "cssdm_players.h"
 #include "cssdm_utils.h"
 #include "cssdm_includesdk.h"
-#include <sh_list.h>
 #include <sh_memory.h>
 
-using namespace SourceHook;
-
-List<ICallWrapper *> g_CallWrappers;
+std::list<ICallWrapper *> g_CallWrappers;
 ICallWrapper *g_pRoundRespawn = NULL;
 ICallWrapper *g_pRemoveAllItems = NULL;
 ICallWrapper *g_pGiveAmmo = NULL;
@@ -290,12 +289,9 @@ bool InitializeUtils(char *error, size_t maxlength)
 
 void ShutdownUtils()
 {
-	List<ICallWrapper *>::iterator iter;
-	for (iter = g_CallWrappers.begin();
-		 iter != g_CallWrappers.end();
-		 iter++)
+	for (auto i : g_CallWrappers)
 	{
-		(*iter)->Destroy();
+		i->Destroy();
 	}
 	g_CallWrappers.clear();
 }
