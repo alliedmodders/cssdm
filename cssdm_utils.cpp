@@ -43,8 +43,6 @@ ICallWrapper *g_pGiveAmmo = NULL;
 int g_RagdollOffset = 0;
 int g_LifeStateOffset = 0;
 
-void DM_ProtectMemory(void *addr, int length, int prot);
-
 CBaseEntity *DM_GetBaseEntity(int index)
 {
 	edict_t *pEdict = gamehelpers->EdictOfIndex(index);
