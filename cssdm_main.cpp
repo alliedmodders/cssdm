@@ -41,7 +41,6 @@ SH_DECL_HOOK0_void(IServerGameDLL, DLLShutdown, SH_NOATTRIB, false);
 SH_DECL_HOOK2_void(IServerGameClients, ClientCommand, SH_NOATTRIB, false, edict_t *, const CCommand &);
 #else
 KHook::Return<void> OnDLLShutdown(IServerGameDLL *server);
-KHook::Return<void> OnClientCommand_Post(IServerGameClients *gameClients, edict_t *edict, const CCommand &args);
 
 KHook::Virtual<IServerGameDLL, void> Hook_DLLShutdown(&IServerGameDLL::DLLShutdown, nullptr, OnDLLShutdown);
 KHook::Virtual<IServerGameClients, void, edict_t *, const CCommand &> Hook_ClientCommand(
