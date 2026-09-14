@@ -39,12 +39,6 @@
 #if METAMOD_PLAPI_VERSION < 18
 SH_DECL_HOOK0_void(IServerGameDLL, DLLShutdown, SH_NOATTRIB, false);
 SH_DECL_HOOK2_void(IServerGameClients, ClientCommand, SH_NOATTRIB, false, edict_t *, const CCommand &);
-#else
-KHook::Return<void> OnDLLShutdown(IServerGameDLL *server);
-
-KHook::Virtual<IServerGameDLL, void> Hook_DLLShutdown(&IServerGameDLL::DLLShutdown, nullptr, OnDLLShutdown);
-KHook::Virtual<IServerGameClients, void, edict_t *, const CCommand &> Hook_ClientCommand(
-	&IServerGameClients::ClientCommand, nullptr, OnClientCommand_Post);
 #endif
 
 Deathmatch g_DM;
@@ -143,6 +137,12 @@ KHook::Return<void> OnDLLShutdown(IServerGameDLL *server)
 	return { KHook::Action::Ignore };
 #endif
 }
+
+#if METAMOD_PLAPI_VERSION >= 18
+KHook::Virtual<IServerGameDLL, void> Hook_DLLShutdown(&IServerGameDLL::DLLShutdown, nullptr, OnDLLShutdown);
+KHook::Virtual<IServerGameClients, void, edict_t *, const CCommand &> Hook_ClientCommand(
+	&IServerGameClients::ClientCommand, nullptr, OnClientCommand_Post);
+#endif
 
 bool Startup(char *error, size_t maxlength)
 {
