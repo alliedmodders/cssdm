@@ -36,9 +36,6 @@
 SH_DECL_MANUALHOOK2(CGameRules_IPointsForKill, 62+EXTRA_VTBL_OFFSET, 0, 0, int, CBasePlayer *, CBasePlayer *);
 #else
 class CGameRules;
-KHook::Return<int> OnIPointsForKill(CGameRules *gamerules, CBasePlayer *pl1, CBasePlayer *pl2);
-
-KHook::Virtual<CGameRules, int, CBasePlayer *, CBasePlayer *> Hook_IPointsForKill(62 + EXTRA_VTBL_OFFSET, nullptr, OnIPointsForKill);
 #endif
 
 #if defined PLATFORM_64BITS
@@ -92,6 +89,10 @@ KHook::Return<int> OnIPointsForKill(CGameRules *gamerules, CBasePlayer *pl1, CBa
 	return { KHook::Action::Supersede, 1 };
 #endif
 }
+
+#if METAMOD_PLAPI_VERSION >= 18
+KHook::Virtual<CGameRules, int, CBasePlayer *, CBasePlayer *> Hook_IPointsForKill(62 + EXTRA_VTBL_OFFSET, nullptr, OnIPointsForKill);
+#endif
 
 bool DM_FFA_LoadPatch(const char *name, dmpatch_t *patch, char *error, size_t maxlength)
 {
