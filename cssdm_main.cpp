@@ -139,7 +139,7 @@ KHook::Return<void> OnDLLShutdown(IServerGameDLL *server)
 }
 
 #if METAMOD_PLAPI_VERSION >= 18
-KHook::Virtual<IServerGameDLL, void> Hook_DLLShutdown(&IServerGameDLL::DLLShutdown, nullptr, OnDLLShutdown);
+KHook::Virtual<IServerGameDLL, void> Hook_DLLShutdown(&IServerGameDLL::DLLShutdown, OnDLLShutdown, nullptr);
 KHook::Virtual<IServerGameClients, void, edict_t *, const CCommand &> Hook_ClientCommand(
 	&IServerGameClients::ClientCommand, nullptr, OnClientCommand_Post);
 #endif

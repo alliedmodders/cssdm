@@ -91,7 +91,7 @@ KHook::Return<int> OnIPointsForKill(CGameRules *gamerules, CBasePlayer *pl1, CBa
 }
 
 #if METAMOD_PLAPI_VERSION >= 18
-KHook::Virtual<CGameRules, int, CBasePlayer *, CBasePlayer *> Hook_IPointsForKill(80 + EXTRA_VTBL_OFFSET, nullptr, OnIPointsForKill);
+KHook::Virtual<CGameRules, int, CBasePlayer *, CBasePlayer *> Hook_IPointsForKill(80 + EXTRA_VTBL_OFFSET, OnIPointsForKill, nullptr);
 #endif
 
 bool DM_FFA_LoadPatch(const char *name, dmpatch_t *patch, char *error, size_t maxlength)
