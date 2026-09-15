@@ -60,7 +60,11 @@ DECLARE_EVENT(round_end);
 class CCommand;
 
 void DM_ClearRagdollTimers();
+#if METAMOD_PLAPI_VERSION < 18
 void OnClientCommand_Post(edict_t *edict, const CCommand &args);
+#else
+KHook::Return<void> OnClientCommand_Post(IServerGameClients *gameClients, edict_t *edict, const CCommand &args);
+#endif
 
 class DMData
 {

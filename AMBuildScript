@@ -1,5 +1,6 @@
 # vim: set ts=2 sw=2 tw=99 noet ft=python:
 import os
+import re
 import platform
 
 def ResolveEnvPath(env, folder):
@@ -400,9 +401,14 @@ class ExtensionConfig(object):
 		SetArchFlags(compiler)
 
 		compiler.cxxincludes += [
-			os.path.join(self.mms_root, 'core'),
-			os.path.join(self.mms_root, 'core', 'sourcehook'),
+			os.path.join(self.mms_root, 'core')
 		]
+
+		mms_major = int(self.get_mms_version()[0])
+		if mms_major >= 2:
+			compiler.cxxincludes += [os.path.join(self.mms_root, 'third_party', 'khook', 'include')]
+		else:
+			compiler.cxxincludes += [os.path.join(self.mms_root, 'core', 'sourcehook')]
 
 		for other_sdk in self.sdk_manifests:
 			compiler.defines += [f'SE_{other_sdk["define"]}={other_sdk["code"]}']
@@ -446,6 +452,17 @@ class ExtensionConfig(object):
 			self.spcomp = Normalize(spcomp_path)
 		else:
 			raise Exception("Could not find a suitable copy of spcomp in SourceMod binary root")
+
+	def get_mms_version(self):
+		mms_version_file = os.path.join(self.mms_root, "product.version")
+		if not os.path.isfile(mms_version_file):
+			raise Exception("Could not find product.version under Metamod:Source root")
+		with open(mms_version_file, "r") as f:
+			version = f.read().strip()
+		match = re.match(r'([0-9]+).([0-9]+).([0-9]+).*', version)
+		if match:
+			return match.groups()
+		raise Exception("Could not parse product.version from Metamod:Source")
 
 Extension = ExtensionConfig()
 Extension.detectSDKs()
