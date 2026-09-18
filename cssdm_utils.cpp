@@ -30,7 +30,11 @@
 #include "cssdm_players.h"
 #include "cssdm_utils.h"
 #include "cssdm_includesdk.h"
+#if METAMOD_PLAPI_VERSION < 18
 #include <sh_memory.h>
+#else
+#include <khook/memory.hpp>
+#endif
 
 std::list<ICallWrapper *> g_CallWrappers;
 ICallWrapper *g_pRoundRespawn = NULL;
@@ -38,8 +42,6 @@ ICallWrapper *g_pRemoveAllItems = NULL;
 ICallWrapper *g_pGiveAmmo = NULL;
 int g_RagdollOffset = 0;
 int g_LifeStateOffset = 0;
-
-void DM_ProtectMemory(void *addr, int length, int prot);
 
 CBaseEntity *DM_GetBaseEntity(int index)
 {
@@ -221,7 +223,7 @@ void DM_ApplyPatch(void *address, int offset, const dmpatch_t *patch, dmpatch_t 
 {
 	unsigned char *addr = (unsigned char *)address + offset;
 
-	DM_SetMemPatchable(addr, 20);
+	DM_SetMemPatchable(addr, patch->bytes);
 
 	if (restore)
 	{
@@ -240,7 +242,11 @@ void DM_ApplyPatch(void *address, int offset, const dmpatch_t *patch, dmpatch_t 
 
 void DM_SetMemPatchable(void *address, size_t size)
 {
+#if METAMOD_PLAPI_VERSION < 18
 	SourceHook::SetMemAccess(address, size, SH_MEM_READ|SH_MEM_WRITE|SH_MEM_EXEC);
+#else
+	KHook::Memory::SetAccess(address, size, KHook::Memory::Flags::READ | KHook::Memory::Flags::WRITE | KHook::Memory::EXECUTE);
+#endif
 }
 
 #define GET_PROPERTY(cls, name, var) \
