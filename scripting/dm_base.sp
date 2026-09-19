@@ -87,7 +87,7 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	char game[128];
 	GetGameFolderName(game, sizeof(game));
 	g_IsCSGO = StrEqual(game, "csgo", false);
-	if (!(g_IsCSGO || StrEqual(game, "css", false)))
+	if (!(g_IsCSGO || StrEqual(game, "cstrike", false)))
 	{
 		strcopy(error, err_max, "This plugin will only work on Counter-Strike: Source or Counter-Strike: Global Offensive");
 		return APLRes_SilentFailure;
