@@ -1,6 +1,6 @@
 /**
  * dm_base.sp
- * Base CS:S DM admin/control functions.
+ * CS:S DM Base.
  * This file is part of CS:S DM, Copyright (C) 2005-2007 AlliedModders LLC
  * by David "BAILOPAN" Anderson, http://www.bailopan.net/cssdm/
  *
