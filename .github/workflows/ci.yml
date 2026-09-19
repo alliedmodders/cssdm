@@ -26,7 +26,7 @@ jobs:
           echo "version=${base_version}-git${build_number}" >> "$GITHUB_OUTPUT"
 
   build:
-    name: sm${{ matrix.sm.label }}-${{ matrix.target.os_name }}-${{ matrix.target.arch }}
+    name: sm${{ matrix.sm.label }}
     needs: version
     runs-on: ${{ matrix.target.os }}
     container: ${{ matrix.target.container }}
@@ -35,26 +35,11 @@ jobs:
       matrix:
         sm:
           - label: "1.12"
-            branch: "1.12-dev"
           - label: "1.13"
-            branch: "master"
         target:
           - os: ubuntu-latest
             os_name: linux
-            arch: x86
             container: ghcr.io/alliedmodders/build-containers/debian11-clang22:latest
-          - os: ubuntu-latest
-            os_name: linux
-            arch: x86_64
-            container: ghcr.io/alliedmodders/build-containers/debian11-clang22:latest
-          - os: windows-latest
-            os_name: windows
-            arch: x86
-            msvc_arch: x86
-          - os: windows-latest
-            os_name: windows
-            arch: x86_64
-            msvc_arch: amd64
 
     steps:
       - name: Checkout
@@ -62,57 +47,7 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Setup Python (Windows)
-        if: matrix.target.os_name == 'windows'
-        uses: actions/setup-python@v7
-        with:
-          python-version: '3.14'
-
-      - name: Setup MSVC (Windows)
-        if: matrix.target.os_name == 'windows'
-        uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: ${{ matrix.target.msvc_arch }}
-
-      - name: Install AMBuild
-        if: matrix.target.os_name == 'windows'
-        shell: bash
-        run: python -m pip install --upgrade git+https://github.com/alliedmodders/ambuild.git
-
-      - name: Fetch SourceMod
-        uses: actions/checkout@v7
-        with:
-          repository: alliedmodders/sourcemod
-          ref: ${{ matrix.sm.branch }}
-          path: sourcemod
-          submodules: recursive
-
-      - name: Fetch Metamod:Source
-        uses: actions/checkout@v7
-        with:
-          repository: alliedmodders/metamod-source
-          ref: 1.12-dev
-          path: mmsource
-          submodules: recursive
-
-      - name: Fetch CSS HL2SDK
-        uses: actions/checkout@v7
-        with:
-          repository: alliedmodders/hl2sdk
-          ref: css
-          path: hl2sdk-css
-          submodules: recursive
-
-      - name: Fetch CSGO HL2SDK
-        uses: actions/checkout@v7
-        with:
-          repository: alliedmodders/hl2sdk
-          ref: csgo
-          path: hl2sdk-csgo
-          submodules: recursive
-
-      - name: Fetch SourceMod Binary (Linux)
-        if: matrix.target.os_name == 'linux'
+      - name: Fetch SourceMod Binary
         run: |
           mkdir sm_bin
           wget -O sm_bin.tar.gz "https://www.sourcemod.net/latest.php?os=linux&version=${{ matrix.sm.label }}"
@@ -121,30 +56,9 @@ jobs:
           cd ..
           rm sm_bin.tar.gz
 
-      - name: Fetch SourceMod Binary (Windows)
-        if: matrix.target.os_name == 'windows'
+      - name: Set environment variables
         run: |
-          Invoke-WebRequest -OutFile sm_bin.zip -Uri "https://www.sourcemod.net/latest.php?os=windows&version=${{ matrix.sm.label }}"
-          Expand-Archive -Path sm_bin.zip -DestinationPath sm_bin
-          Remove-Item -Path sm_bin.zip
-
-      - name: Set environment variables (Linux)
-        if: matrix.target.os_name == 'linux'
-        run: |
-          echo "SOURCEMOD=$GITHUB_WORKSPACE/sourcemod" >> $GITHUB_ENV
           echo "SOURCEMOD_BIN=$GITHUB_WORKSPACE/sm_bin" >> $GITHUB_ENV
-          echo "MMSOURCE=$GITHUB_WORKSPACE/mmsource" >> $GITHUB_ENV
-          echo "HL2SDKCSS=$GITHUB_WORKSPACE/hl2sdk-css" >> $GITHUB_ENV
-          echo "HL2SDKCSGO=$GITHUB_WORKSPACE/hl2sdk-csgo" >> $GITHUB_ENV
-
-      - name: Set environment variables (Windows)
-        if: matrix.target.os_name == 'windows'
-        run: |
-          echo "SOURCEMOD=$env:GITHUB_WORKSPACE/sourcemod" >> $env:GITHUB_ENV
-          echo "SOURCEMOD_BIN=$env:GITHUB_WORKSPACE/sm_bin" >> $env:GITHUB_ENV
-          echo "MMSOURCE=$env:GITHUB_WORKSPACE/mmsource" >> $env:GITHUB_ENV
-          echo "HL2SDKCSS=$env:GITHUB_WORKSPACE/hl2sdk-css" >> $env:GITHUB_ENV
-          echo "HL2SDKCSGO=$env:GITHUB_WORKSPACE/hl2sdk-csgo" >> $env:GITHUB_ENV
 
       - name: Build (Linux)
         if: matrix.target.os_name == 'linux'
@@ -153,27 +67,14 @@ jobs:
           CXX: clang++-22
         run: |
           python3 ./configure.py \
-            -o build \
-            --targets ${{ matrix.target.arch }} \
-            --enable-optimize
-          cd build
-          ambuild
-
-      - name: Build (Windows)
-        if: matrix.target.os_name == 'windows'
-        shell: bash
-        run: |
-          python ./configure.py \
-            -o build \
-            --targets ${{ matrix.target.arch }} \
-            --enable-optimize
+            -o build
           cd build
           ambuild
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v7
         with:
-          name: pkg-sm${{ matrix.sm.label }}-${{ matrix.target.os_name }}-${{ matrix.target.arch }}
+          name: pkg-sm${{ matrix.sm.label }}
           path: build/package
           if-no-files-found: error
 
@@ -201,34 +102,18 @@ jobs:
           version="${{ needs.version.outputs.version }}"
           echo "version=${version}" >> "$GITHUB_OUTPUT"
 
-          # One package per SourceMod version per OS: Windows as .zip, Linux as
-          # .tar.gz. Each merges that combination's per-arch slices (the include
-          # file rides along in every slice).
           assets=""
           for label in 1.12 1.13; do
-            for os_name in windows linux; do
-              dest="package-sm${label}-${os_name}/"
-              mkdir -p "${dest}"
-              for dir in artifacts/pkg-sm${label}-${os_name}-*/; do
-                cp -a "${dir}." "${dest}/"
-                [ -d "${dest}/cfg/cssdm/maps" ] || mkdir -p "${dest}/cfg/cssdm/maps"
-              done
-              if [ "${os_name}" = "windows" ]; then
-                asset="cssdm-${version}-sm${label}-windows.zip"
-                (cd "package-sm${label}-${os_name}" && zip -r "../${asset}" *)
-              else
-                # fix permissions of the dlls first
-                pushd "package-sm${label}-${os_name}"/addons/sourcemod/extensions
-                chmod +x *.so
-                pushd x64
-                chmod +x *.so
-                popd
-                popd
-                asset="cssdm-${version}-sm${label}-linux.tar.gz"
-                (cd "package-sm${label}-${os_name}" && tar -czf "../${asset}" .)
-              fi
-              assets="${assets} ${asset}"
+            dest="package-sm${label}/"
+            mkdir -p "${dest}"
+            for dir in artifacts/pkg-sm${label}/; do
+              cp -a "${dir}." "${dest}/"
+              [ -d "${dest}/cfg/cssdm/maps" ] || mkdir -p "${dest}/cfg/cssdm/maps"
             done
+            asset="cssdm-${version}-sm${label}.zip"
+            (cd "package-sm${label}" && zip -r "../${asset}" *)
+            fi
+            assets="${assets} ${asset}"
           done
           echo "assets=${assets# }" >> "$GITHUB_OUTPUT"
 
