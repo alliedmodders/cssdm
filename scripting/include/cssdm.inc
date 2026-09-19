@@ -275,3 +275,18 @@ public SharedPlugin __pl_cssdm =
 	required = 0,
 #endif
 };
+
+#if !defined REQUIRE_PLUGIN
+public void __pl_cssdm_SetNTVOptional()
+{
+	MarkNativeAsOptional("DM_IsRunning");
+	MarkNativeAsOptional("DM_GetSpawnMethod");
+	MarkNativeAsOptional("DM_GetWeaponID");
+	MarkNativeAsOptional("DM_GetWeaponType");
+	MarkNativeAsOptional("DM_GetWeaponClassname");
+	MarkNativeAsOptional("DM_GetWeaponName");
+	MarkNativeAsOptional("DM_StripBotItems");
+	MarkNativeAsOptional("DM_GetSpawnWaitTime");
+	MarkNativeAsOptional("DM_RespawnClient");
+}
+#endif
