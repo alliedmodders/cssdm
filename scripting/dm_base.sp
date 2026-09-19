@@ -521,11 +521,13 @@ public MRESReturn Hook_OnIPointsForKill(DHookReturn hReturn, DHookParam hParams)
 }
 
 // Native callbacks
+// native bool DM_IsRunning();
 public int Native_IsRunning(Handle plugin, int numParams)
 {
 	return view_as<int>(cssdm_enabled.BoolValue);
 }
 
+// native void DM_GetSpawnMethod(char[] method, int maxlength);
 public void Native_GetSpawnMethod(Handle plugin, int numParams)
 {
 	char spawnMethod[32];
@@ -533,6 +535,7 @@ public void Native_GetSpawnMethod(Handle plugin, int numParams)
 	SetNativeString(1, spawnMethod, GetNativeCell(2));
 }
 
+// native int DM_GetWeaponID(const char[] name);
 public int Native_GetWeaponID(Handle plugin, int numParams)
 {
 	char name[64];
@@ -545,6 +548,7 @@ public int Native_GetWeaponID(Handle plugin, int numParams)
 	return weapon.id;
 }
 
+// native DmWeaponType DM_GetWeaponType(int index);
 public int Native_GetWeaponType(Handle plugin, int numParams)
 {
 	int id = GetNativeCell(1);
@@ -557,6 +561,7 @@ public int Native_GetWeaponType(Handle plugin, int numParams)
 	return view_as<int>(weapon.type);
 }
 
+// native void DM_GetWeaponClassname(int id, char[] classname, int maxlength);
 public int Native_GetWeaponClassname(Handle plugin, int numParams)
 {
 	int id = GetNativeCell(1);
@@ -570,6 +575,7 @@ public int Native_GetWeaponClassname(Handle plugin, int numParams)
 	return 1;
 }
 
+// native void DM_GetWeaponName(int id, char[] name, int maxlength);
 public int Native_GetWeaponName(Handle plugin, int numParams)
 {
 	int id = GetNativeCell(1);
