@@ -120,6 +120,7 @@ public void OnPluginStart()
 
 	cssdm_version = CreateConVar("cssdm_version", CSSDM_VERSION, "CS:S DM Version", FCVAR_NOTIFY);
 	cssdm_enabled = CreateConVar("cssdm_enabled", "1", "Sets whether CS:S DM is enabled", FCVAR_NOTIFY);
+	cssdm_enabled.AddChangeHook(OnEnableCvarChanged);
 	if (!g_IsCSGO)
 	{
 		cssdm_enabled.AddChangeHook(OnFFARelatedCvarChanged);
