@@ -335,7 +335,7 @@ bool ParseWeaponConfig(const char[] configPath, char[] error, int err_max)
 	int id = 0;
 	do
 	{
-		char name[64], classname[64], typeStr[32];
+		char name[64], display[64], classname[64], typeStr[32];
 		DmWeaponType type = DmWeapon_Invalid;
 		Weapon weapon;
 
@@ -344,8 +344,8 @@ bool ParseWeaponConfig(const char[] configPath, char[] error, int err_max)
 
 		Format(classname, sizeof(classname), "weapon_%s", name);
 		strcopy(weapon.classname, sizeof(weapon.classname), classname);
-		kv.GetString("name", name, sizeof(name));
-		strcopy(weapon.display, sizeof(weapon.display), name);
+		kv.GetString("name", display, sizeof(display));
+		strcopy(weapon.display, sizeof(weapon.display), display);
 		kv.GetString("type", typeStr, sizeof(typeStr));
 
 		if (StrEqual(typeStr, "primary", false))
@@ -469,7 +469,7 @@ public void Event_PlayerSpawn(Event event, const char[] name, bool dontBroadcast
 		g_SkipNextPlayerSpawnCallback = false;
 		return;
 	}
-	if (!cssdm_enabled.BoolValue)
+	if (!cssdm_enabled.BoolValue || g_InRoundRestart)
 	{
 		return;
 	}
