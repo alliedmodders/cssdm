@@ -380,6 +380,10 @@ bool ParseWeaponConfig(const char[] configPath, char[] error, int err_max)
 
 void KillPlayerRespawnTimer(int client)
 {
+	if (client < 0)
+	{
+		return;
+	}
 	if (g_PlayerRespawnTimers[client] != null)
 	{
 		delete g_PlayerRespawnTimers[client];
@@ -475,10 +479,14 @@ public void Event_PlayerSpawn(Event event, const char[] name, bool dontBroadcast
 	}
 
 	int client = GetClientOfUserId(event.GetInt("userid"));
-	if (client < 0 || !IsClientInGame(client) || IsClientObserver(client))
+	// IsClientObserver will always return false on css for some reason
+	bool isClientObserver = GetClientTeam(client) != CS_TEAM_T && GetClientTeam(client) != CS_TEAM_CT;
+	if (client < 0 || !IsClientInGame(client) || isClientObserver)
 	{
 		return;
 	}
+
+	KillPlayerRespawnTimer(client);
 
 	Call_StartForward(g_OnClientSpawnedForward);
 	Call_PushCell(client);
