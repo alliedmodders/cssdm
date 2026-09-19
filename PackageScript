@@ -10,8 +10,6 @@ folder_list = [
 	'cfg/cssdm/spawns',
 	'cfg/cssdm/spawns/cstrike',
 	'cfg/cssdm/spawns/csgo',
-	'addons/sourcemod/extensions',
-	'addons/sourcemod/extensions/x64',
 	'addons/sourcemod/plugins',
 	'addons/sourcemod/plugins/cssdm',
 	'addons/sourcemod/scripting',
@@ -19,11 +17,6 @@ folder_list = [
 	'addons/sourcemod/gamedata',
 	'addons/sourcemod/translations'
 ]
-
-if 'x86_64' in Extension.target_archs:
-	folder_list.extend([
-		'addons/sourcemod/extensions/x64',
-	])
 
 # Create the distribution folder hierarchy.
 folder_map = {}
@@ -58,6 +51,7 @@ CopyFiles('scripting/include', 'addons/sourcemod/scripting/include', [
 
 # Script sources
 CopyFiles('scripting', 'addons/sourcemod/scripting', [
+	'dm_base.sp',
 	'dm_basics.sp',
 	'dm_bot_quotas.sp',
 	'dm_equipment.sp',
@@ -95,13 +89,6 @@ for entry in os.listdir(base_translations_dir):
 	dest_entry = os.path.join('addons', 'sourcemod', 'translations', entry)
 	folder_map[dest_entry] = builder.AddFolder(dest_entry)
 	CopyDirectory(os.path.join('translations', entry), dest_entry)
-
-# Copy binaries.
-for cxx_task in Extension.extensions:
-	if cxx_task.target.arch == 'x86_64':
-		builder.AddCopy(cxx_task.binary, folder_map['addons/sourcemod/extensions/x64'])
-	else:
-		builder.AddCopy(cxx_task.binary, folder_map['addons/sourcemod/extensions'])
 
 # Copy plugins
 for smx_file, smx_entry in Extension.plugins.items():
