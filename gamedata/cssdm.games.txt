@@ -19,37 +19,33 @@
 				"linux64"		"180"
 			}
 		}
-		"Signatures"
-		{
-			// win fcn.1043a0c0 12/25
-			"RoundRespawn"
-			{
-				"library"		"server"
-				"windows"		"\x55\x8B\xEC\x83\xEC\x0C\x53\x56\x57\x8B\xF9\x8B\x0D\x2A\x2A\x2A\x2A\x8B\x01"
-				"linux"			"\x55\x89\xE5\x56\x53\x83\xEC\x1C\x8B\x5D\x08\xFF\x35\x2A\x2A\x2A\x2A\xE8\x2A\x2A\x2A\x2A\x83\xC4\x10\x84\xC0\x0F\x85\x2A\x2A\x2A\x2A\x8B\x13"
-				"linux64"		"\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x53\x48\x89\xFB\x48\x83\xEC\x18\x4C\x8B\x25\x85\x17\xB4\x00"
-			}
-		}
 	}
 	"cstrike"
 	{
 		/* FFA patch bytes */
 		"Keys"
 		{
-			"LagCompPatch_Windows"		"\x90\x90\x90\x90\x90\x90"
-			"LagCompPatch_Windows64"	"\x90\x90"
-			"LagCompPatch_Linux"		"\x90\x90\x90\x90\x90\x90"
-			"LagCompPatch_Linux64"		"\x90\x90\x90\x90\x90\x90"
-
-			"TakeDmgPatch1_Windows"		"\xEB"
-			"TakeDmgPatch1_Windows64"	"\xEB"
-			"TakeDmgPatch1_Linux"		"\xEB"
-			"TakeDmgPatch1_Linux64"		"\xEB"
-
-			"CalcDomRevPatch_Windows"	"\x90\x90\x90\x90\x90\x90"
-			"CalcDomRevPatch_Windows64"	"\x90\x90\x90\x90\x90\x90"
-			"CalcDomRevPatch_Linux"		"\x90\x90\x90\x90\x90\x90"
-			"CalcDomRevPatch_Linux64"	"\x90\x90\x90\x90\x90\x90"
+			"LagCompPatch"
+			{
+				"windows"		"\x90\x90\x90\x90\x90\x90"
+				"windows64"		"\x90\x90"
+				"linux"			"\x90\x90\x90\x90\x90\x90"
+				"linux64"		"\x90\x90\x90\x90\x90\x90"
+			}
+			"TakeDmgPatch1"
+			{
+				"windows"		"\xEB"
+				"windows64"		"\xEB"
+				"linux"			"\xEB"
+				"linux64"		"\xEB"
+			}
+			"CalcDomRevPatch"
+			{
+                "windows"		"\x90\x90\x90\x90\x90\x90"
+				"windows64"		"\x90\x90\x90\x90\x90\x90"
+				"linux"			"\x90\x90\x90\x90\x90\x90"
+				"linux64"		"\x90\x90\x90\x90\x90\x90"
+			}
 		}
 		"Offsets"
 		{
@@ -100,14 +96,6 @@
 		}
 		"Signatures"
 		{
-			"RoundRespawn"
-			{
-				"library"	"server"
-				"windows"	"\x55\x8B\xEC\x51\x89\x4D\xFC\x8B\x45\xFC\x8B\x10"
-				"windows64"	"\x48\x89\x4C\x24\x08\x48\x83\xEC\x28\x48\x8B\x44\x24\x30\x48\x8B\x00\x48\x8B\x4C\x24\x30"
-				"linux"		"@_ZN9CCSPlayer12RoundRespawnEv"
-				"linux64"	"@_ZN9CCSPlayer12RoundRespawnEv"
-			}
 			"OnTakeDamage"
 			{
 				"library"		"server"
@@ -131,6 +119,29 @@
 				"windows64"		"\x48\x89\x6C\x24\x18\x57\x41\x56\x41\x57\x48\x83\xEC\x30\x48\x8B\x05\x53\xDD\x4B\x00"
 				"linux"			"@_ZN12CCSGameStats24CalcDominationAndRevengeEP9CCSPlayerS1_Pi"
 				"linux64"		"@_ZN12CCSGameStats24CalcDominationAndRevengeEP9CCSPlayerS1_Pi"
+			}
+		}
+		"Functions"
+		{
+			"IPointsForKill"
+			{
+				"offset"		"IPointsForKill"
+				"callconv"		"thiscall"
+				"hooktype"		"gamerules"
+				"return"		"int"
+				"this"			"ignore"
+
+				"arguments"
+				{
+					"pAttacker"
+					{
+						"type"		"cbaseentity"
+					}
+					"pKilled"
+					{
+						"type"		"cbaseentity"
+					}
+				}
 			}
 		}
 	}

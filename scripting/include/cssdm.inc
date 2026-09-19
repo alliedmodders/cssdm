@@ -252,16 +252,11 @@ stock int DM_GiveClientAmmo(int client, int type, int count, bool noSound=false)
 /**
  * Do not edit below this line!
  */
-public Extension __ext_cssdm = 
+public SharedPlugin __pl_cssdm = 
 {
 	name = "CS:S DM",
-	file = "cssdm.ext",
-#if defined AUTOLOAD_EXTENSIONS
-	autoload = 1,
-#else
-	autoload = 0,
-#endif
-#if defined REQUIRE_EXTENSIONS
+	file = "dm_base.smx",
+#if defined REQUIRE_PLUGIN
 	required = 1,
 #else
 	required = 0,
