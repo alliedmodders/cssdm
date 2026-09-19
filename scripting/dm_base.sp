@@ -261,7 +261,6 @@ public void OnMapStart()
 		if (g_GameRulesHookID == INVALID_HOOK_ID)
 		{
 			LogError("FFA will not work: Failed to hook IPointsForKill!");
-			g_FFAFailed = true;
 		}
 	}
 }
