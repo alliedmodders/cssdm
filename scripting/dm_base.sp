@@ -64,6 +64,7 @@ GlobalForward g_OnClientPostSpawnedForward;
 GlobalForward g_OnClientDeathForward;
 GlobalForward g_OnClientSetSpawnMethodForward;
 
+int g_GameRulesHookID = INVALID_HOOK_ID;
 bool g_FFAFailed = false;
 bool g_InRoundRestart = false;
 bool g_SkipNextPlayerSpawnCallback = false;
@@ -104,7 +105,7 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	CreateNative("DM_RespawnClient", Native_RespawnClient);
 	CreateNative("DM_IsClientAlive", Native_IsClientAlive);
 
-	RegPluginLibrary("cssdm");
+	RegPluginLibrary("CS:S DM");
 
 	return APLRes_Success;
 }
@@ -163,7 +164,6 @@ public void OnPluginStart()
 			delete gamedata;
 			SetFailState("Could not find offset or function info about IPointsForKill");
 		}
-		g_IPointsForKillHook.HookGamerules(Hook_Pre, Hook_OnIPointsForKill);
 
 		g_LagCompPatch = new MemoryPatch(gamedata, "WantsLagComp", "LagCompPatch", "LagCompPatch");
 		g_TakeDmgPatch1 = new MemoryPatch(gamedata, "OnTakeDamage", "TakeDmgPatch1", "TakeDmgPatch1");
@@ -255,11 +255,24 @@ public void OnClientDisconnect(int client)
 public void OnMapStart()
 {
 	g_SkipNextPlayerSpawnCallback = false;
+	if (!g_IsCSGO)
+	{
+		g_GameRulesHookID = g_IPointsForKillHook.HookGamerules(Hook_Pre, Hook_OnIPointsForKill);
+		if (g_GameRulesHookID == INVALID_HOOK_ID)
+		{
+			LogError("FFA will not work: Failed to hook IPointsForKill!");
+			g_FFAFailed = true;
+		}
+	}
 }
 
 public void OnMapEnd()
 {
 	g_SkipNextPlayerSpawnCallback = false;
+	if (!g_IsCSGO && g_GameRulesHookID != INVALID_HOOK_ID)
+	{
+		DynamicHook.RemoveHook(g_GameRulesHookID);
+	}
 	for (int i = 0; i <= MaxClients; i++)
 	{
 		KillPlayerRespawnTimer(i);
