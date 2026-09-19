@@ -222,7 +222,20 @@ native void DM_RespawnClient(int client, bool fullRespawn=true);
  * @return				True if alive, false if dead.
  * @error				Invalid client index or client not in game.
  */
-native bool DM_IsClientAlive(int client);
+stock bool DM_IsClientAlive(int client)
+{
+	if (client <= 0 || client > MaxClients)
+	{
+		ThrowError("Invalid client index %d", client);
+	}
+
+	if (!IsClientInGame(client))
+	{
+		ThrowError("Client %d is not in game", client);
+	}
+
+	return IsPlayerAlive(client);
+}
 
 /**
  * Gives ammo to a player.

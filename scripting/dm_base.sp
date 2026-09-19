@@ -103,7 +103,6 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	CreateNative("DM_StripBotItems", Native_StripBotItems);
 	CreateNative("DM_GetSpawnWaitTime", Native_GetSpawnWaitTime);
 	CreateNative("DM_RespawnClient", Native_RespawnClient);
-	CreateNative("DM_IsClientAlive", Native_IsClientAlive);
 
 	RegPluginLibrary("CS:S DM");
 
@@ -645,26 +644,6 @@ public int Native_RespawnClient(Handle plugin, int numParams)
 	CS_RespawnPlayer(client);
 
 	return 1;
-}
-
-// native bool DM_IsClientAlive(int client);
-public int Native_IsClientAlive(Handle plugin, int numParams)
-{
-	int client = GetNativeCell(1);
-
-	if (client <= 0 || client > MaxClients)
-	{
-		return ThrowNativeError(SP_ERROR_NATIVE, "Invalid client index %d", client);
-	}
-
-	if (!IsClientInGame(client))
-	{
-		return ThrowNativeError(SP_ERROR_NATIVE, "Client %d is not in game", client);
-	}
-
-	CS_RespawnPlayer(client);
-
-	return IsPlayerAlive(client);
 }
 
 // Utils
