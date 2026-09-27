@@ -38,8 +38,8 @@
 		{
 			"LagCompPatch_Windows"		"\x90\x90\x90\x90\x90\x90"
 			"LagCompPatch_Windows64"	"\x90\x90"
-			"LagCompPatch_Linux"		"\x90\x90\x90\x90\x90\x90"
-			"LagCompPatch_Linux64"		"\x90\x90\x90\x90\x90\x90"
+			"LagCompPatch_Linux"		"\x90\xE9"
+			"LagCompPatch_Linux64"		"\x90\xE9"
 
 			"TakeDmgPatch1_Windows"		"\xEB"
 			"TakeDmgPatch1_Windows64"	"\xEB"
