@@ -18,7 +18,7 @@
 #endif
 #define _cssdm_included
 
-#define CSSDM_VERSION		"2.1.6-dev"
+#define CSSDM_VERSION		"2.1.7-dev"
 
 #define CSSDM_MAX_WEAPONS		32
 
@@ -222,7 +222,20 @@ native void DM_RespawnClient(int client, bool fullRespawn=true);
  * @return				True if alive, false if dead.
  * @error				Invalid client index or client not in game.
  */
-native bool DM_IsClientAlive(int client);
+stock bool DM_IsClientAlive(int client)
+{
+	if (client <= 0 || client > MaxClients)
+	{
+		ThrowError("Invalid client index %d", client);
+	}
+
+	if (!IsClientInGame(client))
+	{
+		ThrowError("Client %d is not in game", client);
+	}
+
+	return IsPlayerAlive(client);
+}
 
 /**
  * Gives ammo to a player.
@@ -252,18 +265,28 @@ stock int DM_GiveClientAmmo(int client, int type, int count, bool noSound=false)
 /**
  * Do not edit below this line!
  */
-public Extension __ext_cssdm = 
+public SharedPlugin __pl_cssdm = 
 {
 	name = "CS:S DM",
-	file = "cssdm.ext",
-#if defined AUTOLOAD_EXTENSIONS
-	autoload = 1,
-#else
-	autoload = 0,
-#endif
-#if defined REQUIRE_EXTENSIONS
+	file = "dm_base.smx",
+#if defined REQUIRE_PLUGIN
 	required = 1,
 #else
 	required = 0,
 #endif
 };
+
+#if !defined REQUIRE_PLUGIN
+public void __pl_cssdm_SetNTVOptional()
+{
+	MarkNativeAsOptional("DM_IsRunning");
+	MarkNativeAsOptional("DM_GetSpawnMethod");
+	MarkNativeAsOptional("DM_GetWeaponID");
+	MarkNativeAsOptional("DM_GetWeaponType");
+	MarkNativeAsOptional("DM_GetWeaponClassname");
+	MarkNativeAsOptional("DM_GetWeaponName");
+	MarkNativeAsOptional("DM_StripBotItems");
+	MarkNativeAsOptional("DM_GetSpawnWaitTime");
+	MarkNativeAsOptional("DM_RespawnClient");
+}
+#endif

@@ -2,6 +2,7 @@
 import os
 
 pluginFiles = [
+	'dm_base.sp',
 	'dm_basics.sp',
 	'dm_bot_quotas.sp',
 	'dm_equipment.sp',

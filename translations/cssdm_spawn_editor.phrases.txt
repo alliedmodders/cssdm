@@ -1,0 +1,101 @@
+"Phrases"
+{
+	"Spawn Point Editor Title"
+	{
+		"en"		"Spawn Point Editor"
+	}
+
+	"Teleport Nearest"
+	{
+		"en"		"Teleport to nearest"
+	}
+
+	"Teleport Previous"
+	{
+		"en"		"Teleport to previous"
+	}
+
+	"Teleport Next"
+	{
+		"en"		"Teleport to next"
+	}
+
+	"Add Position"
+	{
+		"en"		"Add position"
+	}
+
+	"Insert Position"
+	{
+		"en"		"Insert position here"
+	}
+
+	"Delete Nearest"
+	{
+		"en"		"Delete nearest"
+	}
+
+	"Delete All"
+	{
+		"en"		"Delete all"
+	}
+
+	"Spawn Editor Disabled"
+	{
+		"en"		"The spawn editor is not enabled."
+	}
+
+	"Spawn Editor Not Available"
+	{
+		"en"		"This command is not available from the server console."
+	}
+
+	"Spawn Editor Config Read Only"
+	{
+		"en"		"Could not write to spawn config file!"
+	}
+
+	"Spawn Editor Deleted All"
+	{
+		"en"		"All spawn points have been deleted."
+	}
+
+	"Spawn Editor No Spawn Points"
+	{
+		"en"		"There are no spawn points."
+	}
+
+	"Spawn Editor Max Spawn Points Reached"
+	{
+		"en"		"Could not add spawn (max limit reached)."
+	}
+
+	"Spawn Editor Teleported To Spawn"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"Teleported to spawn #{1} ({2} total)."
+	}
+
+	"Spawn Editor Added Spawn"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"Added spawn #{1} ({2} total)."
+	}
+
+	"Spawn Editor Deleted Spawn"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"Deleted spawn #{1} ({2} total)."
+	}
+
+	"Spawn Editor Could Not Delete Spawn"
+	{
+		"#format"	"{1:d}"
+		"en"		"Could not delete spawn #{1}."
+	}
+
+	"Spawn Editor Delete All Spawn Points"
+	{
+		"en"		"Delete all spawn points?"
+	}
+}
