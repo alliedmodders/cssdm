@@ -32,7 +32,11 @@
 
 // Don't patch anything on CSGO
 #if SOURCE_ENGINE != SE_CSGO
-SH_DECL_MANUALHOOK2(CGameRules_IPointsForKill, 62+EXTRA_VTBL_OFFSET, 0, 0, int, CBasePlayer *, CBasePlayer *);
+#if METAMOD_PLAPI_VERSION < 18
+SH_DECL_MANUALHOOK2(CGameRules_IPointsForKill, 80+EXTRA_VTBL_OFFSET, 0, 0, int, CBasePlayer *, CBasePlayer *);
+#else
+class CGameRules;
+#endif
 
 #if defined PLATFORM_64BITS
 #define PLATFORM_ARCH_SUFFIX	"64"
@@ -72,11 +76,23 @@ static void *g_domrev_addr = NULL;
 static dmpatch_t g_domrev_patch;
 static dmpatch_t g_domrev_restore;
 
+#if METAMOD_PLAPI_VERSION < 18
 int OnIPointsForKill(CBasePlayer *pl1, CBasePlayer *pl2)
+#else
+KHook::Return<int> OnIPointsForKill(CGameRules *gamerules, CBasePlayer *pl1, CBasePlayer *pl2)
+#endif
 {
 	/* If we're hooked, FFA is always on. */
+#if METAMOD_PLAPI_VERSION < 18
 	RETURN_META_VALUE(MRES_SUPERCEDE, 1);
+#else
+	return { KHook::Action::Supersede, 1 };
+#endif
 }
+
+#if METAMOD_PLAPI_VERSION >= 18
+KHook::Virtual<CGameRules, int, CBasePlayer *, CBasePlayer *> Hook_IPointsForKill(80 + EXTRA_VTBL_OFFSET, OnIPointsForKill, nullptr);
+#endif
 
 bool DM_FFA_LoadPatch(const char *name, dmpatch_t *patch, char *error, size_t maxlength)
 {
@@ -168,7 +184,11 @@ bool DM_Prepare_FFA(char *error, size_t maxlength)
 		snprintf(error, maxlength, "Could not find IPointsForKills offset");
 		return false;
 	}
+#if METAMOD_PLAPI_VERSION < 18
 	SH_MANUALHOOK_RECONFIGURE(CGameRules_IPointsForKill, offset, 0, 0);
+#else
+	Hook_IPointsForKill.Configure(offset);
+#endif
 
 	g_FFA_Prepared = true;
 
@@ -205,7 +225,11 @@ bool DM_Patch_FFA()
 	// needs a new gamerules address on every map load
 	if (!g_FFA_PointsHooked && LoadGameRulesAddress())
 	{
+#if METAMOD_PLAPI_VERSION < 18
 		SH_ADD_MANUALHOOK_STATICFUNC(CGameRules_IPointsForKill, g_gamerules_addr, OnIPointsForKill, false);
+#else
+		Hook_IPointsForKill.Add(reinterpret_cast<CGameRules *>(g_gamerules_addr));
+#endif
 		g_FFA_PointsHooked = true;
 	}
 
@@ -224,7 +248,11 @@ bool DM_Unpatch_FFA()
 	// g_gamerules_addr won't be null if we're already hooked
 	if (!g_IsInGlobalShutdown && g_FFA_PointsHooked)
 	{
+#if METAMOD_PLAPI_VERSION < 18
 		SH_REMOVE_MANUALHOOK_STATICFUNC(CGameRules_IPointsForKill, g_gamerules_addr, OnIPointsForKill, false);
+#else
+		Hook_IPointsForKill.Remove(reinterpret_cast<CGameRules *>(g_gamerules_addr));
+#endif
 		g_FFA_PointsHooked = false;
 	}
 

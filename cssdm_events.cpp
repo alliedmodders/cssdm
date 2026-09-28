@@ -144,14 +144,20 @@ void DM_SchedRespawn(int client)
 	player->respawn_timer = timersys->CreateTimer(&s_PlayerSpawner, DM_GetRespawnWait(), data, 0);
 }
 
+#if METAMOD_PLAPI_VERSION < 18
 void OnClientCommand_Post(edict_t *edict, const CCommand &args)
+#else
+KHook::Return<void> OnClientCommand_Post(IServerGameClients *gameClients, edict_t *edict, const CCommand &args)
+#endif
 {
+	const char *cmd;
+
 	if (!g_IsRunning)
 	{
-		return;
+		goto end;
 	}
 
-	const char *cmd = args.Arg(0);
+	cmd = args.Arg(0);
 
 	if (strcmp(cmd, "joinclass") == 0)
 	{
@@ -159,17 +165,17 @@ void OnClientCommand_Post(edict_t *edict, const CCommand &args)
 		dm_player_t *player = DM_GetPlayer(client);
 		if (!player || !player->pEntity)
 		{
-			return;
+			goto end;
 		}
 
 		if (DM_IsPlayerAlive(client))
 		{
-			return;
+			goto end;
 		}
 
 		if (!player->will_respawn_on_class)
 		{
-			return;
+			goto end;
 		}
 
 		player->will_respawn_on_class = false;
@@ -177,6 +183,13 @@ void OnClientCommand_Post(edict_t *edict, const CCommand &args)
 		/* Respawn! */
 		DM_SchedRespawn(client);
 	}
+
+end:
+#if METAMOD_PLAPI_VERSION < 18
+	RETURN_META(MRES_IGNORED);
+#else
+	return { KHook::Action::Ignore };
+#endif
 }
 
 #define IMPLEMENT_EVENT(name) \

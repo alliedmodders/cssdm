@@ -36,8 +36,10 @@ jobs:
         sm:
           - label: "1.12"
             branch: "1.12-dev"
+            mms_branch: "1.12-dev"
           - label: "1.13"
             branch: "master"
+            mms_branch: "1.12-dev"
         target:
           - os: ubuntu-latest
             os_name: linux
@@ -91,7 +93,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           repository: alliedmodders/metamod-source
-          ref: 1.12-dev
+          ref: ${{ matrix.sm.mms_branch }}
           path: mmsource
           submodules: recursive
 
